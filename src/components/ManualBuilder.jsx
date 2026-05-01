@@ -264,7 +264,7 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
             </div>
 
             {section.items?.length > 0 && (
-              <div className="mb-direct-items" style={{margin: '0 20px 20px 20px'}}>
+              <div className="mb-direct-items mb-section-items">
                 {section.items.map((item, iIdx) => (
                   <div key={item.id} className="mb-item-row">
                     <span className="mb-item-number">{iIdx + 1}.</span>

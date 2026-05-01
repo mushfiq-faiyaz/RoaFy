@@ -99,7 +99,7 @@
 .subsection-label {
   font-size: 11px;
   color: rgba(255,255,255,0.25);
-  padding: 6px 20px;
+  padding: 8px 20px 6px 48px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -117,6 +117,26 @@
 
 .item-row:hover {
   background: rgba(255,255,255,0.03);
+}
+
+.indent-section {
+  padding-left: 48px;
+}
+
+.indent-subsection {
+  padding-left: 72px;
+}
+
+@media (max-width: 768px) {
+  .subsection-label {
+    padding-left: 36px;
+  }
+  .indent-section {
+    padding-left: 36px;
+  }
+  .indent-subsection {
+    padding-left: 60px;
+  }
 }
 
 .item-status-circle {

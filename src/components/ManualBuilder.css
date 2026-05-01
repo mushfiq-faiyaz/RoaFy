@@ -146,20 +146,20 @@
 
 /* Subsections & Groups */
 .subsection-card {
-  margin: 4px 16px 10px 32px;
+  margin: 8px 16px 16px 48px;
   background: rgba(255,255,255,0.025);
   border: 1px solid rgba(255,255,255,0.06);
+  border-left: 2px solid rgba(255,255,255,0.15);
   border-radius: 10px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-.group-card {
-  margin: 0 0 10px 24px;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
+.mb-section-items {
+  margin: 0 16px 16px 48px;
+  border-left: 2px solid rgba(255,255,255,0.08);
+  padding-left: 4px;
 }
 
 .mb-subsection-header {
@@ -249,7 +249,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 16px 10px 48px;
+  padding: 10px 16px 10px 24px;
   border-top: 1px solid rgba(255,255,255,0.04);
   background: transparent;
   transition: background 150ms ease;
@@ -327,7 +327,7 @@
 /* Quick Add Footer */
 .mb-quick-add {
   border-top: 1px solid rgba(255,255,255,0.05);
-  padding: 10px 16px 10px 48px;
+  padding: 10px 16px 10px 24px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -441,11 +441,12 @@
   }
   
   .subsection-card {
-    margin: 4px 8px 10px 12px;
+    margin: 8px 8px 16px 32px;
   }
   
-  .group-card {
-    margin: 0 0 10px 12px;
+  .mb-section-items {
+    margin: 0 8px 16px 32px;
+    padding-left: 8px;
   }
   
   .mb-item-row, .mb-quick-add {

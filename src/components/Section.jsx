@@ -22,7 +22,7 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
     section.items.forEach(item => {
       total++;
       if (progress[item.id] === 2) done++;
-      allItems.push({ type: 'item', data: item });
+      allItems.push({ type: 'item', data: item, level: 'section' });
     });
   }
 
@@ -36,7 +36,7 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
         sub.items.forEach(item => {
           total++;
           if (progress[item.id] === 2) done++;
-          allItems.push({ type: 'item', data: item });
+          allItems.push({ type: 'item', data: item, level: 'subsection' });
         });
       }
       
@@ -88,6 +88,7 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
                   item={itemObj.data} 
                   status={progress[itemObj.data.id] || 0}
                   onClick={() => onItemClick(itemObj.data.id)}
+                  className={itemObj.level === 'subsection' ? 'indent-subsection' : 'indent-section'}
                 />
               );
             }
