@@ -5,10 +5,15 @@
 
 .tree-root-header {
   margin-bottom: 24px;
+  padding: 0 4px;
 }
 
 .tree-root-title {
-  display: none; /* Hide root title as it's now in the header */
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -1px;
+  margin: 0;
 }
 
 .tree-sections-container {

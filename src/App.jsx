@@ -3,7 +3,7 @@ import Header from './components/Header';
 import UploadZone from './components/UploadZone';
 import RoadmapTree from './components/RoadmapTree';
 import ManualBuilder from './components/ManualBuilder';
-import { getRoadmap, saveRoadmap, getProgress, saveProgress } from './utils/storage';
+import { getRoadmap, saveRoadmap, getProgress, saveProgress, getAllRoadmaps, getActiveRoadmapId, setActiveRoadmapId, saveRoadmapData } from './utils/storage';
 import { extractTextFromPdf } from './utils/pdfExtract';
 import { parseRoadmap } from './utils/parseRoadmap';
 import './App.css';
@@ -14,8 +14,45 @@ function App() {
   const [loadingStep, setLoadingStep] = useState(null);
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(() => !getRoadmap());
+  const [roadmapsList, setRoadmapsList] = useState([]);
+  const [currentRoadmapId, setCurrentRoadmapId] = useState(() => getActiveRoadmapId());
 
+  const updateRoadmapsList = () => {
+    const all = getAllRoadmaps();
+    const list = Object.keys(all).map(id => ({
+      id,
+      title: all[id].roadmap?.title || 'Untitled Roadmap'
+    }));
+    setRoadmapsList(list);
+  };
 
+  useEffect(() => {
+    updateRoadmapsList();
+  }, [roadmap]);
+
+  const handleCreateRoadmap = () => {
+    const newId = Date.now().toString();
+    const newRoadmap = { title: "New Roadmap", sections: [] };
+    setActiveRoadmapId(newId);
+    setCurrentRoadmapId(newId);
+    saveRoadmapData(newId, newRoadmap, {});
+    setRoadmapState(newRoadmap);
+    setProgressState({});
+    setIsEditing(true);
+    updateRoadmapsList();
+  };
+
+  const handleSwitchRoadmap = (id) => {
+    const all = getAllRoadmaps();
+    const data = all[id];
+    if (data) {
+      setActiveRoadmapId(id);
+      setCurrentRoadmapId(id);
+      setRoadmapState(data.roadmap || null);
+      setProgressState(data.progress || {});
+      setIsEditing(false);
+    }
+  };
 
   // This handles state updates AND auto-saves to local storage
   const handleSetRoadmap = (newRoadmap) => {
@@ -81,6 +118,10 @@ function App() {
         onManualSave={handleManualSave} 
         onEdit={handleEdit}
         isEditing={isEditing}
+        roadmapsList={roadmapsList}
+        onSwitchRoadmap={handleSwitchRoadmap}
+        onCreateRoadmap={handleCreateRoadmap}
+        currentRoadmapId={currentRoadmapId}
       />
       
       <main className="container main-content">

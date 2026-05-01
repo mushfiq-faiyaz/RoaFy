@@ -9,29 +9,29 @@ Return ONLY raw JSON — no markdown fences, no explanation.
 Schema:
 {
   "title": "roadmap name",
+  "items": [
+    { "id": "r-i1", "label": "Direct item under roadmap" }
+  ],
   "sections": [
     {
       "id": "s1",
       "title": "Phase or Section title",
+      "items": [
+        { "id": "s1-i1", "label": "Direct item under section" }
+      ],
       "subsections": [
         {
-          "id": "s1-1",
-          "title": "1.2 Control Flow & Loops (Weeks 2-3)",
-          "groups": [
-            {
-              "id": "s1-1-g1",
-              "label": "Topics",
-              "items": [
-                { "id": "s1-1-g1-i1", "label": "If/else statements" }
-              ]
-            }
+          "id": "s1-sub1",
+          "title": "Subsection title",
+          "items": [
+            { "id": "s1-sub1-i1", "label": "Item under subsection" }
           ]
         }
       ]
     }
   ]
 }
-Rules: all IDs must be unique and sequential. Group labels must match what's in the text (Topics, Subtopics, Learning Activities, Mini Projects, etc). Keep item labels concise.
+Rules: all IDs must be unique and sequential. Use sections and subsections to logically group items. Keep item labels concise.
 
 Parse this roadmap:\n\n${text}`;
 

@@ -18,6 +18,14 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
   
   const allItems = [];
 
+  if (section.items) {
+    section.items.forEach(item => {
+      total++;
+      if (progress[item.id] === 2) done++;
+      allItems.push({ type: 'item', data: item });
+    });
+  }
+
   if (section.subsections) {
     section.subsections.forEach(sub => {
       if (sub.title) {

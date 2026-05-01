@@ -102,48 +102,51 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
     updateState({ ...roadmap, sections: newSections });
   };
 
-  const addGroup = (sIdx, ssIdx) => {
+  const addRootItem = () => {
+    updateState({
+      ...roadmap,
+      items: [...(roadmap.items || []), { id: crypto.randomUUID(), label: "" }]
+    });
+  };
+
+  const updateRootItemLabel = (iIdx, label) => {
+    const newItems = [...(roadmap.items || [])];
+    newItems[iIdx] = { ...newItems[iIdx], label };
+    updateState({ ...roadmap, items: newItems });
+  };
+
+  const deleteRootItem = (iIdx) => {
+    const newItems = (roadmap.items || []).filter((_, i) => i !== iIdx);
+    updateState({ ...roadmap, items: newItems });
+  };
+
+  const addSectionItem = (sIdx) => {
     const newSections = [...roadmap.sections];
     const section = { ...newSections[sIdx] };
-    const subsections = [...(section.subsections || [])];
-    const subsection = { ...subsections[ssIdx] };
-    subsection.groups = [
-      ...(subsection.groups || []),
-      { id: crypto.randomUUID(), label: "Topics", items: [] }
-    ];
-    subsections[ssIdx] = subsection;
-    section.subsections = subsections;
+    section.items = [...(section.items || []), { id: crypto.randomUUID(), label: "" }];
     newSections[sIdx] = section;
     updateState({ ...roadmap, sections: newSections });
   };
 
-  const updateGroupLabel = (sIdx, ssIdx, gIdx, label) => {
+  const updateSectionItemLabel = (sIdx, iIdx, label) => {
     const newSections = [...roadmap.sections];
     const section = { ...newSections[sIdx] };
-    const subsections = [...(section.subsections || [])];
-    const subsection = { ...subsections[ssIdx] };
-    const groups = [...(subsection.groups || [])];
-    groups[gIdx] = { ...groups[gIdx], label };
-    subsection.groups = groups;
-    subsections[ssIdx] = subsection;
-    section.subsections = subsections;
+    const items = [...(section.items || [])];
+    items[iIdx] = { ...items[iIdx], label };
+    section.items = items;
     newSections[sIdx] = section;
     updateState({ ...roadmap, sections: newSections });
   };
 
-  const deleteGroup = (sIdx, ssIdx, gIdx) => {
+  const deleteSectionItem = (sIdx, iIdx) => {
     const newSections = [...roadmap.sections];
     const section = { ...newSections[sIdx] };
-    const subsections = [...(section.subsections || [])];
-    const subsection = { ...subsections[ssIdx] };
-    subsection.groups = subsection.groups.filter((_, i) => i !== gIdx);
-    subsections[ssIdx] = subsection;
-    section.subsections = subsections;
+    section.items = (section.items || []).filter((_, i) => i !== iIdx);
     newSections[sIdx] = section;
     updateState({ ...roadmap, sections: newSections });
   };
 
-  const addDirectItem = (sIdx, ssIdx) => {
+  const addSubsectionItem = (sIdx, ssIdx) => {
     const newSections = [...roadmap.sections];
     const section = { ...newSections[sIdx] };
     const subsections = [...(section.subsections || [])];
@@ -158,7 +161,7 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
     updateState({ ...roadmap, sections: newSections });
   };
 
-  const updateDirectItemLabel = (sIdx, ssIdx, iIdx, label) => {
+  const updateSubsectionItemLabel = (sIdx, ssIdx, iIdx, label) => {
     const newSections = [...roadmap.sections];
     const section = { ...newSections[sIdx] };
     const subsections = [...(section.subsections || [])];
@@ -172,65 +175,12 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
     updateState({ ...roadmap, sections: newSections });
   };
 
-  const deleteDirectItem = (sIdx, ssIdx, iIdx) => {
+  const deleteSubsectionItem = (sIdx, ssIdx, iIdx) => {
     const newSections = [...roadmap.sections];
     const section = { ...newSections[sIdx] };
     const subsections = [...(section.subsections || [])];
     const subsection = { ...subsections[ssIdx] };
     subsection.items = subsection.items.filter((_, i) => i !== iIdx);
-    subsections[ssIdx] = subsection;
-    section.subsections = subsections;
-    newSections[sIdx] = section;
-    updateState({ ...roadmap, sections: newSections });
-  };
-
-  const addGroupItem = (sIdx, ssIdx, gIdx) => {
-    const newSections = [...roadmap.sections];
-    const section = { ...newSections[sIdx] };
-    const subsections = [...(section.subsections || [])];
-    const subsection = { ...subsections[ssIdx] };
-    const groups = [...(subsection.groups || [])];
-    const group = { ...groups[gIdx] };
-    group.items = [
-      ...(group.items || []),
-      { id: crypto.randomUUID(), label: "" }
-    ];
-    groups[gIdx] = group;
-    subsection.groups = groups;
-    subsections[ssIdx] = subsection;
-    section.subsections = subsections;
-    newSections[sIdx] = section;
-    updateState({ ...roadmap, sections: newSections });
-  };
-
-  const updateGroupItemLabel = (sIdx, ssIdx, gIdx, iIdx, label) => {
-    const newSections = [...roadmap.sections];
-    const section = { ...newSections[sIdx] };
-    const subsections = [...(section.subsections || [])];
-    const subsection = { ...subsections[ssIdx] };
-    const groups = [...(subsection.groups || [])];
-    const group = { ...groups[gIdx] };
-    const items = [...(group.items || [])];
-    items[iIdx] = { ...items[iIdx], label };
-    group.items = items;
-    groups[gIdx] = group;
-    subsection.groups = groups;
-    subsections[ssIdx] = subsection;
-    section.subsections = subsections;
-    newSections[sIdx] = section;
-    updateState({ ...roadmap, sections: newSections });
-  };
-
-  const deleteGroupItem = (sIdx, ssIdx, gIdx, iIdx) => {
-    const newSections = [...roadmap.sections];
-    const section = { ...newSections[sIdx] };
-    const subsections = [...(section.subsections || [])];
-    const subsection = { ...subsections[ssIdx] };
-    const groups = [...(subsection.groups || [])];
-    const group = { ...groups[gIdx] };
-    group.items = group.items.filter((_, i) => i !== iIdx);
-    groups[gIdx] = group;
-    subsection.groups = groups;
     subsections[ssIdx] = subsection;
     section.subsections = subsections;
     newSections[sIdx] = section;
@@ -269,11 +219,30 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
               {saveText}
             </button>
           )}
+          <button className="mb-add-item-btn" style={{background:'rgba(52,211,153,0.1)', color:'#34d399', border:'1px solid rgba(52,211,153,0.2)'}} onClick={addRootItem}>+ ADD ITEM</button>
           <button className="mb-add-section-btn" onClick={addSection}>+ ADD SECTION</button>
         </div>
       </div>
 
       <div className="mb-sections">
+        {roadmap.items?.length > 0 && (
+          <div className="mb-direct-items" style={{marginBottom: '16px', background: '#16161a', padding: '16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)'}}>
+            <div style={{color:'rgba(255,255,255,0.4)', fontSize:'12px', fontWeight:600, marginBottom:'12px', textTransform:'uppercase'}}>Roadmap Items</div>
+            {roadmap.items.map((item, iIdx) => (
+              <div key={item.id} className="mb-item-row">
+                <span className="mb-item-number">{iIdx + 1}.</span>
+                <input 
+                  className="mb-item-input" 
+                  value={item.label} 
+                  onChange={e => updateRootItemLabel(iIdx, e.target.value)} 
+                  placeholder="Root item label"
+                />
+                <button className="mb-item-delete" onClick={() => deleteRootItem(iIdx)}>✕</button>
+              </div>
+            ))}
+          </div>
+        )}
+
         {roadmap.sections?.map((section, sIdx) => (
           <div key={section.id} className="section-card">
             <div className="mb-section-header">
@@ -289,9 +258,27 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
                 </div>
                 <span style={{color: 'rgba(255,255,255,0.25)', fontWeight: 500, fontSize: '11px', whiteSpace: 'nowrap'}}>(Section)</span>
               </div>
+              <button className="mb-add-item-btn" onClick={() => addSectionItem(sIdx)}>+ ADD ITEM</button>
               <button className="mb-add-subsection-btn" onClick={() => addSubsection(sIdx)}>+ ADD SUBSECTION</button>
               <button className="mb-delete-section-btn" onClick={() => deleteSection(sIdx)}>✕</button>
             </div>
+
+            {section.items?.length > 0 && (
+              <div className="mb-direct-items" style={{margin: '0 20px 20px 20px'}}>
+                {section.items.map((item, iIdx) => (
+                  <div key={item.id} className="mb-item-row">
+                    <span className="mb-item-number">{iIdx + 1}.</span>
+                    <input 
+                      className="mb-item-input" 
+                      value={item.label} 
+                      onChange={e => updateSectionItemLabel(sIdx, iIdx, e.target.value)} 
+                      placeholder="Section item label"
+                    />
+                    <button className="mb-item-delete" onClick={() => deleteSectionItem(sIdx, iIdx)}>✕</button>
+                  </div>
+                ))}
+              </div>
+            )}
 
             <div className="mb-subsections">
               {section.subsections?.map((sub, ssIdx) => (
@@ -309,8 +296,7 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
                       </div>
                       <span style={{color: 'rgba(255,255,255,0.25)', fontWeight: 500, fontSize: '11px', whiteSpace: 'nowrap'}}>(Subsection)</span>
                     </div>
-                    <button className="mb-add-item-btn" onClick={() => addDirectItem(sIdx, ssIdx)}>+ ADD ITEM</button>
-                    <button className="mb-add-group-btn" onClick={() => addGroup(sIdx, ssIdx)}>+ ADD GROUP</button>
+                    <button className="mb-add-item-btn" onClick={() => addSubsectionItem(sIdx, ssIdx)}>+ ADD ITEM</button>
                     <button className="mb-delete-btn" onClick={() => deleteSubsection(sIdx, ssIdx)}>✕</button>
                   </div>
 
@@ -323,60 +309,19 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
                             <input 
                               className="mb-item-input" 
                               value={item.label} 
-                              onChange={e => updateDirectItemLabel(sIdx, ssIdx, iIdx, e.target.value)} 
-                              placeholder="Direct item label"
+                              onChange={e => updateSubsectionItemLabel(sIdx, ssIdx, iIdx, e.target.value)} 
+                              placeholder="Item label"
                             />
-                            <button className="mb-item-delete" onClick={() => deleteDirectItem(sIdx, ssIdx, iIdx)}>✕</button>
+                            <button className="mb-item-delete" onClick={() => deleteSubsectionItem(sIdx, ssIdx, iIdx)}>✕</button>
                           </div>
                         ))}
                       </div>
                     )}
 
-                    <div className="mb-quick-add" onClick={() => addDirectItem(sIdx, ssIdx)}>
+                    <div className="mb-quick-add" onClick={() => addSubsectionItem(sIdx, ssIdx)}>
                       <span className="mb-quick-add-icon">+</span>
                       <span className="mb-quick-add-text">Add item...</span>
                     </div>
-
-                    {sub.groups?.map((group, gIdx) => (
-                      <div key={group.id} className="group-card">
-                        <div className="mb-subsection-header">
-                          <span className="mb-subsection-number">{sIdx + 1}.{ssIdx + 1}.{gIdx + 1}</span>
-                          <div style={{display: 'flex', alignItems: 'baseline', flex: 1, gap: '8px', minWidth: 0}}>
-                            <div className="auto-input-wrapper" data-value={group.label || "Group Label (e.g. Topics)"} style={{fontSize: '14px', fontWeight: 600}}>
-                              <input 
-                                className="mb-subsection-input" 
-                                value={group.label} 
-                                onChange={e => updateGroupLabel(sIdx, ssIdx, gIdx, e.target.value)} 
-                                placeholder="Group Label (e.g. Topics)"
-                              />
-                            </div>
-                            <span style={{color: 'rgba(255,255,255,0.25)', fontWeight: 500, fontSize: '11px', whiteSpace: 'nowrap'}}>(Group)</span>
-                          </div>
-                          <button className="mb-add-item-btn" onClick={() => addGroupItem(sIdx, ssIdx, gIdx)}>+ ADD ITEM</button>
-                          <button className="mb-delete-btn" onClick={() => deleteGroup(sIdx, ssIdx, gIdx)}>✕</button>
-                        </div>
-
-                        <div className="mb-items">
-                          {group.items?.map((item, iIdx) => (
-                            <div key={item.id} className="mb-item-row">
-                              <span className="mb-item-number">{iIdx + 1}.</span>
-                              <input 
-                                className="mb-item-input" 
-                                value={item.label} 
-                                onChange={e => updateGroupItemLabel(sIdx, ssIdx, gIdx, iIdx, e.target.value)} 
-                                placeholder="Item label"
-                              />
-                              <button className="mb-item-delete" onClick={() => deleteGroupItem(sIdx, ssIdx, gIdx, iIdx)}>✕</button>
-                            </div>
-                          ))}
-                        </div>
-                        
-                        <div className="mb-quick-add" onClick={() => addGroupItem(sIdx, ssIdx, gIdx)}>
-                          <span className="mb-quick-add-icon">+</span>
-                          <span className="mb-quick-add-text">Add item...</span>
-                        </div>
-                      </div>
-                    ))}
                   </div>
                 </div>
               ))}
