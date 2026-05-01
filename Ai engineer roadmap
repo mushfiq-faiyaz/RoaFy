@@ -1,0 +1,1199 @@
+{
+  "title": "Master AI Engineer Roadmap",
+  "sections": [
+    {
+      "title": "Phase 1: Python Fundamentals (3-4 months)",
+      "subsections": [
+        {
+          "title": "1.1 Python Basics (Weeks 1-2)",
+          "items": [
+            "Variables and data types (int, float, string, bool)",
+            "Operators (arithmetic, logical, comparison)",
+            "Input/output operations",
+            "String manipulation and formatting",
+            "Comments and best practices",
+            "Type casting and type checking",
+            "String methods (split, join, replace, format)",
+            "f-strings for modern string formatting",
+            "Print statements and debugging",
+            "Python naming conventions (PEP 8)"
+          ]
+        },
+        {
+          "title": "1.2 Control Flow & Loops (Weeks 2-3)",
+          "items": [
+            "If/else statements",
+            "For loops",
+            "While loops",
+            "Break and continue statements",
+            "Nested loops and conditions",
+            "Loop efficiency",
+            "Conditional logic patterns",
+            "Loop optimization techniques",
+            "Nested loop complexity",
+            "Range and enumerate functions",
+            "Iterator protocols basics"
+          ]
+        },
+        {
+          "title": "1.3 Functions (Weeks 3-4)",
+          "items": [
+            "Function definition and calling",
+            "Parameters and arguments",
+            "Return values",
+            "Default arguments",
+            "Variable-length arguments (*args, **kwargs)",
+            "Scope and namespaces",
+            "Lambda functions",
+            "Function documentation (docstrings)",
+            "Function annotations",
+            "Passing by reference vs value",
+            "Recursive functions",
+            "Function composition",
+            "Higher-order functions"
+          ]
+        },
+        {
+          "title": "1.4 Data Structures (Weeks 5-6)",
+          "items": [
+            "Lists (creation, indexing, slicing, methods)",
+            "Tuples (immutability, packing, unpacking)",
+            "Dictionaries (key-value pairs, methods)",
+            "Sets (unique elements, operations)",
+            "Differences between data structures",
+            "List methods (append, extend, insert, remove, pop, sort, reverse)",
+            "List slicing and negative indexing",
+            "Dictionary comprehensions",
+            "Set operations (union, intersection, difference)",
+            "Nested data structures",
+            "When to use which data structure"
+          ]
+        },
+        {
+          "title": "1.5 Exception Handling (Week 7)",
+          "items": [
+            "Try/except blocks",
+            "Different exception types",
+            "Finally blocks",
+            "Raising exceptions",
+            "Custom exceptions",
+            "Common exceptions (ValueError, TypeError, KeyError)",
+            "Exception hierarchy",
+            "Multiple except blocks",
+            "Else in try blocks",
+            "Exception chaining",
+            "Logging exceptions"
+          ]
+        },
+        {
+          "title": "1.6 Object-Oriented Programming (Weeks 8-10)",
+          "items": [
+            "Classes and objects",
+            "Attributes and methods",
+            "Constructors (__init__)",
+            "Instance vs class variables",
+            "Inheritance (single and multiple)",
+            "Polymorphism",
+            "Encapsulation",
+            "Magic methods (__str__, __repr__, __len__)",
+            "Method resolution order (MRO)",
+            "Super() function",
+            "Abstract classes and interfaces",
+            "Getters and setters (@property)",
+            "Class decorators",
+            "Metaclasses (advanced)",
+            "Composition vs Inheritance"
+          ]
+        },
+        {
+          "title": "1.7 Advanced Python Features (Weeks 11-12)",
+          "items": [
+            "List/dict/set comprehensions",
+            "Generators and iterators",
+            "Decorators",
+            "Context managers (with statement)",
+            "Functional programming (map, filter, reduce)",
+            "Modules and packages",
+            "Closures",
+            "Generator expressions",
+            "Yield keyword",
+            "Writing custom decorators",
+            "Decorator stacking",
+            "Iterator protocol (__iter__, __next__)",
+            "Import system",
+            "__init__.py and package structure",
+            "Closures and variable capture"
+          ]
+        },
+        {
+          "title": "1.8 File I/O and Data Handling (Weeks 13-14)",
+          "items": [
+            "Reading files (open, read, readline, readlines)",
+            "Writing to files",
+            "File modes (r, w, a, r+)",
+            "Context managers for file handling",
+            "CSV file handling",
+            "JSON handling (dump, load)",
+            "Working with different file formats",
+            "Binary vs text files",
+            "File pointers and seek()",
+            "Pickle for serialization",
+            "Working with paths (pathlib)",
+            "Directory operations",
+            "Environment variables"
+          ]
+        },
+        {
+          "title": "1.9 Regular Expressions (Week 15)",
+          "items": [
+            "Pattern matching",
+            "Regex syntax (., *, +, ?, [], ^, $)",
+            "Common regex patterns",
+            "re module functions (match, search, findall, sub)",
+            "Named groups",
+            "Lookahead/lookbehind",
+            "Regex flags (IGNORECASE, MULTILINE, DOTALL)",
+            "Performance considerations",
+            "Escaping special characters",
+            "Greedy vs non-greedy matching",
+            "Raw strings"
+          ]
+        },
+        {
+          "title": "1.10 Package Management & Virtual Environments (Week 16)",
+          "items": [
+            "pip and PyPI",
+            "Virtual environments (venv, virtualenv)",
+            "Requirements.txt",
+            "Poetry and other package managers",
+            "Package versioning",
+            "Installing packages",
+            "Managing dependencies",
+            "Freezing requirements",
+            "Creating virtual environments",
+            "Activating/deactivating environments",
+            "Using conda"
+          ]
+        },
+        {
+          "title": "Phase 1 Milestone Projects",
+          "items": [
+            "Hangman Game",
+            "Contact Management System",
+            "Student Grade System",
+            "Data Processing Tool"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Phase 2: Data Science & Analytics (2-3 months)",
+      "subsections": [
+        {
+          "title": "2.1 SQL Fundamentals (Weeks 1-3)",
+          "items": [
+            "Database basics (RDBMS concepts)",
+            "CREATE and DROP statements",
+            "INSERT, UPDATE, DELETE operations",
+            "SELECT queries with WHERE",
+            "ORDER BY and LIMIT",
+            "Aggregate functions (COUNT, SUM, AVG, MIN, MAX)",
+            "GROUP BY and HAVING",
+            "JOINs (INNER, LEFT, RIGHT, FULL OUTER, CROSS)",
+            "Data types (INT, VARCHAR, DATE)",
+            "NULL values handling",
+            "LIKE operator for pattern matching",
+            "IN and BETWEEN operators",
+            "CASE statements",
+            "Subqueries",
+            "Window functions (ROW_NUMBER, RANK, LAG, LEAD)",
+            "CTEs (Common Table Expressions)",
+            "String functions (LENGTH, UPPER, LOWER, CONCAT)",
+            "Date functions (DATE_ADD, DATE_DIFF, YEAR, MONTH, DAY)"
+          ]
+        },
+        {
+          "title": "2.2 NumPy: Numerical Computing (Weeks 4-5)",
+          "items": [
+            "Arrays vs Lists",
+            "Array creation and initialization",
+            "Array indexing and slicing",
+            "Array shape and reshaping",
+            "Array operations (arithmetic, element-wise)",
+            "Broadcasting concept",
+            "Mathematical functions",
+            "Linear algebra operations",
+            "np.array, np.zeros, np.ones, np.arange, np.linspace",
+            "Boolean indexing and fancy indexing",
+            "Array concatenation and stacking",
+            "Matrix operations (dot product, transpose, inverse)",
+            "Eigenvalues and eigenvectors",
+            "Determinant and rank",
+            "Random number generation",
+            "Statistical functions (mean, std, var, median, percentile)",
+            "Sorting and searching"
+          ]
+        },
+        {
+          "title": "2.3 Pandas: Data Manipulation (Weeks 6-8)",
+          "items": [
+            "Series (1D) and DataFrame (2D)",
+            "Creating DataFrames from different sources",
+            "Data indexing and selection",
+            "Data cleaning (handling missing values, duplicates)",
+            "Data transformation",
+            "Grouping and aggregation",
+            "Merging and joining",
+            "Pivot tables",
+            "Time series data",
+            "DataFrame.loc vs .iloc",
+            "Boolean indexing",
+            "isnull() and dropna() functions",
+            "fillna() methods",
+            "apply() and lambda functions",
+            "map() and replace()",
+            "sort_values() and nlargest()",
+            "value_counts() for frequency analysis",
+            "Categorical data handling",
+            "DateTime operations",
+            "str accessor for string operations"
+          ]
+        },
+        {
+          "title": "2.4 Data Visualization (Weeks 9-10)",
+          "items": [
+            "Matplotlib basics (line, scatter, bar plots)",
+            "Figure and axes objects",
+            "Seaborn for statistical visualization",
+            "Histograms and distributions",
+            "Box plots and violin plots",
+            "Heatmaps and correlation matrices",
+            "3D plotting",
+            "Interactive plots (Plotly)",
+            "Color palettes and styling",
+            "Legends and labels",
+            "Multiple subplots",
+            "Saving figures (PNG, PDF, SVG)",
+            "Customizing fonts and sizes",
+            "Annotating plots",
+            "Faceting/grid plots",
+            "Animation basics",
+            "Dash for interactive dashboards"
+          ]
+        },
+        {
+          "title": "2.5 Math & Statistics for Data Science (Weeks 11-12)",
+          "items": [
+            "Probability fundamentals",
+            "Probability distributions (normal, binomial, poisson, uniform)",
+            "Descriptive statistics (mean, median, mode, variance, std dev)",
+            "Hypothesis testing (t-test, chi-square, ANOVA)",
+            "Confidence intervals",
+            "P-values and statistical significance",
+            "Correlation and covariance",
+            "Central Limit Theorem",
+            "Conditional probability",
+            "Bayes' theorem",
+            "Random variables",
+            "Cumulative distribution function (CDF)",
+            "Probability density function (PDF)",
+            "Type I and Type II errors",
+            "Effect size",
+            "Power analysis",
+            "Correlation vs causation"
+          ]
+        },
+        {
+          "title": "Phase 2 Milestone Projects",
+          "items": [
+            "End-to-End Data Analysis Project",
+            "SQL + Python Integration Project"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Phase 3: Machine Learning (3-4 months)",
+      "subsections": [
+        {
+          "title": "3.1 Supervised Learning - Regression (Weeks 1-3)",
+          "items": [
+            "Linear regression",
+            "Multiple linear regression",
+            "Polynomial regression",
+            "Regularization (Ridge, Lasso, Elastic Net)",
+            "Gradient descent optimization",
+            "Cost functions and loss functions",
+            "Feature scaling and normalization",
+            "Ordinary Least Squares (OLS)",
+            "Matrix form of linear regression",
+            "Gradient descent variants (batch, stochastic, mini-batch)",
+            "Learning rate and convergence",
+            "Overfitting and underfitting",
+            "R² score and evaluation metrics",
+            "Residual analysis",
+            "Normal equation vs gradient descent"
+          ]
+        },
+        {
+          "title": "3.2 Supervised Learning - Classification (Weeks 4-6)",
+          "items": [
+            "Logistic regression",
+            "Decision trees",
+            "Random forests",
+            "Gradient boosting (XGBoost, LightGBM)",
+            "Support Vector Machines (SVM)",
+            "K-Nearest Neighbors (KNN)",
+            "Naive Bayes",
+            "Ensemble methods",
+            "Binary vs multi-class classification",
+            "Probability thresholds",
+            "Decision boundaries",
+            "Tree splitting criteria (Gini, entropy)",
+            "Feature importance in trees",
+            "Hyperparameter tuning for each algorithm",
+            "Kernel methods for SVM",
+            "Distance metrics for KNN"
+          ]
+        },
+        {
+          "title": "3.3 Evaluation Metrics & Validation (Week 7)",
+          "items": [
+            "Train-test split",
+            "Cross-validation (k-fold, stratified)",
+            "Hyperparameter tuning (grid search, random search, Bayesian optimization)",
+            "Learning curves",
+            "Overfitting detection",
+            "Confusion matrix",
+            "Precision, recall, F1-score",
+            "ROC-AUC curves",
+            "Calibration curves",
+            "Class imbalance handling",
+            "Stratified vs random split",
+            "Time series cross-validation",
+            "Nested cross-validation",
+            "Model comparison statistical tests",
+            "Feature scaling impact on validation"
+          ]
+        },
+        {
+          "title": "3.4 Feature Engineering (Week 8)",
+          "items": [
+            "Feature extraction",
+            "Feature selection",
+            "Feature transformation",
+            "Handling categorical variables",
+            "Handling missing data",
+            "Creating interaction features",
+            "Domain knowledge application",
+            "Feature importance analysis",
+            "One-hot encoding vs label encoding",
+            "Ordinal encoding",
+            "Target encoding",
+            "Scaling methods (standardization, normalization, robust scaling)",
+            "Imputation strategies (mean, median, forward fill, KNN imputation)",
+            "Polynomial features",
+            "Binning and discretization",
+            "Feature selection methods (filter, wrapper, embedded)"
+          ]
+        },
+        {
+          "title": "3.5 Unsupervised Learning (Weeks 9-10)",
+          "items": [
+            "K-Means clustering",
+            "Hierarchical clustering",
+            "DBSCAN",
+            "Gaussian Mixture Models",
+            "Principal Component Analysis (PCA)",
+            "Dimensionality reduction",
+            "Anomaly detection",
+            "Association rules (Apriori, Eclat)",
+            "Elbow method for K-Means",
+            "Silhouette score",
+            "Dendrogram interpretation",
+            "Density-based clustering",
+            "t-SNE and UMAP for visualization",
+            "Scree plots for PCA",
+            "Isolation Forest for anomaly detection",
+            "Correlation filtering"
+          ]
+        },
+        {
+          "title": "3.6 Scikit-Learn Mastery (Throughout)",
+          "items": [
+            "Preprocessing tools (StandardScaler, MinMaxScaler, OneHotEncoder)",
+            "Model selection and training",
+            "Pipeline creation",
+            "Cross-validation utilities",
+            "Feature selection tools",
+            "Model persistence (pickle, joblib)",
+            "Metrics and scoring"
+          ]
+        },
+        {
+          "title": "Phase 3 Milestone Projects",
+          "items": [
+            "Titanic Survival Prediction (Kaggle)",
+            "House Price Prediction (Advanced)",
+            "Customer Churn Prediction",
+            "Recommendation System"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Phase 4: Deep Learning (3-4 months)",
+      "subsections": [
+        {
+          "title": "4.1 Neural Networks Fundamentals (Weeks 1-3)",
+          "items": [
+            "Perceptron and artificial neuron",
+            "Multilayer perceptron (MLP)",
+            "Forward propagation",
+            "Backpropagation algorithm",
+            "Activation functions (ReLU, sigmoid, tanh, softmax)",
+            "Loss functions",
+            "Optimization algorithms",
+            "Neuron mechanics",
+            "Weights and biases",
+            "Chain rule in backprop",
+            "Gradient descent for neural networks",
+            "Learning rate impact",
+            "Batch normalization",
+            "Weight initialization strategies",
+            "Dropout regularization"
+          ]
+        },
+        {
+          "title": "4.2 Convolutional Neural Networks (Weeks 4-6)",
+          "items": [
+            "Convolution operation",
+            "Filters and kernels",
+            "Pooling layers",
+            "CNN architecture design",
+            "Classic architectures (LeNet, VGG, ResNet, Inception)",
+            "Transfer learning",
+            "Fine-tuning pre-trained models",
+            "Stride and padding",
+            "Feature maps",
+            "Receptive field",
+            "Parameter sharing",
+            "MaxPooling vs AvgPooling",
+            "Data augmentation",
+            "Dropout in CNNs",
+            "Batch normalization",
+            "Skip connections (ResNet)",
+            "Depthwise separable convolutions"
+          ]
+        },
+        {
+          "title": "4.3 Recurrent Neural Networks (Weeks 7-8)",
+          "items": [
+            "RNN basics and unrolling",
+            "LSTM (Long Short-Term Memory)",
+            "GRU (Gated Recurrent Unit)",
+            "Sequence-to-sequence models",
+            "Attention mechanism",
+            "Bidirectional RNNs",
+            "Encoder-decoder architecture",
+            "Vanishing gradient problem",
+            "Cell state vs hidden state",
+            "LSTM gates (input, forget, output)",
+            "Peephole connections",
+            "Gradient clipping",
+            "Teacher forcing",
+            "Beam search for decoding",
+            "Attention weight visualization"
+          ]
+        },
+        {
+          "title": "4.4 Transformers & Attention (Weeks 9-10)",
+          "items": [
+            "Self-attention mechanism",
+            "Multi-head attention",
+            "Positional encoding",
+            "Transformer architecture",
+            "Encoder and decoder stacks",
+            "Vision Transformers (ViT)",
+            "Attention visualization",
+            "Query, Key, Value matrices",
+            "Scaled dot-product attention",
+            "Attention heads interpretation",
+            "Layer normalization",
+            "Feed-forward networks",
+            "Pre-norm vs post-norm",
+            "Relative positional encodings",
+            "Cross-attention"
+          ]
+        },
+        {
+          "title": "4.5 Deep Learning Frameworks (Throughout)",
+          "items": [
+            "TensorFlow/Keras: Model building (Sequential, Functional, Subclassing)",
+            "TensorFlow/Keras: Layers and activations",
+            "TensorFlow/Keras: Loss functions and optimizers",
+            "TensorFlow/Keras: Training and evaluation",
+            "TensorFlow/Keras: Callbacks and checkpointing",
+            "TensorFlow/Keras: Data pipeline (tf.data)",
+            "TensorFlow/Keras: Custom training loops",
+            "TensorFlow/Keras: Distributed training",
+            "PyTorch: Tensors and autograd",
+            "PyTorch: nn.Module for model building",
+            "PyTorch: Custom training loops",
+            "PyTorch: DataLoader for batching",
+            "PyTorch: Device management (GPU)",
+            "PyTorch: Optimization and schedulers",
+            "PyTorch: Model saving and loading",
+            "PyTorch: Distributed training with DDP"
+          ]
+        },
+        {
+          "title": "Phase 4 Milestone Projects",
+          "items": [
+            "Image Classification on ImageNet Subset",
+            "Time Series Forecasting",
+            "Generative Model Project (Autoencoder/VAE/GAN)",
+            "End-to-End Computer Vision"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Phase 5: Natural Language Processing (2-3 months)",
+      "subsections": [
+        {
+          "title": "5.1 NLP Fundamentals (Weeks 1-3)",
+          "items": [
+            "Text preprocessing",
+            "Tokenization",
+            "Stemming and lemmatization",
+            "Stop words",
+            "Regular expressions for NLP",
+            "Bag-of-words model",
+            "TF-IDF (Term Frequency-Inverse Document Frequency)",
+            "Word embeddings basics",
+            "Unicode and encoding",
+            "Case normalization",
+            "Punctuation handling",
+            "Whitespace handling",
+            "Compound word splitting",
+            "Morphological analysis",
+            "Frequency analysis",
+            "Zipf's law"
+          ]
+        },
+        {
+          "title": "5.2 Classical NLP (Weeks 4-5)",
+          "items": [
+            "Text classification",
+            "Sentiment analysis",
+            "Named Entity Recognition (NER)",
+            "Part-of-speech tagging",
+            "Dependency parsing",
+            "Topic modeling (Latent Dirichlet Allocation)",
+            "Information extraction",
+            "Naive Bayes for classification",
+            "SVM for text",
+            "Logistic regression baselines",
+            "CRF for sequence labeling",
+            "N-gram language models",
+            "Cosine similarity for text"
+          ]
+        },
+        {
+          "title": "5.3 Word Embeddings (Week 6)",
+          "items": [
+            "Word2Vec (CBOW, Skip-gram)",
+            "GloVe embeddings",
+            "FastText",
+            "Subword information",
+            "Embedding spaces and properties",
+            "Word analogy tasks",
+            "Visualization (t-SNE, UMAP)",
+            "Negative sampling",
+            "Hierarchical softmax",
+            "Learning rate schedules",
+            "Corpus selection",
+            "Embedding dimensions",
+            "Bias in embeddings",
+            "Context window size"
+          ]
+        },
+        {
+          "title": "5.4 Advanced NLP with Transformers (Weeks 7-9)",
+          "items": [
+            "BERT (Bidirectional Encoder Representations)",
+            "GPT models",
+            "T5 and other architectures",
+            "Fine-tuning transformers",
+            "Prompt engineering",
+            "Few-shot learning",
+            "Zero-shot learning",
+            "Transfer learning for NLP",
+            "Tokenization with wordpiece/SentencePiece",
+            "Token classification",
+            "Sequence classification",
+            "Question answering with transformers",
+            "Named entity recognition with transformers",
+            "Text generation",
+            "Machine translation"
+          ]
+        },
+        {
+          "title": "5.5 Hugging Face Ecosystem (Weeks 10-11)",
+          "items": [
+            "Transformers library",
+            "Pre-trained models (BERT, RoBERTa, DistilBERT, ALBERT)",
+            "Tokenizers",
+            "Datasets library",
+            "Model Hub",
+            "Fine-tuning pipelines",
+            "Inference optimization",
+            "Model deployment",
+            "AutoModel classes",
+            "Configuration files",
+            "Model quantization",
+            "ONNX conversion",
+            "Knowledge distillation",
+            "Model pruning",
+            "Distributed inference"
+          ]
+        },
+        {
+          "title": "Phase 5 Milestone Projects",
+          "items": [
+            "Sentiment Analysis System (API deployed)",
+            "Question Answering System",
+            "Named Entity Recognition Pipeline",
+            "Text Summarization"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Phase 6: Large Language Models & GenAI (3-4 months)",
+      "subsections": [
+        {
+          "title": "6.1 LLM Fundamentals (Weeks 1-2)",
+          "items": [
+            "How LLMs work",
+            "Transformer architecture deep dive",
+            "Training process",
+            "Fine-tuning vs prompting",
+            "Model parameters and scaling",
+            "Context window and tokens",
+            "Inference optimization",
+            "Pre-training objectives (next token prediction)",
+            "Instruction tuning",
+            "Alignment techniques",
+            "Safety and bias",
+            "Emergent abilities",
+            "Scaling laws",
+            "Model interpretability"
+          ]
+        },
+        {
+          "title": "6.2 Claude API Mastery (Weeks 3-4)",
+          "items": [
+            "Claude API fundamentals",
+            "Authentication and setup",
+            "Chat completions",
+            "Messages API",
+            "System prompts",
+            "Role-based interactions",
+            "Vision capabilities",
+            "Token counting and management",
+            "Rate limiting and best practices",
+            "Prompt engineering for Claude",
+            "Few-shot prompting",
+            "Chain-of-thought reasoning",
+            "Retrieval-augmented generation setup",
+            "Tool use and function calling",
+            "Batch API for efficiency",
+            "Cost optimization",
+            "Safety and moderation"
+          ]
+        },
+        {
+          "title": "6.3 OpenAI API (Weeks 5-6)",
+          "items": [
+            "GPT models (GPT-4, GPT-3.5)",
+            "Chat completions",
+            "Embedding models",
+            "Fine-tuning with GPT",
+            "Vision API",
+            "Function calling",
+            "Text-to-speech and Speech-to-text",
+            "DALL-E image generation",
+            "Temperature and top_p",
+            "Token limits and management",
+            "Cost calculation",
+            "Error handling",
+            "Streaming responses",
+            "Function schemas",
+            "Vision understanding",
+            "Model deprecation handling"
+          ]
+        },
+        {
+          "title": "6.4 RAG - Retrieval Augmented Generation (Weeks 7-9)",
+          "items": [
+            "RAG architecture and flow",
+            "Embeddings and vector representations",
+            "Vector databases (Pinecone, Weaviate, Chroma, Milvus)",
+            "Semantic search",
+            "Document chunking strategies",
+            "Retrieval optimization",
+            "Reranking and filtering",
+            "Multi-document QA",
+            "Context window management",
+            "Advanced RAG techniques",
+            "Dense retrievers vs sparse retrievers",
+            "Hybrid search",
+            "Similarity metrics (cosine, euclidean)",
+            "Top-k retrieval",
+            "Maximal Marginal Relevance (MMR)",
+            "Query expansion",
+            "Document metadata filtering",
+            "Dynamic chunk size selection",
+            "Parent-child chunk retrieval"
+          ]
+        },
+        {
+          "title": "6.5 LangChain & Agent Systems (Weeks 10-12)",
+          "items": [
+            "LangChain core concepts",
+            "Chains (SequentialChain, RouteChain, MapReduceChain)",
+            "Agents and tools",
+            "Memory management",
+            "Output parsing",
+            "Callbacks and debugging",
+            "Retrieval chains",
+            "Question answering chains",
+            "Agent architectures",
+            "ConversationBufferMemory",
+            "ConversationSummaryMemory",
+            "Custom tools definition",
+            "Tool routing and selection",
+            "Few-shot prompting for agents",
+            "ReAct (Reasoning + Acting)",
+            "Custom chains",
+            "Error recovery in agents",
+            "Cost optimization in chains"
+          ]
+        },
+        {
+          "title": "6.6 LangGraph & Advanced Agent Architecture (Weeks 13-14)",
+          "items": [
+            "Graph-based agent architecture",
+            "State management and persistence",
+            "Complex workflows",
+            "Conditional logic and branching",
+            "Human-in-the-loop integration",
+            "Streaming and real-time updates",
+            "Tool routing and decision making",
+            "Error handling and recovery",
+            "Multi-agent coordination",
+            "Node and edge definition",
+            "State transitions",
+            "Cyclic workflows",
+            "Fan-out/fan-in patterns",
+            "Checkpointing for recovery",
+            "Visualization of agent flow",
+            "Logging and debugging",
+            "Performance monitoring"
+          ]
+        },
+        {
+          "title": "6.7 Agentic AI & CrewAI (Weeks 15-16)",
+          "items": [
+            "Multi-agent systems",
+            "Agent roles and specialization",
+            "Task delegation and orchestration",
+            "Agent communication",
+            "Collaboration patterns",
+            "CrewAI framework",
+            "Performance monitoring",
+            "Scaling multi-agent systems",
+            "Real-world agent deployments",
+            "Agent personality and behavior",
+            "Tool assignment to agents",
+            "Task dependencies",
+            "Result aggregation",
+            "Conflict resolution",
+            "Knowledge sharing between agents",
+            "Hierarchical agent structures"
+          ]
+        },
+        {
+          "title": "6.8 Model Context Protocol (MCP) (Weeks 17-18)",
+          "items": [
+            "MCP protocol and standards",
+            "MCP server creation",
+            "Resource definition and management",
+            "Tool implementation via MCP",
+            "Client-server communication",
+            "Integration with LLM applications",
+            "Error handling and recovery",
+            "Best practices for MCP",
+            "Protocol specification",
+            "JSON-RPC implementation",
+            "Resource discovery",
+            "Tool invocation",
+            "Streaming support",
+            "Authentication and security",
+            "Performance optimization",
+            "Version management"
+          ]
+        },
+        {
+          "title": "6.9 Advanced Prompt Engineering (Throughout)",
+          "items": [
+            "Few-shot learning",
+            "Zero-shot learning",
+            "Chain-of-thought prompting",
+            "Tree-of-thought",
+            "Self-consistency",
+            "Prompt instruction tuning",
+            "Bias and fairness in prompts",
+            "Testing and evaluation",
+            "Example selection for few-shot",
+            "Prompt ordering effects",
+            "Temperature and randomness",
+            "Role-based prompting",
+            "Structured output formats",
+            "Prompt templates",
+            "Meta-prompting",
+            "Adversarial prompting"
+          ]
+        },
+        {
+          "title": "Phase 6 Milestone Projects",
+          "items": [
+            "Intelligent Document Assistant (RAG-based)",
+            "Autonomous Research Assistant (Multi-agent)",
+            "Customer Intelligence Platform",
+            "Code Assistant & Debugger"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Phase 7: Production & Deployment (2-3 months)",
+      "subsections": [
+        {
+          "title": "7.1 FastAPI for APIs (Weeks 1-3)",
+          "items": [
+            "FastAPI basics and routing",
+            "Request and response models (Pydantic)",
+            "Dependency injection",
+            "Async operations",
+            "Authentication and authorization",
+            "File uploads and downloads",
+            "WebSockets and streaming",
+            "OpenAPI documentation",
+            "Error handling and validation",
+            "Testing APIs",
+            "Path parameters and query parameters",
+            "Request body validation",
+            "Custom validation",
+            "CORS handling",
+            "Middleware implementation",
+            "Rate limiting",
+            "Background tasks",
+            "Server-sent events (SSE)",
+            "API versioning"
+          ]
+        },
+        {
+          "title": "7.2 MLOps & Model Management (Weeks 4-5)",
+          "items": [
+            "MLflow experiment tracking",
+            "Model registry and versioning",
+            "Pipeline management",
+            "Experiment reproducibility",
+            "A/B testing setup",
+            "Model evaluation frameworks",
+            "Feature stores",
+            "Model monitoring",
+            "Metrics and parameters logging",
+            "Artifact storage",
+            "Model lifecycle management",
+            "Deployment tracking",
+            "Environment reproducibility",
+            "Conda/pip environment specs",
+            "Docker for reproducibility"
+          ]
+        },
+        {
+          "title": "7.3 Docker & Containerization (Weeks 6-7)",
+          "items": [
+            "Docker basics (images, containers)",
+            "Dockerfile creation and optimization",
+            "Docker Compose for multi-container apps",
+            "Container registry (Docker Hub)",
+            "Container optimization",
+            "Networking in Docker",
+            "Volume management",
+            "Environment variables and secrets",
+            "Layer optimization",
+            "Multi-stage builds",
+            "Security best practices",
+            "Resource limits",
+            "Logging in containers",
+            "Health checks",
+            "Orchestration basics"
+          ]
+        },
+        {
+          "title": "7.4 Cloud Deployment (Weeks 8-9)",
+          "items": [
+            "AWS: Amazon SageMaker for ML",
+            "AWS: Lambda for serverless",
+            "AWS: EC2 for compute",
+            "AWS: S3 for storage",
+            "AWS: RDS for databases",
+            "AWS: CloudWatch for monitoring",
+            "AWS: API Gateway",
+            "AWS: Elastic Container Registry (ECR)",
+            "GCP: Vertex AI",
+            "GCP: Cloud Run for serverless",
+            "GCP: Compute Engine",
+            "GCP: Cloud Storage",
+            "GCP: Cloud SQL",
+            "GCP: BigQuery",
+            "GCP: Cloud Monitoring",
+            "Azure: Azure ML",
+            "Azure: App Service",
+            "Azure: Container Instances",
+            "Azure: Cosmos DB",
+            "Azure: Azure Monitor",
+            "Azure: Azure Functions"
+          ]
+        },
+        {
+          "title": "7.5 Monitoring & Observability (Week 10)",
+          "items": [
+            "Application monitoring",
+            "Model performance monitoring",
+            "Data drift detection",
+            "Prediction drift",
+            "System metrics",
+            "Logging and log aggregation",
+            "Alerting systems",
+            "Dashboards",
+            "Prometheus metrics",
+            "Grafana dashboards",
+            "ELK stack",
+            "Datadog",
+            "New Relic",
+            "CloudWatch",
+            "Custom metrics",
+            "SLA/SLO tracking"
+          ]
+        },
+        {
+          "title": "7.6 CI/CD Pipelines (Weeks 11-12)",
+          "items": [
+            "GitHub Actions",
+            "Jenkins basics",
+            "GitLab CI",
+            "Testing (unit, integration)",
+            "Automated testing",
+            "Build automation",
+            "Deployment automation",
+            "Rollback strategies",
+            "Test coverage",
+            "Linting and code quality",
+            "Docker build automation",
+            "Secrets management",
+            "Environment-specific deployments",
+            "Canary deployments",
+            "Blue-green deployments"
+          ]
+        },
+        {
+          "title": "Phase 7 Milestone Projects",
+          "items": [
+            "End-to-End ML System (training + API + monitoring + CI/CD)",
+            "Multi-Model Production System",
+            "Real-time Prediction Service"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Phase 8: Specialized Skills (Ongoing)",
+      "subsections": [
+        {
+          "title": "8.1 Computer Vision (Optional, 6-8 weeks)",
+          "items": [
+            "Image processing fundamentals",
+            "OpenCV library",
+            "CNN architectures (ResNet, EfficientNet, DenseNet)",
+            "Object detection (YOLO, Faster R-CNN, RetinaNet)",
+            "Instance segmentation (Mask R-CNN)",
+            "Semantic segmentation",
+            "Pose estimation",
+            "Face recognition"
+          ]
+        },
+        {
+          "title": "8.2 Time Series & Forecasting (4-6 weeks)",
+          "items": [
+            "Time series fundamentals",
+            "ARIMA and SARIMA models",
+            "Exponential smoothing",
+            "Prophet for forecasting",
+            "LSTM for time series",
+            "Transformer-based time series",
+            "Anomaly detection",
+            "Multi-step forecasting"
+          ]
+        },
+        {
+          "title": "8.3 Reinforcement Learning (Optional, 6-8 weeks)",
+          "items": [
+            "RL fundamentals",
+            "Markov Decision Process (MDP)",
+            "Q-Learning",
+            "Policy Gradients",
+            "Deep Q-Networks (DQN)",
+            "Actor-Critic methods",
+            "Multi-armed bandits",
+            "Applications"
+          ]
+        },
+        {
+          "title": "8.4 Fine-tuning & Parameter-Efficient Techniques (4-6 weeks)",
+          "items": [
+            "LoRA (Low-Rank Adaptation)",
+            "QLoRA (Quantized LoRA)",
+            "Prefix tuning",
+            "Adapter modules",
+            "BitFit",
+            "Prompt tuning",
+            "Model compression",
+            "Quantization and pruning"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Phase 9: Portfolio & Projects (Ongoing)",
+      "subsections": [
+        {
+          "title": "Tier 1: Foundation Projects",
+          "items": [
+            "Iris Flower Classification",
+            "Handwritten Digit Recognition (MNIST)",
+            "Movie Recommendation System",
+            "Stock Price Prediction",
+            "House Price Prediction"
+          ]
+        },
+        {
+          "title": "Tier 2: Intermediate Projects",
+          "items": [
+            "Sentiment Analysis with Transformers (FastAPI deployed)",
+            "Customer Churn Prediction",
+            "Credit Card Fraud Detection",
+            "Disease/Diagnosis Prediction",
+            "Resume Parser & Matcher",
+            "Email Spam Detection"
+          ]
+        },
+        {
+          "title": "Tier 3: Advanced Projects",
+          "items": [
+            "End-to-End Document QA System",
+            "Multi-Agent Research Assistant",
+            "Autonomous Data Analysis System",
+            "Real-time Object Detection System",
+            "Fine-tuned Domain-Specific LLM",
+            "Complete E-commerce Recommendation Engine"
+          ]
+        },
+        {
+          "title": "Portfolio Standards",
+          "items": [
+            "Write README.md for every project",
+            "Requirements.txt or environment.yml for all projects",
+            "Clean, readable, commented code",
+            "Metrics and baseline comparisons documented",
+            "Reproducibility ensured (random seeds, data instructions)",
+            "Blog post written for each project",
+            "Demo deployed for each project",
+            "Portfolio website live"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Phase 10: Career & Soft Skills (Ongoing)",
+      "subsections": [
+        {
+          "title": "10.1 Networking & Personal Branding",
+          "items": [
+            "Set up professional LinkedIn profile",
+            "Post weekly content on LinkedIn",
+            "Maintain active GitHub with quality projects",
+            "Start writing on Medium",
+            "Join AI/ML communities (Discord, Reddit)",
+            "Contribute to open source projects"
+          ]
+        },
+        {
+          "title": "10.2 Interview Preparation",
+          "items": [
+            "Coding interviews: Data structures & algorithms (LeetCode)",
+            "Coding interviews: System design",
+            "Coding interviews: SQL optimization",
+            "ML/AI interviews: Model selection for problems",
+            "ML/AI interviews: Feature engineering approach",
+            "ML/AI interviews: Trade-offs in algorithms",
+            "ML/AI interviews: Production considerations",
+            "System design interviews: ML system design",
+            "System design interviews: Scalability and reliability",
+            "Behavioral interviews: STAR method practice",
+            "Behavioral interviews: Project stories prepared"
+          ]
+        },
+        {
+          "title": "10.3 Job Search Strategy",
+          "items": [
+            "Months 1-12: Complete phases 1-4, build 5-6 projects",
+            "Months 12-18: Complete phases 5-7, start freelancing",
+            "Months 18-24: Polish portfolio, active job hunting",
+            "Months 24+: Senior roles and specialization"
+          ]
+        },
+        {
+          "title": "10.4 Where to Find Jobs",
+          "items": [
+            "LinkedIn Jobs",
+            "AngelList (startups)",
+            "We Work Remotely",
+            "Remote.co",
+            "FlexJobs",
+            "Upwork/Fiverr (freelance)",
+            "Kaggle competitions",
+            "GitHub jobs"
+          ]
+        },
+        {
+          "title": "10.5 Continuous Learning",
+          "items": [
+            "Follow Papers With Code",
+            "Read Arxiv.org research papers",
+            "Stay active on Twitter/X AI communities",
+            "Follow Reddit r/MachineLearning",
+            "Subscribe to AI newsletters",
+            "Attend hackathons and conferences",
+            "Practice quarterly portfolio review"
+          ]
+        }
+      ]
+    }
+  ]
+}

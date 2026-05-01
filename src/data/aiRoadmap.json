@@ -1,0 +1,3717 @@
+{
+  "title": "Master AI Engineer Roadmap",
+  "sections": [
+    {
+      "title": "Phase 1: Python Fundamentals (3-4 months)",
+      "subsections": [
+        {
+          "title": "1.1 Python Basics (Weeks 1-2)",
+          "items": [
+            {
+              "id": "s1-sub1-i1",
+              "label": "Variables and data types (int, float, string, bool)"
+            },
+            {
+              "id": "s1-sub1-i2",
+              "label": "Operators (arithmetic, logical, comparison)"
+            },
+            {
+              "id": "s1-sub1-i3",
+              "label": "Input/output operations"
+            },
+            {
+              "id": "s1-sub1-i4",
+              "label": "String manipulation and formatting"
+            },
+            {
+              "id": "s1-sub1-i5",
+              "label": "Comments and best practices"
+            },
+            {
+              "id": "s1-sub1-i6",
+              "label": "Type casting and type checking"
+            },
+            {
+              "id": "s1-sub1-i7",
+              "label": "String methods (split, join, replace, format)"
+            },
+            {
+              "id": "s1-sub1-i8",
+              "label": "f-strings for modern string formatting"
+            },
+            {
+              "id": "s1-sub1-i9",
+              "label": "Print statements and debugging"
+            },
+            {
+              "id": "s1-sub1-i10",
+              "label": "Python naming conventions (PEP 8)"
+            }
+          ],
+          "id": "s1-sub1"
+        },
+        {
+          "title": "1.2 Control Flow & Loops (Weeks 2-3)",
+          "items": [
+            {
+              "id": "s1-sub2-i1",
+              "label": "If/else statements"
+            },
+            {
+              "id": "s1-sub2-i2",
+              "label": "For loops"
+            },
+            {
+              "id": "s1-sub2-i3",
+              "label": "While loops"
+            },
+            {
+              "id": "s1-sub2-i4",
+              "label": "Break and continue statements"
+            },
+            {
+              "id": "s1-sub2-i5",
+              "label": "Nested loops and conditions"
+            },
+            {
+              "id": "s1-sub2-i6",
+              "label": "Loop efficiency"
+            },
+            {
+              "id": "s1-sub2-i7",
+              "label": "Conditional logic patterns"
+            },
+            {
+              "id": "s1-sub2-i8",
+              "label": "Loop optimization techniques"
+            },
+            {
+              "id": "s1-sub2-i9",
+              "label": "Nested loop complexity"
+            },
+            {
+              "id": "s1-sub2-i10",
+              "label": "Range and enumerate functions"
+            },
+            {
+              "id": "s1-sub2-i11",
+              "label": "Iterator protocols basics"
+            }
+          ],
+          "id": "s1-sub2"
+        },
+        {
+          "title": "1.3 Functions (Weeks 3-4)",
+          "items": [
+            {
+              "id": "s1-sub3-i1",
+              "label": "Function definition and calling"
+            },
+            {
+              "id": "s1-sub3-i2",
+              "label": "Parameters and arguments"
+            },
+            {
+              "id": "s1-sub3-i3",
+              "label": "Return values"
+            },
+            {
+              "id": "s1-sub3-i4",
+              "label": "Default arguments"
+            },
+            {
+              "id": "s1-sub3-i5",
+              "label": "Variable-length arguments (*args, **kwargs)"
+            },
+            {
+              "id": "s1-sub3-i6",
+              "label": "Scope and namespaces"
+            },
+            {
+              "id": "s1-sub3-i7",
+              "label": "Lambda functions"
+            },
+            {
+              "id": "s1-sub3-i8",
+              "label": "Function documentation (docstrings)"
+            },
+            {
+              "id": "s1-sub3-i9",
+              "label": "Function annotations"
+            },
+            {
+              "id": "s1-sub3-i10",
+              "label": "Passing by reference vs value"
+            },
+            {
+              "id": "s1-sub3-i11",
+              "label": "Recursive functions"
+            },
+            {
+              "id": "s1-sub3-i12",
+              "label": "Function composition"
+            },
+            {
+              "id": "s1-sub3-i13",
+              "label": "Higher-order functions"
+            }
+          ],
+          "id": "s1-sub3"
+        },
+        {
+          "title": "1.4 Data Structures (Weeks 5-6)",
+          "items": [
+            {
+              "id": "s1-sub4-i1",
+              "label": "Lists (creation, indexing, slicing, methods)"
+            },
+            {
+              "id": "s1-sub4-i2",
+              "label": "Tuples (immutability, packing, unpacking)"
+            },
+            {
+              "id": "s1-sub4-i3",
+              "label": "Dictionaries (key-value pairs, methods)"
+            },
+            {
+              "id": "s1-sub4-i4",
+              "label": "Sets (unique elements, operations)"
+            },
+            {
+              "id": "s1-sub4-i5",
+              "label": "Differences between data structures"
+            },
+            {
+              "id": "s1-sub4-i6",
+              "label": "List methods (append, extend, insert, remove, pop, sort, reverse)"
+            },
+            {
+              "id": "s1-sub4-i7",
+              "label": "List slicing and negative indexing"
+            },
+            {
+              "id": "s1-sub4-i8",
+              "label": "Dictionary comprehensions"
+            },
+            {
+              "id": "s1-sub4-i9",
+              "label": "Set operations (union, intersection, difference)"
+            },
+            {
+              "id": "s1-sub4-i10",
+              "label": "Nested data structures"
+            },
+            {
+              "id": "s1-sub4-i11",
+              "label": "When to use which data structure"
+            }
+          ],
+          "id": "s1-sub4"
+        },
+        {
+          "title": "1.5 Exception Handling (Week 7)",
+          "items": [
+            {
+              "id": "s1-sub5-i1",
+              "label": "Try/except blocks"
+            },
+            {
+              "id": "s1-sub5-i2",
+              "label": "Different exception types"
+            },
+            {
+              "id": "s1-sub5-i3",
+              "label": "Finally blocks"
+            },
+            {
+              "id": "s1-sub5-i4",
+              "label": "Raising exceptions"
+            },
+            {
+              "id": "s1-sub5-i5",
+              "label": "Custom exceptions"
+            },
+            {
+              "id": "s1-sub5-i6",
+              "label": "Common exceptions (ValueError, TypeError, KeyError)"
+            },
+            {
+              "id": "s1-sub5-i7",
+              "label": "Exception hierarchy"
+            },
+            {
+              "id": "s1-sub5-i8",
+              "label": "Multiple except blocks"
+            },
+            {
+              "id": "s1-sub5-i9",
+              "label": "Else in try blocks"
+            },
+            {
+              "id": "s1-sub5-i10",
+              "label": "Exception chaining"
+            },
+            {
+              "id": "s1-sub5-i11",
+              "label": "Logging exceptions"
+            }
+          ],
+          "id": "s1-sub5"
+        },
+        {
+          "title": "1.6 Object-Oriented Programming (Weeks 8-10)",
+          "items": [
+            {
+              "id": "s1-sub6-i1",
+              "label": "Classes and objects"
+            },
+            {
+              "id": "s1-sub6-i2",
+              "label": "Attributes and methods"
+            },
+            {
+              "id": "s1-sub6-i3",
+              "label": "Constructors (__init__)"
+            },
+            {
+              "id": "s1-sub6-i4",
+              "label": "Instance vs class variables"
+            },
+            {
+              "id": "s1-sub6-i5",
+              "label": "Inheritance (single and multiple)"
+            },
+            {
+              "id": "s1-sub6-i6",
+              "label": "Polymorphism"
+            },
+            {
+              "id": "s1-sub6-i7",
+              "label": "Encapsulation"
+            },
+            {
+              "id": "s1-sub6-i8",
+              "label": "Magic methods (__str__, __repr__, __len__)"
+            },
+            {
+              "id": "s1-sub6-i9",
+              "label": "Method resolution order (MRO)"
+            },
+            {
+              "id": "s1-sub6-i10",
+              "label": "Super() function"
+            },
+            {
+              "id": "s1-sub6-i11",
+              "label": "Abstract classes and interfaces"
+            },
+            {
+              "id": "s1-sub6-i12",
+              "label": "Getters and setters (@property)"
+            },
+            {
+              "id": "s1-sub6-i13",
+              "label": "Class decorators"
+            },
+            {
+              "id": "s1-sub6-i14",
+              "label": "Metaclasses (advanced)"
+            },
+            {
+              "id": "s1-sub6-i15",
+              "label": "Composition vs Inheritance"
+            }
+          ],
+          "id": "s1-sub6"
+        },
+        {
+          "title": "1.7 Advanced Python Features (Weeks 11-12)",
+          "items": [
+            {
+              "id": "s1-sub7-i1",
+              "label": "List/dict/set comprehensions"
+            },
+            {
+              "id": "s1-sub7-i2",
+              "label": "Generators and iterators"
+            },
+            {
+              "id": "s1-sub7-i3",
+              "label": "Decorators"
+            },
+            {
+              "id": "s1-sub7-i4",
+              "label": "Context managers (with statement)"
+            },
+            {
+              "id": "s1-sub7-i5",
+              "label": "Functional programming (map, filter, reduce)"
+            },
+            {
+              "id": "s1-sub7-i6",
+              "label": "Modules and packages"
+            },
+            {
+              "id": "s1-sub7-i7",
+              "label": "Closures"
+            },
+            {
+              "id": "s1-sub7-i8",
+              "label": "Generator expressions"
+            },
+            {
+              "id": "s1-sub7-i9",
+              "label": "Yield keyword"
+            },
+            {
+              "id": "s1-sub7-i10",
+              "label": "Writing custom decorators"
+            },
+            {
+              "id": "s1-sub7-i11",
+              "label": "Decorator stacking"
+            },
+            {
+              "id": "s1-sub7-i12",
+              "label": "Iterator protocol (__iter__, __next__)"
+            },
+            {
+              "id": "s1-sub7-i13",
+              "label": "Import system"
+            },
+            {
+              "id": "s1-sub7-i14",
+              "label": "__init__.py and package structure"
+            },
+            {
+              "id": "s1-sub7-i15",
+              "label": "Closures and variable capture"
+            }
+          ],
+          "id": "s1-sub7"
+        },
+        {
+          "title": "1.8 File I/O and Data Handling (Weeks 13-14)",
+          "items": [
+            {
+              "id": "s1-sub8-i1",
+              "label": "Reading files (open, read, readline, readlines)"
+            },
+            {
+              "id": "s1-sub8-i2",
+              "label": "Writing to files"
+            },
+            {
+              "id": "s1-sub8-i3",
+              "label": "File modes (r, w, a, r+)"
+            },
+            {
+              "id": "s1-sub8-i4",
+              "label": "Context managers for file handling"
+            },
+            {
+              "id": "s1-sub8-i5",
+              "label": "CSV file handling"
+            },
+            {
+              "id": "s1-sub8-i6",
+              "label": "JSON handling (dump, load)"
+            },
+            {
+              "id": "s1-sub8-i7",
+              "label": "Working with different file formats"
+            },
+            {
+              "id": "s1-sub8-i8",
+              "label": "Binary vs text files"
+            },
+            {
+              "id": "s1-sub8-i9",
+              "label": "File pointers and seek()"
+            },
+            {
+              "id": "s1-sub8-i10",
+              "label": "Pickle for serialization"
+            },
+            {
+              "id": "s1-sub8-i11",
+              "label": "Working with paths (pathlib)"
+            },
+            {
+              "id": "s1-sub8-i12",
+              "label": "Directory operations"
+            },
+            {
+              "id": "s1-sub8-i13",
+              "label": "Environment variables"
+            }
+          ],
+          "id": "s1-sub8"
+        },
+        {
+          "title": "1.9 Regular Expressions (Week 15)",
+          "items": [
+            {
+              "id": "s1-sub9-i1",
+              "label": "Pattern matching"
+            },
+            {
+              "id": "s1-sub9-i2",
+              "label": "Regex syntax (., *, +, ?, [], ^, $)"
+            },
+            {
+              "id": "s1-sub9-i3",
+              "label": "Common regex patterns"
+            },
+            {
+              "id": "s1-sub9-i4",
+              "label": "re module functions (match, search, findall, sub)"
+            },
+            {
+              "id": "s1-sub9-i5",
+              "label": "Named groups"
+            },
+            {
+              "id": "s1-sub9-i6",
+              "label": "Lookahead/lookbehind"
+            },
+            {
+              "id": "s1-sub9-i7",
+              "label": "Regex flags (IGNORECASE, MULTILINE, DOTALL)"
+            },
+            {
+              "id": "s1-sub9-i8",
+              "label": "Performance considerations"
+            },
+            {
+              "id": "s1-sub9-i9",
+              "label": "Escaping special characters"
+            },
+            {
+              "id": "s1-sub9-i10",
+              "label": "Greedy vs non-greedy matching"
+            },
+            {
+              "id": "s1-sub9-i11",
+              "label": "Raw strings"
+            }
+          ],
+          "id": "s1-sub9"
+        },
+        {
+          "title": "1.10 Package Management & Virtual Environments (Week 16)",
+          "items": [
+            {
+              "id": "s1-sub10-i1",
+              "label": "pip and PyPI"
+            },
+            {
+              "id": "s1-sub10-i2",
+              "label": "Virtual environments (venv, virtualenv)"
+            },
+            {
+              "id": "s1-sub10-i3",
+              "label": "Requirements.txt"
+            },
+            {
+              "id": "s1-sub10-i4",
+              "label": "Poetry and other package managers"
+            },
+            {
+              "id": "s1-sub10-i5",
+              "label": "Package versioning"
+            },
+            {
+              "id": "s1-sub10-i6",
+              "label": "Installing packages"
+            },
+            {
+              "id": "s1-sub10-i7",
+              "label": "Managing dependencies"
+            },
+            {
+              "id": "s1-sub10-i8",
+              "label": "Freezing requirements"
+            },
+            {
+              "id": "s1-sub10-i9",
+              "label": "Creating virtual environments"
+            },
+            {
+              "id": "s1-sub10-i10",
+              "label": "Activating/deactivating environments"
+            },
+            {
+              "id": "s1-sub10-i11",
+              "label": "Using conda"
+            }
+          ],
+          "id": "s1-sub10"
+        },
+        {
+          "title": "Phase 1 Milestone Projects",
+          "items": [
+            {
+              "id": "s1-sub11-i1",
+              "label": "Hangman Game"
+            },
+            {
+              "id": "s1-sub11-i2",
+              "label": "Contact Management System"
+            },
+            {
+              "id": "s1-sub11-i3",
+              "label": "Student Grade System"
+            },
+            {
+              "id": "s1-sub11-i4",
+              "label": "Data Processing Tool"
+            }
+          ],
+          "id": "s1-sub11"
+        }
+      ],
+      "id": "s1"
+    },
+    {
+      "title": "Phase 2: Data Science & Analytics (2-3 months)",
+      "subsections": [
+        {
+          "title": "2.1 SQL Fundamentals (Weeks 1-3)",
+          "items": [
+            {
+              "id": "s2-sub1-i1",
+              "label": "Database basics (RDBMS concepts)"
+            },
+            {
+              "id": "s2-sub1-i2",
+              "label": "CREATE and DROP statements"
+            },
+            {
+              "id": "s2-sub1-i3",
+              "label": "INSERT, UPDATE, DELETE operations"
+            },
+            {
+              "id": "s2-sub1-i4",
+              "label": "SELECT queries with WHERE"
+            },
+            {
+              "id": "s2-sub1-i5",
+              "label": "ORDER BY and LIMIT"
+            },
+            {
+              "id": "s2-sub1-i6",
+              "label": "Aggregate functions (COUNT, SUM, AVG, MIN, MAX)"
+            },
+            {
+              "id": "s2-sub1-i7",
+              "label": "GROUP BY and HAVING"
+            },
+            {
+              "id": "s2-sub1-i8",
+              "label": "JOINs (INNER, LEFT, RIGHT, FULL OUTER, CROSS)"
+            },
+            {
+              "id": "s2-sub1-i9",
+              "label": "Data types (INT, VARCHAR, DATE)"
+            },
+            {
+              "id": "s2-sub1-i10",
+              "label": "NULL values handling"
+            },
+            {
+              "id": "s2-sub1-i11",
+              "label": "LIKE operator for pattern matching"
+            },
+            {
+              "id": "s2-sub1-i12",
+              "label": "IN and BETWEEN operators"
+            },
+            {
+              "id": "s2-sub1-i13",
+              "label": "CASE statements"
+            },
+            {
+              "id": "s2-sub1-i14",
+              "label": "Subqueries"
+            },
+            {
+              "id": "s2-sub1-i15",
+              "label": "Window functions (ROW_NUMBER, RANK, LAG, LEAD)"
+            },
+            {
+              "id": "s2-sub1-i16",
+              "label": "CTEs (Common Table Expressions)"
+            },
+            {
+              "id": "s2-sub1-i17",
+              "label": "String functions (LENGTH, UPPER, LOWER, CONCAT)"
+            },
+            {
+              "id": "s2-sub1-i18",
+              "label": "Date functions (DATE_ADD, DATE_DIFF, YEAR, MONTH, DAY)"
+            }
+          ],
+          "id": "s2-sub1"
+        },
+        {
+          "title": "2.2 NumPy: Numerical Computing (Weeks 4-5)",
+          "items": [
+            {
+              "id": "s2-sub2-i1",
+              "label": "Arrays vs Lists"
+            },
+            {
+              "id": "s2-sub2-i2",
+              "label": "Array creation and initialization"
+            },
+            {
+              "id": "s2-sub2-i3",
+              "label": "Array indexing and slicing"
+            },
+            {
+              "id": "s2-sub2-i4",
+              "label": "Array shape and reshaping"
+            },
+            {
+              "id": "s2-sub2-i5",
+              "label": "Array operations (arithmetic, element-wise)"
+            },
+            {
+              "id": "s2-sub2-i6",
+              "label": "Broadcasting concept"
+            },
+            {
+              "id": "s2-sub2-i7",
+              "label": "Mathematical functions"
+            },
+            {
+              "id": "s2-sub2-i8",
+              "label": "Linear algebra operations"
+            },
+            {
+              "id": "s2-sub2-i9",
+              "label": "np.array, np.zeros, np.ones, np.arange, np.linspace"
+            },
+            {
+              "id": "s2-sub2-i10",
+              "label": "Boolean indexing and fancy indexing"
+            },
+            {
+              "id": "s2-sub2-i11",
+              "label": "Array concatenation and stacking"
+            },
+            {
+              "id": "s2-sub2-i12",
+              "label": "Matrix operations (dot product, transpose, inverse)"
+            },
+            {
+              "id": "s2-sub2-i13",
+              "label": "Eigenvalues and eigenvectors"
+            },
+            {
+              "id": "s2-sub2-i14",
+              "label": "Determinant and rank"
+            },
+            {
+              "id": "s2-sub2-i15",
+              "label": "Random number generation"
+            },
+            {
+              "id": "s2-sub2-i16",
+              "label": "Statistical functions (mean, std, var, median, percentile)"
+            },
+            {
+              "id": "s2-sub2-i17",
+              "label": "Sorting and searching"
+            }
+          ],
+          "id": "s2-sub2"
+        },
+        {
+          "title": "2.3 Pandas: Data Manipulation (Weeks 6-8)",
+          "items": [
+            {
+              "id": "s2-sub3-i1",
+              "label": "Series (1D) and DataFrame (2D)"
+            },
+            {
+              "id": "s2-sub3-i2",
+              "label": "Creating DataFrames from different sources"
+            },
+            {
+              "id": "s2-sub3-i3",
+              "label": "Data indexing and selection"
+            },
+            {
+              "id": "s2-sub3-i4",
+              "label": "Data cleaning (handling missing values, duplicates)"
+            },
+            {
+              "id": "s2-sub3-i5",
+              "label": "Data transformation"
+            },
+            {
+              "id": "s2-sub3-i6",
+              "label": "Grouping and aggregation"
+            },
+            {
+              "id": "s2-sub3-i7",
+              "label": "Merging and joining"
+            },
+            {
+              "id": "s2-sub3-i8",
+              "label": "Pivot tables"
+            },
+            {
+              "id": "s2-sub3-i9",
+              "label": "Time series data"
+            },
+            {
+              "id": "s2-sub3-i10",
+              "label": "DataFrame.loc vs .iloc"
+            },
+            {
+              "id": "s2-sub3-i11",
+              "label": "Boolean indexing"
+            },
+            {
+              "id": "s2-sub3-i12",
+              "label": "isnull() and dropna() functions"
+            },
+            {
+              "id": "s2-sub3-i13",
+              "label": "fillna() methods"
+            },
+            {
+              "id": "s2-sub3-i14",
+              "label": "apply() and lambda functions"
+            },
+            {
+              "id": "s2-sub3-i15",
+              "label": "map() and replace()"
+            },
+            {
+              "id": "s2-sub3-i16",
+              "label": "sort_values() and nlargest()"
+            },
+            {
+              "id": "s2-sub3-i17",
+              "label": "value_counts() for frequency analysis"
+            },
+            {
+              "id": "s2-sub3-i18",
+              "label": "Categorical data handling"
+            },
+            {
+              "id": "s2-sub3-i19",
+              "label": "DateTime operations"
+            },
+            {
+              "id": "s2-sub3-i20",
+              "label": "str accessor for string operations"
+            }
+          ],
+          "id": "s2-sub3"
+        },
+        {
+          "title": "2.4 Data Visualization (Weeks 9-10)",
+          "items": [
+            {
+              "id": "s2-sub4-i1",
+              "label": "Matplotlib basics (line, scatter, bar plots)"
+            },
+            {
+              "id": "s2-sub4-i2",
+              "label": "Figure and axes objects"
+            },
+            {
+              "id": "s2-sub4-i3",
+              "label": "Seaborn for statistical visualization"
+            },
+            {
+              "id": "s2-sub4-i4",
+              "label": "Histograms and distributions"
+            },
+            {
+              "id": "s2-sub4-i5",
+              "label": "Box plots and violin plots"
+            },
+            {
+              "id": "s2-sub4-i6",
+              "label": "Heatmaps and correlation matrices"
+            },
+            {
+              "id": "s2-sub4-i7",
+              "label": "3D plotting"
+            },
+            {
+              "id": "s2-sub4-i8",
+              "label": "Interactive plots (Plotly)"
+            },
+            {
+              "id": "s2-sub4-i9",
+              "label": "Color palettes and styling"
+            },
+            {
+              "id": "s2-sub4-i10",
+              "label": "Legends and labels"
+            },
+            {
+              "id": "s2-sub4-i11",
+              "label": "Multiple subplots"
+            },
+            {
+              "id": "s2-sub4-i12",
+              "label": "Saving figures (PNG, PDF, SVG)"
+            },
+            {
+              "id": "s2-sub4-i13",
+              "label": "Customizing fonts and sizes"
+            },
+            {
+              "id": "s2-sub4-i14",
+              "label": "Annotating plots"
+            },
+            {
+              "id": "s2-sub4-i15",
+              "label": "Faceting/grid plots"
+            },
+            {
+              "id": "s2-sub4-i16",
+              "label": "Animation basics"
+            },
+            {
+              "id": "s2-sub4-i17",
+              "label": "Dash for interactive dashboards"
+            }
+          ],
+          "id": "s2-sub4"
+        },
+        {
+          "title": "2.5 Math & Statistics for Data Science (Weeks 11-12)",
+          "items": [
+            {
+              "id": "s2-sub5-i1",
+              "label": "Probability fundamentals"
+            },
+            {
+              "id": "s2-sub5-i2",
+              "label": "Probability distributions (normal, binomial, poisson, uniform)"
+            },
+            {
+              "id": "s2-sub5-i3",
+              "label": "Descriptive statistics (mean, median, mode, variance, std dev)"
+            },
+            {
+              "id": "s2-sub5-i4",
+              "label": "Hypothesis testing (t-test, chi-square, ANOVA)"
+            },
+            {
+              "id": "s2-sub5-i5",
+              "label": "Confidence intervals"
+            },
+            {
+              "id": "s2-sub5-i6",
+              "label": "P-values and statistical significance"
+            },
+            {
+              "id": "s2-sub5-i7",
+              "label": "Correlation and covariance"
+            },
+            {
+              "id": "s2-sub5-i8",
+              "label": "Central Limit Theorem"
+            },
+            {
+              "id": "s2-sub5-i9",
+              "label": "Conditional probability"
+            },
+            {
+              "id": "s2-sub5-i10",
+              "label": "Bayes' theorem"
+            },
+            {
+              "id": "s2-sub5-i11",
+              "label": "Random variables"
+            },
+            {
+              "id": "s2-sub5-i12",
+              "label": "Cumulative distribution function (CDF)"
+            },
+            {
+              "id": "s2-sub5-i13",
+              "label": "Probability density function (PDF)"
+            },
+            {
+              "id": "s2-sub5-i14",
+              "label": "Type I and Type II errors"
+            },
+            {
+              "id": "s2-sub5-i15",
+              "label": "Effect size"
+            },
+            {
+              "id": "s2-sub5-i16",
+              "label": "Power analysis"
+            },
+            {
+              "id": "s2-sub5-i17",
+              "label": "Correlation vs causation"
+            }
+          ],
+          "id": "s2-sub5"
+        },
+        {
+          "title": "Phase 2 Milestone Projects",
+          "items": [
+            {
+              "id": "s2-sub6-i1",
+              "label": "End-to-End Data Analysis Project"
+            },
+            {
+              "id": "s2-sub6-i2",
+              "label": "SQL + Python Integration Project"
+            }
+          ],
+          "id": "s2-sub6"
+        }
+      ],
+      "id": "s2"
+    },
+    {
+      "title": "Phase 3: Machine Learning (3-4 months)",
+      "subsections": [
+        {
+          "title": "3.1 Supervised Learning - Regression (Weeks 1-3)",
+          "items": [
+            {
+              "id": "s3-sub1-i1",
+              "label": "Linear regression"
+            },
+            {
+              "id": "s3-sub1-i2",
+              "label": "Multiple linear regression"
+            },
+            {
+              "id": "s3-sub1-i3",
+              "label": "Polynomial regression"
+            },
+            {
+              "id": "s3-sub1-i4",
+              "label": "Regularization (Ridge, Lasso, Elastic Net)"
+            },
+            {
+              "id": "s3-sub1-i5",
+              "label": "Gradient descent optimization"
+            },
+            {
+              "id": "s3-sub1-i6",
+              "label": "Cost functions and loss functions"
+            },
+            {
+              "id": "s3-sub1-i7",
+              "label": "Feature scaling and normalization"
+            },
+            {
+              "id": "s3-sub1-i8",
+              "label": "Ordinary Least Squares (OLS)"
+            },
+            {
+              "id": "s3-sub1-i9",
+              "label": "Matrix form of linear regression"
+            },
+            {
+              "id": "s3-sub1-i10",
+              "label": "Gradient descent variants (batch, stochastic, mini-batch)"
+            },
+            {
+              "id": "s3-sub1-i11",
+              "label": "Learning rate and convergence"
+            },
+            {
+              "id": "s3-sub1-i12",
+              "label": "Overfitting and underfitting"
+            },
+            {
+              "id": "s3-sub1-i13",
+              "label": "R² score and evaluation metrics"
+            },
+            {
+              "id": "s3-sub1-i14",
+              "label": "Residual analysis"
+            },
+            {
+              "id": "s3-sub1-i15",
+              "label": "Normal equation vs gradient descent"
+            }
+          ],
+          "id": "s3-sub1"
+        },
+        {
+          "title": "3.2 Supervised Learning - Classification (Weeks 4-6)",
+          "items": [
+            {
+              "id": "s3-sub2-i1",
+              "label": "Logistic regression"
+            },
+            {
+              "id": "s3-sub2-i2",
+              "label": "Decision trees"
+            },
+            {
+              "id": "s3-sub2-i3",
+              "label": "Random forests"
+            },
+            {
+              "id": "s3-sub2-i4",
+              "label": "Gradient boosting (XGBoost, LightGBM)"
+            },
+            {
+              "id": "s3-sub2-i5",
+              "label": "Support Vector Machines (SVM)"
+            },
+            {
+              "id": "s3-sub2-i6",
+              "label": "K-Nearest Neighbors (KNN)"
+            },
+            {
+              "id": "s3-sub2-i7",
+              "label": "Naive Bayes"
+            },
+            {
+              "id": "s3-sub2-i8",
+              "label": "Ensemble methods"
+            },
+            {
+              "id": "s3-sub2-i9",
+              "label": "Binary vs multi-class classification"
+            },
+            {
+              "id": "s3-sub2-i10",
+              "label": "Probability thresholds"
+            },
+            {
+              "id": "s3-sub2-i11",
+              "label": "Decision boundaries"
+            },
+            {
+              "id": "s3-sub2-i12",
+              "label": "Tree splitting criteria (Gini, entropy)"
+            },
+            {
+              "id": "s3-sub2-i13",
+              "label": "Feature importance in trees"
+            },
+            {
+              "id": "s3-sub2-i14",
+              "label": "Hyperparameter tuning for each algorithm"
+            },
+            {
+              "id": "s3-sub2-i15",
+              "label": "Kernel methods for SVM"
+            },
+            {
+              "id": "s3-sub2-i16",
+              "label": "Distance metrics for KNN"
+            }
+          ],
+          "id": "s3-sub2"
+        },
+        {
+          "title": "3.3 Evaluation Metrics & Validation (Week 7)",
+          "items": [
+            {
+              "id": "s3-sub3-i1",
+              "label": "Train-test split"
+            },
+            {
+              "id": "s3-sub3-i2",
+              "label": "Cross-validation (k-fold, stratified)"
+            },
+            {
+              "id": "s3-sub3-i3",
+              "label": "Hyperparameter tuning (grid search, random search, Bayesian optimization)"
+            },
+            {
+              "id": "s3-sub3-i4",
+              "label": "Learning curves"
+            },
+            {
+              "id": "s3-sub3-i5",
+              "label": "Overfitting detection"
+            },
+            {
+              "id": "s3-sub3-i6",
+              "label": "Confusion matrix"
+            },
+            {
+              "id": "s3-sub3-i7",
+              "label": "Precision, recall, F1-score"
+            },
+            {
+              "id": "s3-sub3-i8",
+              "label": "ROC-AUC curves"
+            },
+            {
+              "id": "s3-sub3-i9",
+              "label": "Calibration curves"
+            },
+            {
+              "id": "s3-sub3-i10",
+              "label": "Class imbalance handling"
+            },
+            {
+              "id": "s3-sub3-i11",
+              "label": "Stratified vs random split"
+            },
+            {
+              "id": "s3-sub3-i12",
+              "label": "Time series cross-validation"
+            },
+            {
+              "id": "s3-sub3-i13",
+              "label": "Nested cross-validation"
+            },
+            {
+              "id": "s3-sub3-i14",
+              "label": "Model comparison statistical tests"
+            },
+            {
+              "id": "s3-sub3-i15",
+              "label": "Feature scaling impact on validation"
+            }
+          ],
+          "id": "s3-sub3"
+        },
+        {
+          "title": "3.4 Feature Engineering (Week 8)",
+          "items": [
+            {
+              "id": "s3-sub4-i1",
+              "label": "Feature extraction"
+            },
+            {
+              "id": "s3-sub4-i2",
+              "label": "Feature selection"
+            },
+            {
+              "id": "s3-sub4-i3",
+              "label": "Feature transformation"
+            },
+            {
+              "id": "s3-sub4-i4",
+              "label": "Handling categorical variables"
+            },
+            {
+              "id": "s3-sub4-i5",
+              "label": "Handling missing data"
+            },
+            {
+              "id": "s3-sub4-i6",
+              "label": "Creating interaction features"
+            },
+            {
+              "id": "s3-sub4-i7",
+              "label": "Domain knowledge application"
+            },
+            {
+              "id": "s3-sub4-i8",
+              "label": "Feature importance analysis"
+            },
+            {
+              "id": "s3-sub4-i9",
+              "label": "One-hot encoding vs label encoding"
+            },
+            {
+              "id": "s3-sub4-i10",
+              "label": "Ordinal encoding"
+            },
+            {
+              "id": "s3-sub4-i11",
+              "label": "Target encoding"
+            },
+            {
+              "id": "s3-sub4-i12",
+              "label": "Scaling methods (standardization, normalization, robust scaling)"
+            },
+            {
+              "id": "s3-sub4-i13",
+              "label": "Imputation strategies (mean, median, forward fill, KNN imputation)"
+            },
+            {
+              "id": "s3-sub4-i14",
+              "label": "Polynomial features"
+            },
+            {
+              "id": "s3-sub4-i15",
+              "label": "Binning and discretization"
+            },
+            {
+              "id": "s3-sub4-i16",
+              "label": "Feature selection methods (filter, wrapper, embedded)"
+            }
+          ],
+          "id": "s3-sub4"
+        },
+        {
+          "title": "3.5 Unsupervised Learning (Weeks 9-10)",
+          "items": [
+            {
+              "id": "s3-sub5-i1",
+              "label": "K-Means clustering"
+            },
+            {
+              "id": "s3-sub5-i2",
+              "label": "Hierarchical clustering"
+            },
+            {
+              "id": "s3-sub5-i3",
+              "label": "DBSCAN"
+            },
+            {
+              "id": "s3-sub5-i4",
+              "label": "Gaussian Mixture Models"
+            },
+            {
+              "id": "s3-sub5-i5",
+              "label": "Principal Component Analysis (PCA)"
+            },
+            {
+              "id": "s3-sub5-i6",
+              "label": "Dimensionality reduction"
+            },
+            {
+              "id": "s3-sub5-i7",
+              "label": "Anomaly detection"
+            },
+            {
+              "id": "s3-sub5-i8",
+              "label": "Association rules (Apriori, Eclat)"
+            },
+            {
+              "id": "s3-sub5-i9",
+              "label": "Elbow method for K-Means"
+            },
+            {
+              "id": "s3-sub5-i10",
+              "label": "Silhouette score"
+            },
+            {
+              "id": "s3-sub5-i11",
+              "label": "Dendrogram interpretation"
+            },
+            {
+              "id": "s3-sub5-i12",
+              "label": "Density-based clustering"
+            },
+            {
+              "id": "s3-sub5-i13",
+              "label": "t-SNE and UMAP for visualization"
+            },
+            {
+              "id": "s3-sub5-i14",
+              "label": "Scree plots for PCA"
+            },
+            {
+              "id": "s3-sub5-i15",
+              "label": "Isolation Forest for anomaly detection"
+            },
+            {
+              "id": "s3-sub5-i16",
+              "label": "Correlation filtering"
+            }
+          ],
+          "id": "s3-sub5"
+        },
+        {
+          "title": "3.6 Scikit-Learn Mastery (Throughout)",
+          "items": [
+            {
+              "id": "s3-sub6-i1",
+              "label": "Preprocessing tools (StandardScaler, MinMaxScaler, OneHotEncoder)"
+            },
+            {
+              "id": "s3-sub6-i2",
+              "label": "Model selection and training"
+            },
+            {
+              "id": "s3-sub6-i3",
+              "label": "Pipeline creation"
+            },
+            {
+              "id": "s3-sub6-i4",
+              "label": "Cross-validation utilities"
+            },
+            {
+              "id": "s3-sub6-i5",
+              "label": "Feature selection tools"
+            },
+            {
+              "id": "s3-sub6-i6",
+              "label": "Model persistence (pickle, joblib)"
+            },
+            {
+              "id": "s3-sub6-i7",
+              "label": "Metrics and scoring"
+            }
+          ],
+          "id": "s3-sub6"
+        },
+        {
+          "title": "Phase 3 Milestone Projects",
+          "items": [
+            {
+              "id": "s3-sub7-i1",
+              "label": "Titanic Survival Prediction (Kaggle)"
+            },
+            {
+              "id": "s3-sub7-i2",
+              "label": "House Price Prediction (Advanced)"
+            },
+            {
+              "id": "s3-sub7-i3",
+              "label": "Customer Churn Prediction"
+            },
+            {
+              "id": "s3-sub7-i4",
+              "label": "Recommendation System"
+            }
+          ],
+          "id": "s3-sub7"
+        }
+      ],
+      "id": "s3"
+    },
+    {
+      "title": "Phase 4: Deep Learning (3-4 months)",
+      "subsections": [
+        {
+          "title": "4.1 Neural Networks Fundamentals (Weeks 1-3)",
+          "items": [
+            {
+              "id": "s4-sub1-i1",
+              "label": "Perceptron and artificial neuron"
+            },
+            {
+              "id": "s4-sub1-i2",
+              "label": "Multilayer perceptron (MLP)"
+            },
+            {
+              "id": "s4-sub1-i3",
+              "label": "Forward propagation"
+            },
+            {
+              "id": "s4-sub1-i4",
+              "label": "Backpropagation algorithm"
+            },
+            {
+              "id": "s4-sub1-i5",
+              "label": "Activation functions (ReLU, sigmoid, tanh, softmax)"
+            },
+            {
+              "id": "s4-sub1-i6",
+              "label": "Loss functions"
+            },
+            {
+              "id": "s4-sub1-i7",
+              "label": "Optimization algorithms"
+            },
+            {
+              "id": "s4-sub1-i8",
+              "label": "Neuron mechanics"
+            },
+            {
+              "id": "s4-sub1-i9",
+              "label": "Weights and biases"
+            },
+            {
+              "id": "s4-sub1-i10",
+              "label": "Chain rule in backprop"
+            },
+            {
+              "id": "s4-sub1-i11",
+              "label": "Gradient descent for neural networks"
+            },
+            {
+              "id": "s4-sub1-i12",
+              "label": "Learning rate impact"
+            },
+            {
+              "id": "s4-sub1-i13",
+              "label": "Batch normalization"
+            },
+            {
+              "id": "s4-sub1-i14",
+              "label": "Weight initialization strategies"
+            },
+            {
+              "id": "s4-sub1-i15",
+              "label": "Dropout regularization"
+            }
+          ],
+          "id": "s4-sub1"
+        },
+        {
+          "title": "4.2 Convolutional Neural Networks (Weeks 4-6)",
+          "items": [
+            {
+              "id": "s4-sub2-i1",
+              "label": "Convolution operation"
+            },
+            {
+              "id": "s4-sub2-i2",
+              "label": "Filters and kernels"
+            },
+            {
+              "id": "s4-sub2-i3",
+              "label": "Pooling layers"
+            },
+            {
+              "id": "s4-sub2-i4",
+              "label": "CNN architecture design"
+            },
+            {
+              "id": "s4-sub2-i5",
+              "label": "Classic architectures (LeNet, VGG, ResNet, Inception)"
+            },
+            {
+              "id": "s4-sub2-i6",
+              "label": "Transfer learning"
+            },
+            {
+              "id": "s4-sub2-i7",
+              "label": "Fine-tuning pre-trained models"
+            },
+            {
+              "id": "s4-sub2-i8",
+              "label": "Stride and padding"
+            },
+            {
+              "id": "s4-sub2-i9",
+              "label": "Feature maps"
+            },
+            {
+              "id": "s4-sub2-i10",
+              "label": "Receptive field"
+            },
+            {
+              "id": "s4-sub2-i11",
+              "label": "Parameter sharing"
+            },
+            {
+              "id": "s4-sub2-i12",
+              "label": "MaxPooling vs AvgPooling"
+            },
+            {
+              "id": "s4-sub2-i13",
+              "label": "Data augmentation"
+            },
+            {
+              "id": "s4-sub2-i14",
+              "label": "Dropout in CNNs"
+            },
+            {
+              "id": "s4-sub2-i15",
+              "label": "Batch normalization"
+            },
+            {
+              "id": "s4-sub2-i16",
+              "label": "Skip connections (ResNet)"
+            },
+            {
+              "id": "s4-sub2-i17",
+              "label": "Depthwise separable convolutions"
+            }
+          ],
+          "id": "s4-sub2"
+        },
+        {
+          "title": "4.3 Recurrent Neural Networks (Weeks 7-8)",
+          "items": [
+            {
+              "id": "s4-sub3-i1",
+              "label": "RNN basics and unrolling"
+            },
+            {
+              "id": "s4-sub3-i2",
+              "label": "LSTM (Long Short-Term Memory)"
+            },
+            {
+              "id": "s4-sub3-i3",
+              "label": "GRU (Gated Recurrent Unit)"
+            },
+            {
+              "id": "s4-sub3-i4",
+              "label": "Sequence-to-sequence models"
+            },
+            {
+              "id": "s4-sub3-i5",
+              "label": "Attention mechanism"
+            },
+            {
+              "id": "s4-sub3-i6",
+              "label": "Bidirectional RNNs"
+            },
+            {
+              "id": "s4-sub3-i7",
+              "label": "Encoder-decoder architecture"
+            },
+            {
+              "id": "s4-sub3-i8",
+              "label": "Vanishing gradient problem"
+            },
+            {
+              "id": "s4-sub3-i9",
+              "label": "Cell state vs hidden state"
+            },
+            {
+              "id": "s4-sub3-i10",
+              "label": "LSTM gates (input, forget, output)"
+            },
+            {
+              "id": "s4-sub3-i11",
+              "label": "Peephole connections"
+            },
+            {
+              "id": "s4-sub3-i12",
+              "label": "Gradient clipping"
+            },
+            {
+              "id": "s4-sub3-i13",
+              "label": "Teacher forcing"
+            },
+            {
+              "id": "s4-sub3-i14",
+              "label": "Beam search for decoding"
+            },
+            {
+              "id": "s4-sub3-i15",
+              "label": "Attention weight visualization"
+            }
+          ],
+          "id": "s4-sub3"
+        },
+        {
+          "title": "4.4 Transformers & Attention (Weeks 9-10)",
+          "items": [
+            {
+              "id": "s4-sub4-i1",
+              "label": "Self-attention mechanism"
+            },
+            {
+              "id": "s4-sub4-i2",
+              "label": "Multi-head attention"
+            },
+            {
+              "id": "s4-sub4-i3",
+              "label": "Positional encoding"
+            },
+            {
+              "id": "s4-sub4-i4",
+              "label": "Transformer architecture"
+            },
+            {
+              "id": "s4-sub4-i5",
+              "label": "Encoder and decoder stacks"
+            },
+            {
+              "id": "s4-sub4-i6",
+              "label": "Vision Transformers (ViT)"
+            },
+            {
+              "id": "s4-sub4-i7",
+              "label": "Attention visualization"
+            },
+            {
+              "id": "s4-sub4-i8",
+              "label": "Query, Key, Value matrices"
+            },
+            {
+              "id": "s4-sub4-i9",
+              "label": "Scaled dot-product attention"
+            },
+            {
+              "id": "s4-sub4-i10",
+              "label": "Attention heads interpretation"
+            },
+            {
+              "id": "s4-sub4-i11",
+              "label": "Layer normalization"
+            },
+            {
+              "id": "s4-sub4-i12",
+              "label": "Feed-forward networks"
+            },
+            {
+              "id": "s4-sub4-i13",
+              "label": "Pre-norm vs post-norm"
+            },
+            {
+              "id": "s4-sub4-i14",
+              "label": "Relative positional encodings"
+            },
+            {
+              "id": "s4-sub4-i15",
+              "label": "Cross-attention"
+            }
+          ],
+          "id": "s4-sub4"
+        },
+        {
+          "title": "4.5 Deep Learning Frameworks (Throughout)",
+          "items": [
+            {
+              "id": "s4-sub5-i1",
+              "label": "TensorFlow/Keras: Model building (Sequential, Functional, Subclassing)"
+            },
+            {
+              "id": "s4-sub5-i2",
+              "label": "TensorFlow/Keras: Layers and activations"
+            },
+            {
+              "id": "s4-sub5-i3",
+              "label": "TensorFlow/Keras: Loss functions and optimizers"
+            },
+            {
+              "id": "s4-sub5-i4",
+              "label": "TensorFlow/Keras: Training and evaluation"
+            },
+            {
+              "id": "s4-sub5-i5",
+              "label": "TensorFlow/Keras: Callbacks and checkpointing"
+            },
+            {
+              "id": "s4-sub5-i6",
+              "label": "TensorFlow/Keras: Data pipeline (tf.data)"
+            },
+            {
+              "id": "s4-sub5-i7",
+              "label": "TensorFlow/Keras: Custom training loops"
+            },
+            {
+              "id": "s4-sub5-i8",
+              "label": "TensorFlow/Keras: Distributed training"
+            },
+            {
+              "id": "s4-sub5-i9",
+              "label": "PyTorch: Tensors and autograd"
+            },
+            {
+              "id": "s4-sub5-i10",
+              "label": "PyTorch: nn.Module for model building"
+            },
+            {
+              "id": "s4-sub5-i11",
+              "label": "PyTorch: Custom training loops"
+            },
+            {
+              "id": "s4-sub5-i12",
+              "label": "PyTorch: DataLoader for batching"
+            },
+            {
+              "id": "s4-sub5-i13",
+              "label": "PyTorch: Device management (GPU)"
+            },
+            {
+              "id": "s4-sub5-i14",
+              "label": "PyTorch: Optimization and schedulers"
+            },
+            {
+              "id": "s4-sub5-i15",
+              "label": "PyTorch: Model saving and loading"
+            },
+            {
+              "id": "s4-sub5-i16",
+              "label": "PyTorch: Distributed training with DDP"
+            }
+          ],
+          "id": "s4-sub5"
+        },
+        {
+          "title": "Phase 4 Milestone Projects",
+          "items": [
+            {
+              "id": "s4-sub6-i1",
+              "label": "Image Classification on ImageNet Subset"
+            },
+            {
+              "id": "s4-sub6-i2",
+              "label": "Time Series Forecasting"
+            },
+            {
+              "id": "s4-sub6-i3",
+              "label": "Generative Model Project (Autoencoder/VAE/GAN)"
+            },
+            {
+              "id": "s4-sub6-i4",
+              "label": "End-to-End Computer Vision"
+            }
+          ],
+          "id": "s4-sub6"
+        }
+      ],
+      "id": "s4"
+    },
+    {
+      "title": "Phase 5: Natural Language Processing (2-3 months)",
+      "subsections": [
+        {
+          "title": "5.1 NLP Fundamentals (Weeks 1-3)",
+          "items": [
+            {
+              "id": "s5-sub1-i1",
+              "label": "Text preprocessing"
+            },
+            {
+              "id": "s5-sub1-i2",
+              "label": "Tokenization"
+            },
+            {
+              "id": "s5-sub1-i3",
+              "label": "Stemming and lemmatization"
+            },
+            {
+              "id": "s5-sub1-i4",
+              "label": "Stop words"
+            },
+            {
+              "id": "s5-sub1-i5",
+              "label": "Regular expressions for NLP"
+            },
+            {
+              "id": "s5-sub1-i6",
+              "label": "Bag-of-words model"
+            },
+            {
+              "id": "s5-sub1-i7",
+              "label": "TF-IDF (Term Frequency-Inverse Document Frequency)"
+            },
+            {
+              "id": "s5-sub1-i8",
+              "label": "Word embeddings basics"
+            },
+            {
+              "id": "s5-sub1-i9",
+              "label": "Unicode and encoding"
+            },
+            {
+              "id": "s5-sub1-i10",
+              "label": "Case normalization"
+            },
+            {
+              "id": "s5-sub1-i11",
+              "label": "Punctuation handling"
+            },
+            {
+              "id": "s5-sub1-i12",
+              "label": "Whitespace handling"
+            },
+            {
+              "id": "s5-sub1-i13",
+              "label": "Compound word splitting"
+            },
+            {
+              "id": "s5-sub1-i14",
+              "label": "Morphological analysis"
+            },
+            {
+              "id": "s5-sub1-i15",
+              "label": "Frequency analysis"
+            },
+            {
+              "id": "s5-sub1-i16",
+              "label": "Zipf's law"
+            }
+          ],
+          "id": "s5-sub1"
+        },
+        {
+          "title": "5.2 Classical NLP (Weeks 4-5)",
+          "items": [
+            {
+              "id": "s5-sub2-i1",
+              "label": "Text classification"
+            },
+            {
+              "id": "s5-sub2-i2",
+              "label": "Sentiment analysis"
+            },
+            {
+              "id": "s5-sub2-i3",
+              "label": "Named Entity Recognition (NER)"
+            },
+            {
+              "id": "s5-sub2-i4",
+              "label": "Part-of-speech tagging"
+            },
+            {
+              "id": "s5-sub2-i5",
+              "label": "Dependency parsing"
+            },
+            {
+              "id": "s5-sub2-i6",
+              "label": "Topic modeling (Latent Dirichlet Allocation)"
+            },
+            {
+              "id": "s5-sub2-i7",
+              "label": "Information extraction"
+            },
+            {
+              "id": "s5-sub2-i8",
+              "label": "Naive Bayes for classification"
+            },
+            {
+              "id": "s5-sub2-i9",
+              "label": "SVM for text"
+            },
+            {
+              "id": "s5-sub2-i10",
+              "label": "Logistic regression baselines"
+            },
+            {
+              "id": "s5-sub2-i11",
+              "label": "CRF for sequence labeling"
+            },
+            {
+              "id": "s5-sub2-i12",
+              "label": "N-gram language models"
+            },
+            {
+              "id": "s5-sub2-i13",
+              "label": "Cosine similarity for text"
+            }
+          ],
+          "id": "s5-sub2"
+        },
+        {
+          "title": "5.3 Word Embeddings (Week 6)",
+          "items": [
+            {
+              "id": "s5-sub3-i1",
+              "label": "Word2Vec (CBOW, Skip-gram)"
+            },
+            {
+              "id": "s5-sub3-i2",
+              "label": "GloVe embeddings"
+            },
+            {
+              "id": "s5-sub3-i3",
+              "label": "FastText"
+            },
+            {
+              "id": "s5-sub3-i4",
+              "label": "Subword information"
+            },
+            {
+              "id": "s5-sub3-i5",
+              "label": "Embedding spaces and properties"
+            },
+            {
+              "id": "s5-sub3-i6",
+              "label": "Word analogy tasks"
+            },
+            {
+              "id": "s5-sub3-i7",
+              "label": "Visualization (t-SNE, UMAP)"
+            },
+            {
+              "id": "s5-sub3-i8",
+              "label": "Negative sampling"
+            },
+            {
+              "id": "s5-sub3-i9",
+              "label": "Hierarchical softmax"
+            },
+            {
+              "id": "s5-sub3-i10",
+              "label": "Learning rate schedules"
+            },
+            {
+              "id": "s5-sub3-i11",
+              "label": "Corpus selection"
+            },
+            {
+              "id": "s5-sub3-i12",
+              "label": "Embedding dimensions"
+            },
+            {
+              "id": "s5-sub3-i13",
+              "label": "Bias in embeddings"
+            },
+            {
+              "id": "s5-sub3-i14",
+              "label": "Context window size"
+            }
+          ],
+          "id": "s5-sub3"
+        },
+        {
+          "title": "5.4 Advanced NLP with Transformers (Weeks 7-9)",
+          "items": [
+            {
+              "id": "s5-sub4-i1",
+              "label": "BERT (Bidirectional Encoder Representations)"
+            },
+            {
+              "id": "s5-sub4-i2",
+              "label": "GPT models"
+            },
+            {
+              "id": "s5-sub4-i3",
+              "label": "T5 and other architectures"
+            },
+            {
+              "id": "s5-sub4-i4",
+              "label": "Fine-tuning transformers"
+            },
+            {
+              "id": "s5-sub4-i5",
+              "label": "Prompt engineering"
+            },
+            {
+              "id": "s5-sub4-i6",
+              "label": "Few-shot learning"
+            },
+            {
+              "id": "s5-sub4-i7",
+              "label": "Zero-shot learning"
+            },
+            {
+              "id": "s5-sub4-i8",
+              "label": "Transfer learning for NLP"
+            },
+            {
+              "id": "s5-sub4-i9",
+              "label": "Tokenization with wordpiece/SentencePiece"
+            },
+            {
+              "id": "s5-sub4-i10",
+              "label": "Token classification"
+            },
+            {
+              "id": "s5-sub4-i11",
+              "label": "Sequence classification"
+            },
+            {
+              "id": "s5-sub4-i12",
+              "label": "Question answering with transformers"
+            },
+            {
+              "id": "s5-sub4-i13",
+              "label": "Named entity recognition with transformers"
+            },
+            {
+              "id": "s5-sub4-i14",
+              "label": "Text generation"
+            },
+            {
+              "id": "s5-sub4-i15",
+              "label": "Machine translation"
+            }
+          ],
+          "id": "s5-sub4"
+        },
+        {
+          "title": "5.5 Hugging Face Ecosystem (Weeks 10-11)",
+          "items": [
+            {
+              "id": "s5-sub5-i1",
+              "label": "Transformers library"
+            },
+            {
+              "id": "s5-sub5-i2",
+              "label": "Pre-trained models (BERT, RoBERTa, DistilBERT, ALBERT)"
+            },
+            {
+              "id": "s5-sub5-i3",
+              "label": "Tokenizers"
+            },
+            {
+              "id": "s5-sub5-i4",
+              "label": "Datasets library"
+            },
+            {
+              "id": "s5-sub5-i5",
+              "label": "Model Hub"
+            },
+            {
+              "id": "s5-sub5-i6",
+              "label": "Fine-tuning pipelines"
+            },
+            {
+              "id": "s5-sub5-i7",
+              "label": "Inference optimization"
+            },
+            {
+              "id": "s5-sub5-i8",
+              "label": "Model deployment"
+            },
+            {
+              "id": "s5-sub5-i9",
+              "label": "AutoModel classes"
+            },
+            {
+              "id": "s5-sub5-i10",
+              "label": "Configuration files"
+            },
+            {
+              "id": "s5-sub5-i11",
+              "label": "Model quantization"
+            },
+            {
+              "id": "s5-sub5-i12",
+              "label": "ONNX conversion"
+            },
+            {
+              "id": "s5-sub5-i13",
+              "label": "Knowledge distillation"
+            },
+            {
+              "id": "s5-sub5-i14",
+              "label": "Model pruning"
+            },
+            {
+              "id": "s5-sub5-i15",
+              "label": "Distributed inference"
+            }
+          ],
+          "id": "s5-sub5"
+        },
+        {
+          "title": "Phase 5 Milestone Projects",
+          "items": [
+            {
+              "id": "s5-sub6-i1",
+              "label": "Sentiment Analysis System (API deployed)"
+            },
+            {
+              "id": "s5-sub6-i2",
+              "label": "Question Answering System"
+            },
+            {
+              "id": "s5-sub6-i3",
+              "label": "Named Entity Recognition Pipeline"
+            },
+            {
+              "id": "s5-sub6-i4",
+              "label": "Text Summarization"
+            }
+          ],
+          "id": "s5-sub6"
+        }
+      ],
+      "id": "s5"
+    },
+    {
+      "title": "Phase 6: Large Language Models & GenAI (3-4 months)",
+      "subsections": [
+        {
+          "title": "6.1 LLM Fundamentals (Weeks 1-2)",
+          "items": [
+            {
+              "id": "s6-sub1-i1",
+              "label": "How LLMs work"
+            },
+            {
+              "id": "s6-sub1-i2",
+              "label": "Transformer architecture deep dive"
+            },
+            {
+              "id": "s6-sub1-i3",
+              "label": "Training process"
+            },
+            {
+              "id": "s6-sub1-i4",
+              "label": "Fine-tuning vs prompting"
+            },
+            {
+              "id": "s6-sub1-i5",
+              "label": "Model parameters and scaling"
+            },
+            {
+              "id": "s6-sub1-i6",
+              "label": "Context window and tokens"
+            },
+            {
+              "id": "s6-sub1-i7",
+              "label": "Inference optimization"
+            },
+            {
+              "id": "s6-sub1-i8",
+              "label": "Pre-training objectives (next token prediction)"
+            },
+            {
+              "id": "s6-sub1-i9",
+              "label": "Instruction tuning"
+            },
+            {
+              "id": "s6-sub1-i10",
+              "label": "Alignment techniques"
+            },
+            {
+              "id": "s6-sub1-i11",
+              "label": "Safety and bias"
+            },
+            {
+              "id": "s6-sub1-i12",
+              "label": "Emergent abilities"
+            },
+            {
+              "id": "s6-sub1-i13",
+              "label": "Scaling laws"
+            },
+            {
+              "id": "s6-sub1-i14",
+              "label": "Model interpretability"
+            }
+          ],
+          "id": "s6-sub1"
+        },
+        {
+          "title": "6.2 Claude API Mastery (Weeks 3-4)",
+          "items": [
+            {
+              "id": "s6-sub2-i1",
+              "label": "Claude API fundamentals"
+            },
+            {
+              "id": "s6-sub2-i2",
+              "label": "Authentication and setup"
+            },
+            {
+              "id": "s6-sub2-i3",
+              "label": "Chat completions"
+            },
+            {
+              "id": "s6-sub2-i4",
+              "label": "Messages API"
+            },
+            {
+              "id": "s6-sub2-i5",
+              "label": "System prompts"
+            },
+            {
+              "id": "s6-sub2-i6",
+              "label": "Role-based interactions"
+            },
+            {
+              "id": "s6-sub2-i7",
+              "label": "Vision capabilities"
+            },
+            {
+              "id": "s6-sub2-i8",
+              "label": "Token counting and management"
+            },
+            {
+              "id": "s6-sub2-i9",
+              "label": "Rate limiting and best practices"
+            },
+            {
+              "id": "s6-sub2-i10",
+              "label": "Prompt engineering for Claude"
+            },
+            {
+              "id": "s6-sub2-i11",
+              "label": "Few-shot prompting"
+            },
+            {
+              "id": "s6-sub2-i12",
+              "label": "Chain-of-thought reasoning"
+            },
+            {
+              "id": "s6-sub2-i13",
+              "label": "Retrieval-augmented generation setup"
+            },
+            {
+              "id": "s6-sub2-i14",
+              "label": "Tool use and function calling"
+            },
+            {
+              "id": "s6-sub2-i15",
+              "label": "Batch API for efficiency"
+            },
+            {
+              "id": "s6-sub2-i16",
+              "label": "Cost optimization"
+            },
+            {
+              "id": "s6-sub2-i17",
+              "label": "Safety and moderation"
+            }
+          ],
+          "id": "s6-sub2"
+        },
+        {
+          "title": "6.3 OpenAI API (Weeks 5-6)",
+          "items": [
+            {
+              "id": "s6-sub3-i1",
+              "label": "GPT models (GPT-4, GPT-3.5)"
+            },
+            {
+              "id": "s6-sub3-i2",
+              "label": "Chat completions"
+            },
+            {
+              "id": "s6-sub3-i3",
+              "label": "Embedding models"
+            },
+            {
+              "id": "s6-sub3-i4",
+              "label": "Fine-tuning with GPT"
+            },
+            {
+              "id": "s6-sub3-i5",
+              "label": "Vision API"
+            },
+            {
+              "id": "s6-sub3-i6",
+              "label": "Function calling"
+            },
+            {
+              "id": "s6-sub3-i7",
+              "label": "Text-to-speech and Speech-to-text"
+            },
+            {
+              "id": "s6-sub3-i8",
+              "label": "DALL-E image generation"
+            },
+            {
+              "id": "s6-sub3-i9",
+              "label": "Temperature and top_p"
+            },
+            {
+              "id": "s6-sub3-i10",
+              "label": "Token limits and management"
+            },
+            {
+              "id": "s6-sub3-i11",
+              "label": "Cost calculation"
+            },
+            {
+              "id": "s6-sub3-i12",
+              "label": "Error handling"
+            },
+            {
+              "id": "s6-sub3-i13",
+              "label": "Streaming responses"
+            },
+            {
+              "id": "s6-sub3-i14",
+              "label": "Function schemas"
+            },
+            {
+              "id": "s6-sub3-i15",
+              "label": "Vision understanding"
+            },
+            {
+              "id": "s6-sub3-i16",
+              "label": "Model deprecation handling"
+            }
+          ],
+          "id": "s6-sub3"
+        },
+        {
+          "title": "6.4 RAG - Retrieval Augmented Generation (Weeks 7-9)",
+          "items": [
+            {
+              "id": "s6-sub4-i1",
+              "label": "RAG architecture and flow"
+            },
+            {
+              "id": "s6-sub4-i2",
+              "label": "Embeddings and vector representations"
+            },
+            {
+              "id": "s6-sub4-i3",
+              "label": "Vector databases (Pinecone, Weaviate, Chroma, Milvus)"
+            },
+            {
+              "id": "s6-sub4-i4",
+              "label": "Semantic search"
+            },
+            {
+              "id": "s6-sub4-i5",
+              "label": "Document chunking strategies"
+            },
+            {
+              "id": "s6-sub4-i6",
+              "label": "Retrieval optimization"
+            },
+            {
+              "id": "s6-sub4-i7",
+              "label": "Reranking and filtering"
+            },
+            {
+              "id": "s6-sub4-i8",
+              "label": "Multi-document QA"
+            },
+            {
+              "id": "s6-sub4-i9",
+              "label": "Context window management"
+            },
+            {
+              "id": "s6-sub4-i10",
+              "label": "Advanced RAG techniques"
+            },
+            {
+              "id": "s6-sub4-i11",
+              "label": "Dense retrievers vs sparse retrievers"
+            },
+            {
+              "id": "s6-sub4-i12",
+              "label": "Hybrid search"
+            },
+            {
+              "id": "s6-sub4-i13",
+              "label": "Similarity metrics (cosine, euclidean)"
+            },
+            {
+              "id": "s6-sub4-i14",
+              "label": "Top-k retrieval"
+            },
+            {
+              "id": "s6-sub4-i15",
+              "label": "Maximal Marginal Relevance (MMR)"
+            },
+            {
+              "id": "s6-sub4-i16",
+              "label": "Query expansion"
+            },
+            {
+              "id": "s6-sub4-i17",
+              "label": "Document metadata filtering"
+            },
+            {
+              "id": "s6-sub4-i18",
+              "label": "Dynamic chunk size selection"
+            },
+            {
+              "id": "s6-sub4-i19",
+              "label": "Parent-child chunk retrieval"
+            }
+          ],
+          "id": "s6-sub4"
+        },
+        {
+          "title": "6.5 LangChain & Agent Systems (Weeks 10-12)",
+          "items": [
+            {
+              "id": "s6-sub5-i1",
+              "label": "LangChain core concepts"
+            },
+            {
+              "id": "s6-sub5-i2",
+              "label": "Chains (SequentialChain, RouteChain, MapReduceChain)"
+            },
+            {
+              "id": "s6-sub5-i3",
+              "label": "Agents and tools"
+            },
+            {
+              "id": "s6-sub5-i4",
+              "label": "Memory management"
+            },
+            {
+              "id": "s6-sub5-i5",
+              "label": "Output parsing"
+            },
+            {
+              "id": "s6-sub5-i6",
+              "label": "Callbacks and debugging"
+            },
+            {
+              "id": "s6-sub5-i7",
+              "label": "Retrieval chains"
+            },
+            {
+              "id": "s6-sub5-i8",
+              "label": "Question answering chains"
+            },
+            {
+              "id": "s6-sub5-i9",
+              "label": "Agent architectures"
+            },
+            {
+              "id": "s6-sub5-i10",
+              "label": "ConversationBufferMemory"
+            },
+            {
+              "id": "s6-sub5-i11",
+              "label": "ConversationSummaryMemory"
+            },
+            {
+              "id": "s6-sub5-i12",
+              "label": "Custom tools definition"
+            },
+            {
+              "id": "s6-sub5-i13",
+              "label": "Tool routing and selection"
+            },
+            {
+              "id": "s6-sub5-i14",
+              "label": "Few-shot prompting for agents"
+            },
+            {
+              "id": "s6-sub5-i15",
+              "label": "ReAct (Reasoning + Acting)"
+            },
+            {
+              "id": "s6-sub5-i16",
+              "label": "Custom chains"
+            },
+            {
+              "id": "s6-sub5-i17",
+              "label": "Error recovery in agents"
+            },
+            {
+              "id": "s6-sub5-i18",
+              "label": "Cost optimization in chains"
+            }
+          ],
+          "id": "s6-sub5"
+        },
+        {
+          "title": "6.6 LangGraph & Advanced Agent Architecture (Weeks 13-14)",
+          "items": [
+            {
+              "id": "s6-sub6-i1",
+              "label": "Graph-based agent architecture"
+            },
+            {
+              "id": "s6-sub6-i2",
+              "label": "State management and persistence"
+            },
+            {
+              "id": "s6-sub6-i3",
+              "label": "Complex workflows"
+            },
+            {
+              "id": "s6-sub6-i4",
+              "label": "Conditional logic and branching"
+            },
+            {
+              "id": "s6-sub6-i5",
+              "label": "Human-in-the-loop integration"
+            },
+            {
+              "id": "s6-sub6-i6",
+              "label": "Streaming and real-time updates"
+            },
+            {
+              "id": "s6-sub6-i7",
+              "label": "Tool routing and decision making"
+            },
+            {
+              "id": "s6-sub6-i8",
+              "label": "Error handling and recovery"
+            },
+            {
+              "id": "s6-sub6-i9",
+              "label": "Multi-agent coordination"
+            },
+            {
+              "id": "s6-sub6-i10",
+              "label": "Node and edge definition"
+            },
+            {
+              "id": "s6-sub6-i11",
+              "label": "State transitions"
+            },
+            {
+              "id": "s6-sub6-i12",
+              "label": "Cyclic workflows"
+            },
+            {
+              "id": "s6-sub6-i13",
+              "label": "Fan-out/fan-in patterns"
+            },
+            {
+              "id": "s6-sub6-i14",
+              "label": "Checkpointing for recovery"
+            },
+            {
+              "id": "s6-sub6-i15",
+              "label": "Visualization of agent flow"
+            },
+            {
+              "id": "s6-sub6-i16",
+              "label": "Logging and debugging"
+            },
+            {
+              "id": "s6-sub6-i17",
+              "label": "Performance monitoring"
+            }
+          ],
+          "id": "s6-sub6"
+        },
+        {
+          "title": "6.7 Agentic AI & CrewAI (Weeks 15-16)",
+          "items": [
+            {
+              "id": "s6-sub7-i1",
+              "label": "Multi-agent systems"
+            },
+            {
+              "id": "s6-sub7-i2",
+              "label": "Agent roles and specialization"
+            },
+            {
+              "id": "s6-sub7-i3",
+              "label": "Task delegation and orchestration"
+            },
+            {
+              "id": "s6-sub7-i4",
+              "label": "Agent communication"
+            },
+            {
+              "id": "s6-sub7-i5",
+              "label": "Collaboration patterns"
+            },
+            {
+              "id": "s6-sub7-i6",
+              "label": "CrewAI framework"
+            },
+            {
+              "id": "s6-sub7-i7",
+              "label": "Performance monitoring"
+            },
+            {
+              "id": "s6-sub7-i8",
+              "label": "Scaling multi-agent systems"
+            },
+            {
+              "id": "s6-sub7-i9",
+              "label": "Real-world agent deployments"
+            },
+            {
+              "id": "s6-sub7-i10",
+              "label": "Agent personality and behavior"
+            },
+            {
+              "id": "s6-sub7-i11",
+              "label": "Tool assignment to agents"
+            },
+            {
+              "id": "s6-sub7-i12",
+              "label": "Task dependencies"
+            },
+            {
+              "id": "s6-sub7-i13",
+              "label": "Result aggregation"
+            },
+            {
+              "id": "s6-sub7-i14",
+              "label": "Conflict resolution"
+            },
+            {
+              "id": "s6-sub7-i15",
+              "label": "Knowledge sharing between agents"
+            },
+            {
+              "id": "s6-sub7-i16",
+              "label": "Hierarchical agent structures"
+            }
+          ],
+          "id": "s6-sub7"
+        },
+        {
+          "title": "6.8 Model Context Protocol (MCP) (Weeks 17-18)",
+          "items": [
+            {
+              "id": "s6-sub8-i1",
+              "label": "MCP protocol and standards"
+            },
+            {
+              "id": "s6-sub8-i2",
+              "label": "MCP server creation"
+            },
+            {
+              "id": "s6-sub8-i3",
+              "label": "Resource definition and management"
+            },
+            {
+              "id": "s6-sub8-i4",
+              "label": "Tool implementation via MCP"
+            },
+            {
+              "id": "s6-sub8-i5",
+              "label": "Client-server communication"
+            },
+            {
+              "id": "s6-sub8-i6",
+              "label": "Integration with LLM applications"
+            },
+            {
+              "id": "s6-sub8-i7",
+              "label": "Error handling and recovery"
+            },
+            {
+              "id": "s6-sub8-i8",
+              "label": "Best practices for MCP"
+            },
+            {
+              "id": "s6-sub8-i9",
+              "label": "Protocol specification"
+            },
+            {
+              "id": "s6-sub8-i10",
+              "label": "JSON-RPC implementation"
+            },
+            {
+              "id": "s6-sub8-i11",
+              "label": "Resource discovery"
+            },
+            {
+              "id": "s6-sub8-i12",
+              "label": "Tool invocation"
+            },
+            {
+              "id": "s6-sub8-i13",
+              "label": "Streaming support"
+            },
+            {
+              "id": "s6-sub8-i14",
+              "label": "Authentication and security"
+            },
+            {
+              "id": "s6-sub8-i15",
+              "label": "Performance optimization"
+            },
+            {
+              "id": "s6-sub8-i16",
+              "label": "Version management"
+            }
+          ],
+          "id": "s6-sub8"
+        },
+        {
+          "title": "6.9 Advanced Prompt Engineering (Throughout)",
+          "items": [
+            {
+              "id": "s6-sub9-i1",
+              "label": "Few-shot learning"
+            },
+            {
+              "id": "s6-sub9-i2",
+              "label": "Zero-shot learning"
+            },
+            {
+              "id": "s6-sub9-i3",
+              "label": "Chain-of-thought prompting"
+            },
+            {
+              "id": "s6-sub9-i4",
+              "label": "Tree-of-thought"
+            },
+            {
+              "id": "s6-sub9-i5",
+              "label": "Self-consistency"
+            },
+            {
+              "id": "s6-sub9-i6",
+              "label": "Prompt instruction tuning"
+            },
+            {
+              "id": "s6-sub9-i7",
+              "label": "Bias and fairness in prompts"
+            },
+            {
+              "id": "s6-sub9-i8",
+              "label": "Testing and evaluation"
+            },
+            {
+              "id": "s6-sub9-i9",
+              "label": "Example selection for few-shot"
+            },
+            {
+              "id": "s6-sub9-i10",
+              "label": "Prompt ordering effects"
+            },
+            {
+              "id": "s6-sub9-i11",
+              "label": "Temperature and randomness"
+            },
+            {
+              "id": "s6-sub9-i12",
+              "label": "Role-based prompting"
+            },
+            {
+              "id": "s6-sub9-i13",
+              "label": "Structured output formats"
+            },
+            {
+              "id": "s6-sub9-i14",
+              "label": "Prompt templates"
+            },
+            {
+              "id": "s6-sub9-i15",
+              "label": "Meta-prompting"
+            },
+            {
+              "id": "s6-sub9-i16",
+              "label": "Adversarial prompting"
+            }
+          ],
+          "id": "s6-sub9"
+        },
+        {
+          "title": "Phase 6 Milestone Projects",
+          "items": [
+            {
+              "id": "s6-sub10-i1",
+              "label": "Intelligent Document Assistant (RAG-based)"
+            },
+            {
+              "id": "s6-sub10-i2",
+              "label": "Autonomous Research Assistant (Multi-agent)"
+            },
+            {
+              "id": "s6-sub10-i3",
+              "label": "Customer Intelligence Platform"
+            },
+            {
+              "id": "s6-sub10-i4",
+              "label": "Code Assistant & Debugger"
+            }
+          ],
+          "id": "s6-sub10"
+        }
+      ],
+      "id": "s6"
+    },
+    {
+      "title": "Phase 7: Production & Deployment (2-3 months)",
+      "subsections": [
+        {
+          "title": "7.1 FastAPI for APIs (Weeks 1-3)",
+          "items": [
+            {
+              "id": "s7-sub1-i1",
+              "label": "FastAPI basics and routing"
+            },
+            {
+              "id": "s7-sub1-i2",
+              "label": "Request and response models (Pydantic)"
+            },
+            {
+              "id": "s7-sub1-i3",
+              "label": "Dependency injection"
+            },
+            {
+              "id": "s7-sub1-i4",
+              "label": "Async operations"
+            },
+            {
+              "id": "s7-sub1-i5",
+              "label": "Authentication and authorization"
+            },
+            {
+              "id": "s7-sub1-i6",
+              "label": "File uploads and downloads"
+            },
+            {
+              "id": "s7-sub1-i7",
+              "label": "WebSockets and streaming"
+            },
+            {
+              "id": "s7-sub1-i8",
+              "label": "OpenAPI documentation"
+            },
+            {
+              "id": "s7-sub1-i9",
+              "label": "Error handling and validation"
+            },
+            {
+              "id": "s7-sub1-i10",
+              "label": "Testing APIs"
+            },
+            {
+              "id": "s7-sub1-i11",
+              "label": "Path parameters and query parameters"
+            },
+            {
+              "id": "s7-sub1-i12",
+              "label": "Request body validation"
+            },
+            {
+              "id": "s7-sub1-i13",
+              "label": "Custom validation"
+            },
+            {
+              "id": "s7-sub1-i14",
+              "label": "CORS handling"
+            },
+            {
+              "id": "s7-sub1-i15",
+              "label": "Middleware implementation"
+            },
+            {
+              "id": "s7-sub1-i16",
+              "label": "Rate limiting"
+            },
+            {
+              "id": "s7-sub1-i17",
+              "label": "Background tasks"
+            },
+            {
+              "id": "s7-sub1-i18",
+              "label": "Server-sent events (SSE)"
+            },
+            {
+              "id": "s7-sub1-i19",
+              "label": "API versioning"
+            }
+          ],
+          "id": "s7-sub1"
+        },
+        {
+          "title": "7.2 MLOps & Model Management (Weeks 4-5)",
+          "items": [
+            {
+              "id": "s7-sub2-i1",
+              "label": "MLflow experiment tracking"
+            },
+            {
+              "id": "s7-sub2-i2",
+              "label": "Model registry and versioning"
+            },
+            {
+              "id": "s7-sub2-i3",
+              "label": "Pipeline management"
+            },
+            {
+              "id": "s7-sub2-i4",
+              "label": "Experiment reproducibility"
+            },
+            {
+              "id": "s7-sub2-i5",
+              "label": "A/B testing setup"
+            },
+            {
+              "id": "s7-sub2-i6",
+              "label": "Model evaluation frameworks"
+            },
+            {
+              "id": "s7-sub2-i7",
+              "label": "Feature stores"
+            },
+            {
+              "id": "s7-sub2-i8",
+              "label": "Model monitoring"
+            },
+            {
+              "id": "s7-sub2-i9",
+              "label": "Metrics and parameters logging"
+            },
+            {
+              "id": "s7-sub2-i10",
+              "label": "Artifact storage"
+            },
+            {
+              "id": "s7-sub2-i11",
+              "label": "Model lifecycle management"
+            },
+            {
+              "id": "s7-sub2-i12",
+              "label": "Deployment tracking"
+            },
+            {
+              "id": "s7-sub2-i13",
+              "label": "Environment reproducibility"
+            },
+            {
+              "id": "s7-sub2-i14",
+              "label": "Conda/pip environment specs"
+            },
+            {
+              "id": "s7-sub2-i15",
+              "label": "Docker for reproducibility"
+            }
+          ],
+          "id": "s7-sub2"
+        },
+        {
+          "title": "7.3 Docker & Containerization (Weeks 6-7)",
+          "items": [
+            {
+              "id": "s7-sub3-i1",
+              "label": "Docker basics (images, containers)"
+            },
+            {
+              "id": "s7-sub3-i2",
+              "label": "Dockerfile creation and optimization"
+            },
+            {
+              "id": "s7-sub3-i3",
+              "label": "Docker Compose for multi-container apps"
+            },
+            {
+              "id": "s7-sub3-i4",
+              "label": "Container registry (Docker Hub)"
+            },
+            {
+              "id": "s7-sub3-i5",
+              "label": "Container optimization"
+            },
+            {
+              "id": "s7-sub3-i6",
+              "label": "Networking in Docker"
+            },
+            {
+              "id": "s7-sub3-i7",
+              "label": "Volume management"
+            },
+            {
+              "id": "s7-sub3-i8",
+              "label": "Environment variables and secrets"
+            },
+            {
+              "id": "s7-sub3-i9",
+              "label": "Layer optimization"
+            },
+            {
+              "id": "s7-sub3-i10",
+              "label": "Multi-stage builds"
+            },
+            {
+              "id": "s7-sub3-i11",
+              "label": "Security best practices"
+            },
+            {
+              "id": "s7-sub3-i12",
+              "label": "Resource limits"
+            },
+            {
+              "id": "s7-sub3-i13",
+              "label": "Logging in containers"
+            },
+            {
+              "id": "s7-sub3-i14",
+              "label": "Health checks"
+            },
+            {
+              "id": "s7-sub3-i15",
+              "label": "Orchestration basics"
+            }
+          ],
+          "id": "s7-sub3"
+        },
+        {
+          "title": "7.4 Cloud Deployment (Weeks 8-9)",
+          "items": [
+            {
+              "id": "s7-sub4-i1",
+              "label": "AWS: Amazon SageMaker for ML"
+            },
+            {
+              "id": "s7-sub4-i2",
+              "label": "AWS: Lambda for serverless"
+            },
+            {
+              "id": "s7-sub4-i3",
+              "label": "AWS: EC2 for compute"
+            },
+            {
+              "id": "s7-sub4-i4",
+              "label": "AWS: S3 for storage"
+            },
+            {
+              "id": "s7-sub4-i5",
+              "label": "AWS: RDS for databases"
+            },
+            {
+              "id": "s7-sub4-i6",
+              "label": "AWS: CloudWatch for monitoring"
+            },
+            {
+              "id": "s7-sub4-i7",
+              "label": "AWS: API Gateway"
+            },
+            {
+              "id": "s7-sub4-i8",
+              "label": "AWS: Elastic Container Registry (ECR)"
+            },
+            {
+              "id": "s7-sub4-i9",
+              "label": "GCP: Vertex AI"
+            },
+            {
+              "id": "s7-sub4-i10",
+              "label": "GCP: Cloud Run for serverless"
+            },
+            {
+              "id": "s7-sub4-i11",
+              "label": "GCP: Compute Engine"
+            },
+            {
+              "id": "s7-sub4-i12",
+              "label": "GCP: Cloud Storage"
+            },
+            {
+              "id": "s7-sub4-i13",
+              "label": "GCP: Cloud SQL"
+            },
+            {
+              "id": "s7-sub4-i14",
+              "label": "GCP: BigQuery"
+            },
+            {
+              "id": "s7-sub4-i15",
+              "label": "GCP: Cloud Monitoring"
+            },
+            {
+              "id": "s7-sub4-i16",
+              "label": "Azure: Azure ML"
+            },
+            {
+              "id": "s7-sub4-i17",
+              "label": "Azure: App Service"
+            },
+            {
+              "id": "s7-sub4-i18",
+              "label": "Azure: Container Instances"
+            },
+            {
+              "id": "s7-sub4-i19",
+              "label": "Azure: Cosmos DB"
+            },
+            {
+              "id": "s7-sub4-i20",
+              "label": "Azure: Azure Monitor"
+            },
+            {
+              "id": "s7-sub4-i21",
+              "label": "Azure: Azure Functions"
+            }
+          ],
+          "id": "s7-sub4"
+        },
+        {
+          "title": "7.5 Monitoring & Observability (Week 10)",
+          "items": [
+            {
+              "id": "s7-sub5-i1",
+              "label": "Application monitoring"
+            },
+            {
+              "id": "s7-sub5-i2",
+              "label": "Model performance monitoring"
+            },
+            {
+              "id": "s7-sub5-i3",
+              "label": "Data drift detection"
+            },
+            {
+              "id": "s7-sub5-i4",
+              "label": "Prediction drift"
+            },
+            {
+              "id": "s7-sub5-i5",
+              "label": "System metrics"
+            },
+            {
+              "id": "s7-sub5-i6",
+              "label": "Logging and log aggregation"
+            },
+            {
+              "id": "s7-sub5-i7",
+              "label": "Alerting systems"
+            },
+            {
+              "id": "s7-sub5-i8",
+              "label": "Dashboards"
+            },
+            {
+              "id": "s7-sub5-i9",
+              "label": "Prometheus metrics"
+            },
+            {
+              "id": "s7-sub5-i10",
+              "label": "Grafana dashboards"
+            },
+            {
+              "id": "s7-sub5-i11",
+              "label": "ELK stack"
+            },
+            {
+              "id": "s7-sub5-i12",
+              "label": "Datadog"
+            },
+            {
+              "id": "s7-sub5-i13",
+              "label": "New Relic"
+            },
+            {
+              "id": "s7-sub5-i14",
+              "label": "CloudWatch"
+            },
+            {
+              "id": "s7-sub5-i15",
+              "label": "Custom metrics"
+            },
+            {
+              "id": "s7-sub5-i16",
+              "label": "SLA/SLO tracking"
+            }
+          ],
+          "id": "s7-sub5"
+        },
+        {
+          "title": "7.6 CI/CD Pipelines (Weeks 11-12)",
+          "items": [
+            {
+              "id": "s7-sub6-i1",
+              "label": "GitHub Actions"
+            },
+            {
+              "id": "s7-sub6-i2",
+              "label": "Jenkins basics"
+            },
+            {
+              "id": "s7-sub6-i3",
+              "label": "GitLab CI"
+            },
+            {
+              "id": "s7-sub6-i4",
+              "label": "Testing (unit, integration)"
+            },
+            {
+              "id": "s7-sub6-i5",
+              "label": "Automated testing"
+            },
+            {
+              "id": "s7-sub6-i6",
+              "label": "Build automation"
+            },
+            {
+              "id": "s7-sub6-i7",
+              "label": "Deployment automation"
+            },
+            {
+              "id": "s7-sub6-i8",
+              "label": "Rollback strategies"
+            },
+            {
+              "id": "s7-sub6-i9",
+              "label": "Test coverage"
+            },
+            {
+              "id": "s7-sub6-i10",
+              "label": "Linting and code quality"
+            },
+            {
+              "id": "s7-sub6-i11",
+              "label": "Docker build automation"
+            },
+            {
+              "id": "s7-sub6-i12",
+              "label": "Secrets management"
+            },
+            {
+              "id": "s7-sub6-i13",
+              "label": "Environment-specific deployments"
+            },
+            {
+              "id": "s7-sub6-i14",
+              "label": "Canary deployments"
+            },
+            {
+              "id": "s7-sub6-i15",
+              "label": "Blue-green deployments"
+            }
+          ],
+          "id": "s7-sub6"
+        },
+        {
+          "title": "Phase 7 Milestone Projects",
+          "items": [
+            {
+              "id": "s7-sub7-i1",
+              "label": "End-to-End ML System (training + API + monitoring + CI/CD)"
+            },
+            {
+              "id": "s7-sub7-i2",
+              "label": "Multi-Model Production System"
+            },
+            {
+              "id": "s7-sub7-i3",
+              "label": "Real-time Prediction Service"
+            }
+          ],
+          "id": "s7-sub7"
+        }
+      ],
+      "id": "s7"
+    },
+    {
+      "title": "Phase 8: Specialized Skills (Ongoing)",
+      "subsections": [
+        {
+          "title": "8.1 Computer Vision (Optional, 6-8 weeks)",
+          "items": [
+            {
+              "id": "s8-sub1-i1",
+              "label": "Image processing fundamentals"
+            },
+            {
+              "id": "s8-sub1-i2",
+              "label": "OpenCV library"
+            },
+            {
+              "id": "s8-sub1-i3",
+              "label": "CNN architectures (ResNet, EfficientNet, DenseNet)"
+            },
+            {
+              "id": "s8-sub1-i4",
+              "label": "Object detection (YOLO, Faster R-CNN, RetinaNet)"
+            },
+            {
+              "id": "s8-sub1-i5",
+              "label": "Instance segmentation (Mask R-CNN)"
+            },
+            {
+              "id": "s8-sub1-i6",
+              "label": "Semantic segmentation"
+            },
+            {
+              "id": "s8-sub1-i7",
+              "label": "Pose estimation"
+            },
+            {
+              "id": "s8-sub1-i8",
+              "label": "Face recognition"
+            }
+          ],
+          "id": "s8-sub1"
+        },
+        {
+          "title": "8.2 Time Series & Forecasting (4-6 weeks)",
+          "items": [
+            {
+              "id": "s8-sub2-i1",
+              "label": "Time series fundamentals"
+            },
+            {
+              "id": "s8-sub2-i2",
+              "label": "ARIMA and SARIMA models"
+            },
+            {
+              "id": "s8-sub2-i3",
+              "label": "Exponential smoothing"
+            },
+            {
+              "id": "s8-sub2-i4",
+              "label": "Prophet for forecasting"
+            },
+            {
+              "id": "s8-sub2-i5",
+              "label": "LSTM for time series"
+            },
+            {
+              "id": "s8-sub2-i6",
+              "label": "Transformer-based time series"
+            },
+            {
+              "id": "s8-sub2-i7",
+              "label": "Anomaly detection"
+            },
+            {
+              "id": "s8-sub2-i8",
+              "label": "Multi-step forecasting"
+            }
+          ],
+          "id": "s8-sub2"
+        },
+        {
+          "title": "8.3 Reinforcement Learning (Optional, 6-8 weeks)",
+          "items": [
+            {
+              "id": "s8-sub3-i1",
+              "label": "RL fundamentals"
+            },
+            {
+              "id": "s8-sub3-i2",
+              "label": "Markov Decision Process (MDP)"
+            },
+            {
+              "id": "s8-sub3-i3",
+              "label": "Q-Learning"
+            },
+            {
+              "id": "s8-sub3-i4",
+              "label": "Policy Gradients"
+            },
+            {
+              "id": "s8-sub3-i5",
+              "label": "Deep Q-Networks (DQN)"
+            },
+            {
+              "id": "s8-sub3-i6",
+              "label": "Actor-Critic methods"
+            },
+            {
+              "id": "s8-sub3-i7",
+              "label": "Multi-armed bandits"
+            },
+            {
+              "id": "s8-sub3-i8",
+              "label": "Applications"
+            }
+          ],
+          "id": "s8-sub3"
+        },
+        {
+          "title": "8.4 Fine-tuning & Parameter-Efficient Techniques (4-6 weeks)",
+          "items": [
+            {
+              "id": "s8-sub4-i1",
+              "label": "LoRA (Low-Rank Adaptation)"
+            },
+            {
+              "id": "s8-sub4-i2",
+              "label": "QLoRA (Quantized LoRA)"
+            },
+            {
+              "id": "s8-sub4-i3",
+              "label": "Prefix tuning"
+            },
+            {
+              "id": "s8-sub4-i4",
+              "label": "Adapter modules"
+            },
+            {
+              "id": "s8-sub4-i5",
+              "label": "BitFit"
+            },
+            {
+              "id": "s8-sub4-i6",
+              "label": "Prompt tuning"
+            },
+            {
+              "id": "s8-sub4-i7",
+              "label": "Model compression"
+            },
+            {
+              "id": "s8-sub4-i8",
+              "label": "Quantization and pruning"
+            }
+          ],
+          "id": "s8-sub4"
+        }
+      ],
+      "id": "s8"
+    },
+    {
+      "title": "Phase 9: Portfolio & Projects (Ongoing)",
+      "subsections": [
+        {
+          "title": "Tier 1: Foundation Projects",
+          "items": [
+            {
+              "id": "s9-sub1-i1",
+              "label": "Iris Flower Classification"
+            },
+            {
+              "id": "s9-sub1-i2",
+              "label": "Handwritten Digit Recognition (MNIST)"
+            },
+            {
+              "id": "s9-sub1-i3",
+              "label": "Movie Recommendation System"
+            },
+            {
+              "id": "s9-sub1-i4",
+              "label": "Stock Price Prediction"
+            },
+            {
+              "id": "s9-sub1-i5",
+              "label": "House Price Prediction"
+            }
+          ],
+          "id": "s9-sub1"
+        },
+        {
+          "title": "Tier 2: Intermediate Projects",
+          "items": [
+            {
+              "id": "s9-sub2-i1",
+              "label": "Sentiment Analysis with Transformers (FastAPI deployed)"
+            },
+            {
+              "id": "s9-sub2-i2",
+              "label": "Customer Churn Prediction"
+            },
+            {
+              "id": "s9-sub2-i3",
+              "label": "Credit Card Fraud Detection"
+            },
+            {
+              "id": "s9-sub2-i4",
+              "label": "Disease/Diagnosis Prediction"
+            },
+            {
+              "id": "s9-sub2-i5",
+              "label": "Resume Parser & Matcher"
+            },
+            {
+              "id": "s9-sub2-i6",
+              "label": "Email Spam Detection"
+            }
+          ],
+          "id": "s9-sub2"
+        },
+        {
+          "title": "Tier 3: Advanced Projects",
+          "items": [
+            {
+              "id": "s9-sub3-i1",
+              "label": "End-to-End Document QA System"
+            },
+            {
+              "id": "s9-sub3-i2",
+              "label": "Multi-Agent Research Assistant"
+            },
+            {
+              "id": "s9-sub3-i3",
+              "label": "Autonomous Data Analysis System"
+            },
+            {
+              "id": "s9-sub3-i4",
+              "label": "Real-time Object Detection System"
+            },
+            {
+              "id": "s9-sub3-i5",
+              "label": "Fine-tuned Domain-Specific LLM"
+            },
+            {
+              "id": "s9-sub3-i6",
+              "label": "Complete E-commerce Recommendation Engine"
+            }
+          ],
+          "id": "s9-sub3"
+        },
+        {
+          "title": "Portfolio Standards",
+          "items": [
+            {
+              "id": "s9-sub4-i1",
+              "label": "Write README.md for every project"
+            },
+            {
+              "id": "s9-sub4-i2",
+              "label": "Requirements.txt or environment.yml for all projects"
+            },
+            {
+              "id": "s9-sub4-i3",
+              "label": "Clean, readable, commented code"
+            },
+            {
+              "id": "s9-sub4-i4",
+              "label": "Metrics and baseline comparisons documented"
+            },
+            {
+              "id": "s9-sub4-i5",
+              "label": "Reproducibility ensured (random seeds, data instructions)"
+            },
+            {
+              "id": "s9-sub4-i6",
+              "label": "Blog post written for each project"
+            },
+            {
+              "id": "s9-sub4-i7",
+              "label": "Demo deployed for each project"
+            },
+            {
+              "id": "s9-sub4-i8",
+              "label": "Portfolio website live"
+            }
+          ],
+          "id": "s9-sub4"
+        }
+      ],
+      "id": "s9"
+    },
+    {
+      "title": "Phase 10: Career & Soft Skills (Ongoing)",
+      "subsections": [
+        {
+          "title": "10.1 Networking & Personal Branding",
+          "items": [
+            {
+              "id": "s10-sub1-i1",
+              "label": "Set up professional LinkedIn profile"
+            },
+            {
+              "id": "s10-sub1-i2",
+              "label": "Post weekly content on LinkedIn"
+            },
+            {
+              "id": "s10-sub1-i3",
+              "label": "Maintain active GitHub with quality projects"
+            },
+            {
+              "id": "s10-sub1-i4",
+              "label": "Start writing on Medium"
+            },
+            {
+              "id": "s10-sub1-i5",
+              "label": "Join AI/ML communities (Discord, Reddit)"
+            },
+            {
+              "id": "s10-sub1-i6",
+              "label": "Contribute to open source projects"
+            }
+          ],
+          "id": "s10-sub1"
+        },
+        {
+          "title": "10.2 Interview Preparation",
+          "items": [
+            {
+              "id": "s10-sub2-i1",
+              "label": "Coding interviews: Data structures & algorithms (LeetCode)"
+            },
+            {
+              "id": "s10-sub2-i2",
+              "label": "Coding interviews: System design"
+            },
+            {
+              "id": "s10-sub2-i3",
+              "label": "Coding interviews: SQL optimization"
+            },
+            {
+              "id": "s10-sub2-i4",
+              "label": "ML/AI interviews: Model selection for problems"
+            },
+            {
+              "id": "s10-sub2-i5",
+              "label": "ML/AI interviews: Feature engineering approach"
+            },
+            {
+              "id": "s10-sub2-i6",
+              "label": "ML/AI interviews: Trade-offs in algorithms"
+            },
+            {
+              "id": "s10-sub2-i7",
+              "label": "ML/AI interviews: Production considerations"
+            },
+            {
+              "id": "s10-sub2-i8",
+              "label": "System design interviews: ML system design"
+            },
+            {
+              "id": "s10-sub2-i9",
+              "label": "System design interviews: Scalability and reliability"
+            },
+            {
+              "id": "s10-sub2-i10",
+              "label": "Behavioral interviews: STAR method practice"
+            },
+            {
+              "id": "s10-sub2-i11",
+              "label": "Behavioral interviews: Project stories prepared"
+            }
+          ],
+          "id": "s10-sub2"
+        },
+        {
+          "title": "10.3 Job Search Strategy",
+          "items": [
+            {
+              "id": "s10-sub3-i1",
+              "label": "Months 1-12: Complete phases 1-4, build 5-6 projects"
+            },
+            {
+              "id": "s10-sub3-i2",
+              "label": "Months 12-18: Complete phases 5-7, start freelancing"
+            },
+            {
+              "id": "s10-sub3-i3",
+              "label": "Months 18-24: Polish portfolio, active job hunting"
+            },
+            {
+              "id": "s10-sub3-i4",
+              "label": "Months 24+: Senior roles and specialization"
+            }
+          ],
+          "id": "s10-sub3"
+        },
+        {
+          "title": "10.4 Where to Find Jobs",
+          "items": [
+            {
+              "id": "s10-sub4-i1",
+              "label": "LinkedIn Jobs"
+            },
+            {
+              "id": "s10-sub4-i2",
+              "label": "AngelList (startups)"
+            },
+            {
+              "id": "s10-sub4-i3",
+              "label": "We Work Remotely"
+            },
+            {
+              "id": "s10-sub4-i4",
+              "label": "Remote.co"
+            },
+            {
+              "id": "s10-sub4-i5",
+              "label": "FlexJobs"
+            },
+            {
+              "id": "s10-sub4-i6",
+              "label": "Upwork/Fiverr (freelance)"
+            },
+            {
+              "id": "s10-sub4-i7",
+              "label": "Kaggle competitions"
+            },
+            {
+              "id": "s10-sub4-i8",
+              "label": "GitHub jobs"
+            }
+          ],
+          "id": "s10-sub4"
+        },
+        {
+          "title": "10.5 Continuous Learning",
+          "items": [
+            {
+              "id": "s10-sub5-i1",
+              "label": "Follow Papers With Code"
+            },
+            {
+              "id": "s10-sub5-i2",
+              "label": "Read Arxiv.org research papers"
+            },
+            {
+              "id": "s10-sub5-i3",
+              "label": "Stay active on Twitter/X AI communities"
+            },
+            {
+              "id": "s10-sub5-i4",
+              "label": "Follow Reddit r/MachineLearning"
+            },
+            {
+              "id": "s10-sub5-i5",
+              "label": "Subscribe to AI newsletters"
+            },
+            {
+              "id": "s10-sub5-i6",
+              "label": "Attend hackathons and conferences"
+            },
+            {
+              "id": "s10-sub5-i7",
+              "label": "Practice quarterly portfolio review"
+            }
+          ],
+          "id": "s10-sub5"
+        }
+      ],
+      "id": "s10"
+    }
+  ]
+}

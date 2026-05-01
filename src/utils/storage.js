@@ -1,3 +1,5 @@
+import aiRoadmapData from '../data/aiRoadmap.json';
+
 export const getActiveRoadmapId = () => {
   return localStorage.getItem('roafy-active-id');
 };
@@ -9,7 +11,18 @@ export const setActiveRoadmapId = (id) => {
 
 export const getAllRoadmaps = () => {
   const data = localStorage.getItem('roafy-roadmaps');
-  return data ? JSON.parse(data) : {}; 
+  let all = data ? JSON.parse(data) : {};
+  
+  // Always include the default AI roadmap if it's not present
+  const defaultId = 'default-ai-roadmap';
+  if (!all[defaultId]) {
+    all[defaultId] = {
+      roadmap: aiRoadmapData,
+      progress: {}
+    };
+  }
+  
+  return all;
 };
 
 export const saveRoadmapData = (id, roadmap, progress) => {
@@ -32,8 +45,16 @@ export const migrateOldData = () => {
 
 export const getRoadmap = () => {
   migrateOldData();
-  const activeId = getActiveRoadmapId();
-  if (!activeId) return null;
+  let activeId = getActiveRoadmapId();
+  if (!activeId) {
+    const all = getAllRoadmaps();
+    if (Object.keys(all).length > 0) {
+      activeId = Object.keys(all)[0];
+      setActiveRoadmapId(activeId);
+    } else {
+      return null;
+    }
+  }
   const all = getAllRoadmaps();
   return all[activeId]?.roadmap || null;
 };
