@@ -81,7 +81,7 @@ const Header = ({ roadmap, progress, onManualSave, onEdit, isEditing, roadmapsLi
     }
   }
 
-  const percentage = totalItems === 0 ? 0 : Math.round((doneItems / totalItems) * 100);
+  const percentage = totalItems === 0 ? 0 : (doneItems / totalItems) * 100;
   const remainingItems = totalItems - doneItems - inProgressItems;
 
   return (

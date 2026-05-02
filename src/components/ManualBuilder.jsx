@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './ManualBuilder.css';
+import { ChevronRight } from 'lucide-react';
 
 const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
   const [history, setHistory] = useState([]);
@@ -187,16 +188,111 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
     updateState({ ...roadmap, sections: newSections });
   };
 
+  const [openDescs, setOpenDescs] = useState({});
+  const toggleDesc = (id) => setOpenDescs(p => ({...p, [id]: !p[id]}));
+
+  const updateRootDesc = (value) => updateState({ ...roadmap, description: value });
+  
+  const updateSectionDesc = (sIdx, value) => {
+    const newSections = [...roadmap.sections];
+    newSections[sIdx] = { ...newSections[sIdx], description: value };
+    updateState({ ...roadmap, sections: newSections });
+  };
+
+  const updateSubsectionDesc = (sIdx, ssIdx, value) => {
+    const newSections = [...roadmap.sections];
+    const section = { ...newSections[sIdx] };
+    const subsections = [...(section.subsections || [])];
+    subsections[ssIdx] = { ...subsections[ssIdx], description: value };
+    section.subsections = subsections;
+    newSections[sIdx] = section;
+    updateState({ ...roadmap, sections: newSections });
+  };
+
+  const updateRootItemDesc = (iIdx, value) => {
+    const newItems = [...(roadmap.items || [])];
+    newItems[iIdx] = { ...newItems[iIdx], description: value };
+    updateState({ ...roadmap, items: newItems });
+  };
+
+  const updateSectionItemDesc = (sIdx, iIdx, value) => {
+    const newSections = [...roadmap.sections];
+    const section = { ...newSections[sIdx] };
+    const items = [...(section.items || [])];
+    items[iIdx] = { ...items[iIdx], description: value };
+    section.items = items;
+    newSections[sIdx] = section;
+    updateState({ ...roadmap, sections: newSections });
+  };
+
+  const updateSubsectionItemDesc = (sIdx, ssIdx, iIdx, value) => {
+    const newSections = [...roadmap.sections];
+    const section = { ...newSections[sIdx] };
+    const subsections = [...(section.subsections || [])];
+    const subsection = { ...subsections[ssIdx] };
+    const items = [...(subsection.items || [])];
+    items[iIdx] = { ...items[iIdx], description: value };
+    subsection.items = items;
+    subsections[ssIdx] = subsection;
+    section.subsections = subsections;
+    newSections[sIdx] = section;
+    updateState({ ...roadmap, sections: newSections });
+  };
+
+  const [draggedItem, setDraggedItem] = useState(null);
+  const handleDragStart = (e, path) => { setDraggedItem(path); e.stopPropagation(); };
+  const handleDragOver = (e) => { e.preventDefault(); };
+  const handleDrop = (e, targetPath) => {
+    e.stopPropagation();
+    if (!draggedItem) return;
+    if (draggedItem.type === targetPath.type) {
+      if (draggedItem.type === 'root') {
+        const newItems = [...roadmap.items];
+        const [moved] = newItems.splice(draggedItem.iIdx, 1);
+        newItems.splice(targetPath.iIdx, 0, moved);
+        updateState({ ...roadmap, items: newItems });
+      } else if (draggedItem.type === 'section' && draggedItem.sIdx === targetPath.sIdx) {
+        const newSections = [...roadmap.sections];
+        const section = { ...newSections[draggedItem.sIdx] };
+        const newItems = [...section.items];
+        const [moved] = newItems.splice(draggedItem.iIdx, 1);
+        newItems.splice(targetPath.iIdx, 0, moved);
+        section.items = newItems;
+        newSections[draggedItem.sIdx] = section;
+        updateState({ ...roadmap, sections: newSections });
+      } else if (draggedItem.type === 'subsection' && draggedItem.sIdx === targetPath.sIdx && draggedItem.ssIdx === targetPath.ssIdx) {
+        const newSections = [...roadmap.sections];
+        const section = { ...newSections[draggedItem.sIdx] };
+        const newSub = [...section.subsections];
+        const sub = { ...newSub[draggedItem.ssIdx] };
+        const newItems = [...sub.items];
+        const [moved] = newItems.splice(draggedItem.iIdx, 1);
+        newItems.splice(targetPath.iIdx, 0, moved);
+        sub.items = newItems;
+        newSub[draggedItem.ssIdx] = sub;
+        section.subsections = newSub;
+        newSections[draggedItem.sIdx] = section;
+        updateState({ ...roadmap, sections: newSections });
+      }
+    }
+    setDraggedItem(null);
+  };
+
   return (
     <div className="manual-builder fade-in">
       <div className="mb-header">
-        <input 
-          className="mb-title-input" 
-          value={roadmap.title} 
-          onChange={e => updateState({ ...roadmap, title: e.target.value })} 
-          placeholder="Roadmap Title"
-        />
+        <div className="auto-input-wrapper" data-value={roadmap.title || "Roadmap Title"} style={{ flex: 1, minWidth: 0, marginRight: '16px' }}>
+          <input 
+            className="mb-title-input" 
+            value={roadmap.title} 
+            onChange={e => updateState({ ...roadmap, title: e.target.value })} 
+            placeholder="Roadmap Title"
+          />
+        </div>
         <div className="mb-header-actions">
+          <button className="mb-text-btn" onClick={() => toggleDesc('roadmap')}>
+            {openDescs['roadmap'] ? '- DESC' : '+ DESC'}
+          </button>
           <button 
             className="mb-undo-btn"
             onClick={undo} 
@@ -219,26 +315,50 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
               {saveText}
             </button>
           )}
-          <button className="mb-add-item-btn" style={{background:'rgba(52,211,153,0.1)', color:'#34d399', border:'1px solid rgba(52,211,153,0.2)'}} onClick={addRootItem}>+ ADD ITEM</button>
-          <button className="mb-add-section-btn" onClick={addSection}>+ ADD SECTION</button>
+          <button className="mb-add-item-btn" onClick={addRootItem}>+ ITEM</button>
+          <button className="mb-add-section-btn" onClick={addSection}>+ SECTION</button>
         </div>
       </div>
+
+      {openDescs['roadmap'] && (
+        <div className="mb-desc-container" style={{padding: '0 0 16px 0'}}>
+          <textarea className="mb-desc-textarea" placeholder="Add roadmap description..." value={roadmap.description || ''} onChange={e => updateRootDesc(e.target.value)} />
+        </div>
+      )}
 
       <div className="mb-sections">
         {roadmap.items?.length > 0 && (
           <div className="mb-direct-items" style={{marginBottom: '16px', background: '#16161a', padding: '16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)'}}>
             <div style={{color:'rgba(255,255,255,0.4)', fontSize:'12px', fontWeight:600, marginBottom:'12px', textTransform:'uppercase'}}>Roadmap Items</div>
             {roadmap.items.map((item, iIdx) => (
-              <div key={item.id} className="mb-item-row">
-                <span className="mb-item-number">{iIdx + 1}.</span>
-                <input 
-                  className="mb-item-input" 
-                  value={item.label} 
-                  onChange={e => updateRootItemLabel(iIdx, e.target.value)} 
-                  placeholder="Root item label"
-                />
-                <button className="mb-item-delete" onClick={() => deleteRootItem(iIdx)}>✕</button>
-              </div>
+              <React.Fragment key={item.id}>
+                <div 
+                  className="mb-item-row"
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, { type: 'root', iIdx })}
+                  onDragOver={handleDragOver}
+                  onDrop={(e) => handleDrop(e, { type: 'root', iIdx })}
+                >
+                  <span className="mb-item-number" style={{cursor: 'grab'}}>{iIdx + 1}.</span>
+                  <div className="auto-input-wrapper" data-value={item.label || "Root item label"} style={{ flex: 1, minWidth: 0 }}>
+                    <input 
+                      className="mb-item-input" 
+                      value={item.label} 
+                      onChange={e => updateRootItemLabel(iIdx, e.target.value)} 
+                      placeholder="Root item label"
+                    />
+                  </div>
+                  <button className="mb-text-btn" onClick={() => toggleDesc(item.id)}>
+                    {openDescs[item.id] ? '- DESC' : '+ DESC'}
+                  </button>
+                  <button className="mb-item-delete" onClick={() => deleteRootItem(iIdx)}>✕</button>
+                </div>
+                {openDescs[item.id] && (
+                  <div className="mb-desc-container">
+                    <textarea className="mb-desc-textarea" placeholder="Add description..." value={item.description || ''} onChange={e => updateRootItemDesc(iIdx, e.target.value)} />
+                  </div>
+                )}
+              </React.Fragment>
             ))}
           </div>
         )}
@@ -258,24 +378,50 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
                 </div>
                 <span style={{color: 'rgba(255,255,255,0.25)', fontWeight: 500, fontSize: '11px', whiteSpace: 'nowrap'}}>(Section)</span>
               </div>
-              <button className="mb-add-item-btn" onClick={() => addSectionItem(sIdx)}>+ ADD ITEM</button>
-              <button className="mb-add-subsection-btn" onClick={() => addSubsection(sIdx)}>+ ADD SUBSECTION</button>
+              <button className="mb-add-item-btn" onClick={() => addSectionItem(sIdx)}>+ ITEM</button>
+              <button className="mb-add-subsection-btn" onClick={() => addSubsection(sIdx)}>+ SUBSECTION</button>
+              <button className="mb-text-btn" onClick={() => toggleDesc(section.id)}>
+                {openDescs[section.id] ? '- DESC' : '+ DESC'}
+              </button>
               <button className="mb-delete-section-btn" onClick={() => deleteSection(sIdx)}>✕</button>
             </div>
+            {openDescs[section.id] && (
+              <div className="mb-desc-container">
+                <textarea className="mb-desc-textarea" placeholder="Add section description..." value={section.description || ''} onChange={e => updateSectionDesc(sIdx, e.target.value)} />
+              </div>
+            )}
 
             {section.items?.length > 0 && (
               <div className="mb-direct-items mb-section-items">
                 {section.items.map((item, iIdx) => (
-                  <div key={item.id} className="mb-item-row">
-                    <span className="mb-item-number">{iIdx + 1}.</span>
-                    <input 
-                      className="mb-item-input" 
-                      value={item.label} 
-                      onChange={e => updateSectionItemLabel(sIdx, iIdx, e.target.value)} 
-                      placeholder="Section item label"
-                    />
-                    <button className="mb-item-delete" onClick={() => deleteSectionItem(sIdx, iIdx)}>✕</button>
-                  </div>
+                  <React.Fragment key={item.id}>
+                    <div 
+                      className="mb-item-row"
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, { type: 'section', sIdx, iIdx })}
+                      onDragOver={handleDragOver}
+                      onDrop={(e) => handleDrop(e, { type: 'section', sIdx, iIdx })}
+                    >
+                      <span className="mb-item-number" style={{cursor: 'grab'}}>{iIdx + 1}.</span>
+                      <div className="auto-input-wrapper" data-value={item.label || "Section item label"} style={{ flex: 1, minWidth: 0 }}>
+                        <input 
+                          className="mb-item-input" 
+                          value={item.label} 
+                          onChange={e => updateSectionItemLabel(sIdx, iIdx, e.target.value)} 
+                          placeholder="Section item label"
+                        />
+                      </div>
+                      <button className="mb-text-btn" onClick={() => toggleDesc(item.id)}>
+                        {openDescs[item.id] ? '- DESC' : '+ DESC'}
+                      </button>
+                      <button className="mb-item-delete" onClick={() => deleteSectionItem(sIdx, iIdx)}>✕</button>
+                    </div>
+                    {openDescs[item.id] && (
+                      <div className="mb-desc-container">
+                        <textarea className="mb-desc-textarea" placeholder="Add description..." value={item.description || ''} onChange={e => updateSectionItemDesc(sIdx, iIdx, e.target.value)} />
+                      </div>
+                    )}
+                  </React.Fragment>
                 ))}
               </div>
             )}
@@ -296,24 +442,50 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
                       </div>
                       <span style={{color: 'rgba(255,255,255,0.25)', fontWeight: 500, fontSize: '11px', whiteSpace: 'nowrap'}}>(Subsection)</span>
                     </div>
-                    <button className="mb-add-item-btn" onClick={() => addSubsectionItem(sIdx, ssIdx)}>+ ADD ITEM</button>
+                    <button className="mb-add-item-btn" onClick={() => addSubsectionItem(sIdx, ssIdx)}>+ ITEM</button>
+                    <button className="mb-text-btn" onClick={() => toggleDesc(sub.id)}>
+                      {openDescs[sub.id] ? '- DESC' : '+ DESC'}
+                    </button>
                     <button className="mb-delete-btn" onClick={() => deleteSubsection(sIdx, ssIdx)}>✕</button>
                   </div>
+                  {openDescs[sub.id] && (
+                    <div className="mb-desc-container">
+                      <textarea className="mb-desc-textarea" placeholder="Add subsection description..." value={sub.description || ''} onChange={e => updateSubsectionDesc(sIdx, ssIdx, e.target.value)} />
+                    </div>
+                  )}
 
                   <div className="mb-groups">
                     {sub.items?.length > 0 && (
                       <div className="mb-direct-items">
                         {sub.items.map((item, iIdx) => (
-                          <div key={item.id} className="mb-item-row">
-                            <span className="mb-item-number">{iIdx + 1}.</span>
-                            <input 
-                              className="mb-item-input" 
-                              value={item.label} 
-                              onChange={e => updateSubsectionItemLabel(sIdx, ssIdx, iIdx, e.target.value)} 
-                              placeholder="Item label"
-                            />
-                            <button className="mb-item-delete" onClick={() => deleteSubsectionItem(sIdx, ssIdx, iIdx)}>✕</button>
-                          </div>
+                          <React.Fragment key={item.id}>
+                            <div 
+                              className="mb-item-row"
+                              draggable
+                              onDragStart={(e) => handleDragStart(e, { type: 'subsection', sIdx, ssIdx, iIdx })}
+                              onDragOver={handleDragOver}
+                              onDrop={(e) => handleDrop(e, { type: 'subsection', sIdx, ssIdx, iIdx })}
+                            >
+                              <span className="mb-item-number" style={{cursor: 'grab'}}>{iIdx + 1}.</span>
+                              <div className="auto-input-wrapper" data-value={item.label || "Item label"} style={{ flex: 1, minWidth: 0 }}>
+                                <input 
+                                  className="mb-item-input" 
+                                  value={item.label} 
+                                  onChange={e => updateSubsectionItemLabel(sIdx, ssIdx, iIdx, e.target.value)} 
+                                  placeholder="Item label"
+                                />
+                              </div>
+                              <button className="mb-text-btn" onClick={() => toggleDesc(item.id)}>
+                                {openDescs[item.id] ? '- DESC' : '+ DESC'}
+                              </button>
+                              <button className="mb-item-delete" onClick={() => deleteSubsectionItem(sIdx, ssIdx, iIdx)}>✕</button>
+                            </div>
+                            {openDescs[item.id] && (
+                              <div className="mb-desc-container">
+                                <textarea className="mb-desc-textarea" placeholder="Add description..." value={item.description || ''} onChange={e => updateSubsectionItemDesc(sIdx, ssIdx, iIdx, e.target.value)} />
+                              </div>
+                            )}
+                          </React.Fragment>
                         ))}
                       </div>
                     )}

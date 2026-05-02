@@ -1,11 +1,19 @@
 import React from 'react';
 
-const ProgressRing = ({ percentage, size = 60, strokeWidth = 4 }) => {
+const ProgressRing = ({ percentage, size = 60, strokeWidth = 4, color = "#6366f1", textColor = "#ffffff", fontSize = "14px", text }) => {
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
-  const offset = circumference - (percentage / 100) * circumference;
+  const validPercentage = Math.min(Math.max(percentage, 0), 100);
+  const offset = circumference - (validPercentage / 100) * circumference;
 
-  let color = "#6366f1";
+  let displayValue = validPercentage;
+  if (validPercentage > 0 && validPercentage < 100) {
+    if (validPercentage % 1 !== 0) {
+      displayValue = validPercentage < 0.1 ? "<0.1" : validPercentage.toFixed(1);
+    }
+  } else {
+    displayValue = Math.round(validPercentage);
+  }
 
   return (
     <div style={{ width: size, height: size, position: 'relative' }}>
@@ -49,12 +57,12 @@ const ProgressRing = ({ percentage, size = 60, strokeWidth = 4 }) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: '14px',
+          fontSize: fontSize,
           fontWeight: '700',
-          color: '#ffffff'
+          color: textColor
         }}
       >
-        {percentage}%
+        {text !== undefined ? text : `${displayValue}%`}
       </div>
     </div>
   );

@@ -22,10 +22,10 @@
 }
 
 .add-section-bar {
-  border: 1.5px dashed rgba(255,255,255,0.12);
+  border: 1.5px dashed rgba(255, 255, 255, 0.12);
   border-radius: 10px;
   padding: 14px 18px;
-  color: rgba(255,255,255,0.25);
+  color: rgba(255, 255, 255, 0.25);
   font-size: 14px;
   cursor: pointer;
   margin-bottom: 16px;
@@ -33,14 +33,14 @@
 }
 
 .add-section-bar:hover {
-  border-color: rgba(99,102,241,0.4);
-  color: rgba(255,255,255,0.45);
-  background: rgba(99,102,241,0.04);
+  border-color: rgba(99, 102, 241, 0.4);
+  color: rgba(255, 255, 255, 0.45);
+  background: rgba(99, 102, 241, 0.04);
 }
 
 .tree-section {
   background: #16161a;
-  border: 1px solid rgba(255,255,255,0.07);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 14px;
   margin-bottom: 16px;
   overflow: hidden;
@@ -74,16 +74,16 @@
 }
 
 .section-done-pill {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 4px 10px;
   font-size: 12px;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255, 255, 255, 0.45);
   margin-right: 10px;
 }
 
 .chevron-icon {
-  color: rgba(255,255,255,0.3);
+  color: rgba(255, 255, 255, 0.3);
   transition: transform 200ms ease;
 }
 
@@ -98,7 +98,7 @@
 
 .subsection-label {
   font-size: 11px;
-  color: rgba(255,255,255,0.25);
+  color: rgba(255, 255, 255, 0.25);
   padding: 8px 20px 6px 48px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -106,7 +106,7 @@
 
 /* Item Rows */
 .item-row {
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding: 14px 20px;
   display: flex;
   align-items: center;
@@ -116,7 +116,12 @@
 }
 
 .item-row:hover {
-  background: rgba(255,255,255,0.03);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.item-desc-wrapper {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .indent-section {
@@ -131,9 +136,11 @@
   .subsection-label {
     padding-left: 36px;
   }
+
   .indent-section {
     padding-left: 36px;
   }
+
   .indent-subsection {
     padding-left: 60px;
   }
@@ -177,7 +184,7 @@
 }
 
 .item-delete-btn {
-  color: rgba(255,255,255,0.2);
+  color: rgba(255, 255, 255, 0.2);
   font-size: 16px;
   background: none;
   border: none;
@@ -185,24 +192,26 @@
 }
 
 .item-delete-btn:hover {
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Status 0: Not Started */
 .item-row.status-0 .item-status-circle {
-  border: 2px solid rgba(255,255,255,0.2);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   background: transparent;
 }
+
 .item-row.status-0 .item-label {
-  color: rgba(255,255,255,0.75);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 /* Status 1: In Progress */
 .item-row.status-1 .item-status-circle {
   border: 2px solid #f59e0b;
   background: #16161a;
-  box-shadow: 0 0 0 3px rgba(245,158,11,0.15);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
 }
+
 .item-row.status-1 .item-status-circle::after {
   content: '';
   display: block;
@@ -216,9 +225,10 @@
   color: #ffffff;
   font-weight: 500;
 }
+
 .item-row.status-1 .item-status-pill {
-  background: rgba(245,158,11,0.15);
-  border: 1px solid rgba(245,158,11,0.3);
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
   color: #f59e0b;
 }
 
@@ -226,22 +236,24 @@
 .item-row.status-2 .item-status-circle {
   background: #10b981;
   border: 2px solid #10b981;
-  box-shadow: 0 0 0 3px rgba(16,185,129,0.15);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
 }
+
 .item-row.status-2 .item-label {
-  color: rgba(255,255,255,0.3);
+  color: rgba(255, 255, 255, 0.3);
   text-decoration: line-through;
-  text-decoration-color: rgba(255,255,255,0.15);
+  text-decoration-color: rgba(255, 255, 255, 0.15);
 }
+
 .item-row.status-2 .item-status-pill {
-  background: rgba(16,185,129,0.15);
-  border: 1px solid rgba(16,185,129,0.3);
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   color: #10b981;
 }
 
 /* Section footer */
 .section-footer {
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding: 12px 20px;
   display: flex;
   align-items: center;
@@ -252,22 +264,22 @@
   flex: 1;
   background: transparent;
   border: none;
-  color: rgba(255,255,255,0.35);
+  color: rgba(255, 255, 255, 0.35);
   font-size: 13px;
   outline: none;
 }
 
 .add-topic-btn {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   padding: 6px 14px;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 13px;
   cursor: pointer;
   transition: background 150ms ease;
 }
 
 .add-topic-btn:hover {
-  background: rgba(255,255,255,0.14);
+  background: rgba(255, 255, 255, 0.14);
 }

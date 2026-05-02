@@ -10,6 +10,11 @@ const RoadmapTree = ({ roadmap, progress, onItemClick }) => {
     <div className="roadmap-tree fade-in">
       <div className="tree-root-header">
         <h1 className="tree-root-title">{roadmap.title || "My Roadmap"}</h1>
+        {roadmap.description && (
+          <div style={{ padding: '8px 4px 0 4px', color: 'rgba(255,255,255,0.6)', fontSize: '14px', lineHeight: '1.6' }}>
+            {roadmap.description.split('\n').map((line, i) => <div key={i}>{line}</div>)}
+          </div>
+        )}
       </div>
 
       {roadmap.items?.length > 0 && (

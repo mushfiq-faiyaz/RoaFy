@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, BookOpen } from 'lucide-react';
 import ItemRow from './ItemRow';
+import ProgressRing from './ProgressRing';
 
 const ACCENTS = [
   { color: '#6366f1', bg: 'rgba(99,102,241,0.25)' },
@@ -29,7 +30,25 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
   if (section.subsections) {
     section.subsections.forEach(sub => {
       if (sub.title) {
-        allItems.push({ type: 'label', text: sub.title, id: `sub-${sub.id}` });
+        let subTotal = 0;
+        let subDone = 0;
+        if (sub.items) {
+          sub.items.forEach(i => {
+            subTotal++;
+            if (progress[i.id] === 2) subDone++;
+          });
+        }
+        if (sub.groups) {
+          sub.groups.forEach(g => {
+            if (g.items) {
+              g.items.forEach(i => {
+                subTotal++;
+                if (progress[i.id] === 2) subDone++;
+              });
+            }
+          });
+        }
+        allItems.push({ type: 'label', text: sub.title, id: sub.id || `sub-${Math.random()}`, total: subTotal, done: subDone, description: sub.description });
       }
       
       if (sub.items) {
@@ -43,7 +62,15 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
       if (sub.groups) {
         sub.groups.forEach(group => {
           if (group.label) {
-            allItems.push({ type: 'label', text: group.label, id: `group-${group.id}` });
+            let groupTotal = 0;
+            let groupDone = 0;
+            if (group.items) {
+              group.items.forEach(i => {
+                groupTotal++;
+                if (progress[i.id] === 2) groupDone++;
+              });
+            }
+            allItems.push({ type: 'label', text: group.label, id: group.id || `group-${Math.random()}`, total: groupTotal, done: groupDone, description: group.description });
           }
           if (group.items) {
             group.items.forEach(item => {
@@ -58,6 +85,7 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
   }
 
   const accent = ACCENTS[index % ACCENTS.length];
+  const percentage = total === 0 ? 0 : (done / total) * 100;
 
   return (
     <div className="tree-section">
@@ -72,15 +100,56 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
           <BookOpen size={18} />
         </div>
         <div className="section-title">{section.title}</div>
-        <div className="section-done-pill">{done}/{total} done</div>
+        <div style={{ marginRight: '10px' }}>
+          <ProgressRing 
+            percentage={percentage} 
+            size={42} 
+            strokeWidth={3} 
+            color="#10b981"
+            textColor="rgba(255,255,255,0.7)"
+            fontSize="10px"
+            text={`${done}/${total}`}
+          />
+        </div>
         <ChevronDown size={18} className={`chevron-icon ${!isExpanded ? 'chevron-closed' : ''}`} />
       </div>
       
       {isExpanded && (
         <div className="section-content-flat">
+          {section.description && (
+            <div style={{ padding: '16px 20px', color: 'rgba(255,255,255,0.6)', fontSize: '13px', lineHeight: '1.5', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              {section.description.split('\n').map((line, i) => <div key={i}>{line}</div>)}
+            </div>
+          )}
           {allItems.map((itemObj, i) => {
             if (itemObj.type === 'label') {
-              return <div key={itemObj.id || `label-${i}`} className="subsection-label">{itemObj.text}</div>;
+              const subTotal = itemObj.total || 0;
+              const subDone = itemObj.done || 0;
+              const subPercentage = subTotal === 0 ? 0 : (subDone / subTotal) * 100;
+              
+              return (
+                <React.Fragment key={itemObj.id || `label-${i}`}>
+                  <div className="subsection-label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingRight: '20px' }}>
+                    <span>{itemObj.text}</span>
+                    {subTotal > 0 && (
+                      <ProgressRing 
+                        percentage={subPercentage} 
+                        size={28} 
+                        strokeWidth={2} 
+                        color="#10b981"
+                        textColor="rgba(255,255,255,0.45)"
+                        fontSize="9px"
+                        text={`${subDone}/${subTotal}`}
+                      />
+                    )}
+                  </div>
+                  {itemObj.description && (
+                    <div style={{ padding: '0 20px 12px 48px', color: 'rgba(255,255,255,0.5)', fontSize: '12px', lineHeight: '1.5' }}>
+                      {itemObj.description.split('\n').map((line, idx) => <div key={idx}>{line}</div>)}
+                    </div>
+                  )}
+                </React.Fragment>
+              );
             } else {
               return (
                 <ItemRow 
