@@ -290,22 +290,24 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
           />
         </div>
         <div className="mb-header-actions">
-          <button className="mb-text-btn" onClick={() => toggleDesc('roadmap')}>
-            {openDescs['roadmap'] ? '- DESC' : '+ DESC'}
+          <button className={`mb-text-btn ${openDescs['roadmap'] ? 'active' : ''}`} onClick={() => toggleDesc('roadmap')} title="Add description">
+            {openDescs['roadmap'] ? '- Note' : '+ Note'}
           </button>
           <button 
             className="mb-undo-btn"
             onClick={undo} 
             disabled={historyIndex <= 0}
+            title="Undo"
           >
-            Undo
+            ↩
           </button>
           <button 
             className="mb-redo-btn"
             onClick={redo} 
             disabled={historyIndex >= history.length - 1}
+            title="Redo"
           >
-            Redo
+            ↪
           </button>
           {onSave && (
             <button 
@@ -322,7 +324,11 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
 
       {openDescs['roadmap'] && (
         <div className="mb-desc-container" style={{padding: '0 0 16px 0'}}>
-          <textarea className="mb-desc-textarea" placeholder="Add roadmap description..." value={roadmap.description || ''} onChange={e => updateRootDesc(e.target.value)} />
+          <div className="mb-desc-wrapper">
+            <textarea className="mb-desc-textarea" placeholder="Add roadmap description..." value={roadmap.description || ''} onChange={e => updateRootDesc(e.target.value)} />
+            <span className="mb-desc-icon">✎</span>
+            <span className="mb-desc-count">{(roadmap.description || '').length}</span>
+          </div>
         </div>
       )}
 
@@ -348,14 +354,18 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
                       placeholder="Root item label"
                     />
                   </div>
-                  <button className="mb-text-btn" onClick={() => toggleDesc(item.id)}>
-                    {openDescs[item.id] ? '- DESC' : '+ DESC'}
+                  <button className={`mb-text-btn ${openDescs[item.id] ? 'active' : ''}`} onClick={() => toggleDesc(item.id)} title="Add description">
+                    {openDescs[item.id] ? '- Note' : '+ Note'}
                   </button>
                   <button className="mb-item-delete" onClick={() => deleteRootItem(iIdx)}>✕</button>
                 </div>
                 {openDescs[item.id] && (
                   <div className="mb-desc-container">
-                    <textarea className="mb-desc-textarea" placeholder="Add description..." value={item.description || ''} onChange={e => updateRootItemDesc(iIdx, e.target.value)} />
+                    <div className="mb-desc-wrapper">
+                      <textarea className="mb-desc-textarea" placeholder="Add description..." value={item.description || ''} onChange={e => updateRootItemDesc(iIdx, e.target.value)} />
+                      <span className="mb-desc-icon">✎</span>
+                      <span className="mb-desc-count">{(item.description || '').length}</span>
+                    </div>
                   </div>
                 )}
               </React.Fragment>
@@ -380,14 +390,18 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
               </div>
               <button className="mb-add-item-btn" onClick={() => addSectionItem(sIdx)}>+ ITEM</button>
               <button className="mb-add-subsection-btn" onClick={() => addSubsection(sIdx)}>+ SUBSECTION</button>
-              <button className="mb-text-btn" onClick={() => toggleDesc(section.id)}>
-                {openDescs[section.id] ? '- DESC' : '+ DESC'}
+              <button className={`mb-text-btn ${openDescs[section.id] ? 'active' : ''}`} onClick={() => toggleDesc(section.id)} title="Add description">
+                {openDescs[section.id] ? '- Note' : '+ Note'}
               </button>
               <button className="mb-delete-section-btn" onClick={() => deleteSection(sIdx)}>✕</button>
             </div>
             {openDescs[section.id] && (
               <div className="mb-desc-container">
-                <textarea className="mb-desc-textarea" placeholder="Add section description..." value={section.description || ''} onChange={e => updateSectionDesc(sIdx, e.target.value)} />
+                <div className="mb-desc-wrapper">
+                  <textarea className="mb-desc-textarea" placeholder="Add section description..." value={section.description || ''} onChange={e => updateSectionDesc(sIdx, e.target.value)} />
+                  <span className="mb-desc-icon">✎</span>
+                  <span className="mb-desc-count">{(section.description || '').length}</span>
+                </div>
               </div>
             )}
 
@@ -411,14 +425,18 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
                           placeholder="Section item label"
                         />
                       </div>
-                      <button className="mb-text-btn" onClick={() => toggleDesc(item.id)}>
-                        {openDescs[item.id] ? '- DESC' : '+ DESC'}
+                      <button className={`mb-text-btn ${openDescs[item.id] ? 'active' : ''}`} onClick={() => toggleDesc(item.id)} title="Add description">
+                        {openDescs[item.id] ? '- Note' : '+ Note'}
                       </button>
                       <button className="mb-item-delete" onClick={() => deleteSectionItem(sIdx, iIdx)}>✕</button>
                     </div>
                     {openDescs[item.id] && (
                       <div className="mb-desc-container">
-                        <textarea className="mb-desc-textarea" placeholder="Add description..." value={item.description || ''} onChange={e => updateSectionItemDesc(sIdx, iIdx, e.target.value)} />
+                        <div className="mb-desc-wrapper">
+                          <textarea className="mb-desc-textarea" placeholder="Add description..." value={item.description || ''} onChange={e => updateSectionItemDesc(sIdx, iIdx, e.target.value)} />
+                          <span className="mb-desc-icon">✎</span>
+                          <span className="mb-desc-count">{(item.description || '').length}</span>
+                        </div>
                       </div>
                     )}
                   </React.Fragment>
@@ -443,14 +461,18 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
                       <span style={{color: 'rgba(255,255,255,0.25)', fontWeight: 500, fontSize: '11px', whiteSpace: 'nowrap'}}>(Subsection)</span>
                     </div>
                     <button className="mb-add-item-btn" onClick={() => addSubsectionItem(sIdx, ssIdx)}>+ ITEM</button>
-                    <button className="mb-text-btn" onClick={() => toggleDesc(sub.id)}>
-                      {openDescs[sub.id] ? '- DESC' : '+ DESC'}
+                    <button className={`mb-text-btn ${openDescs[sub.id] ? 'active' : ''}`} onClick={() => toggleDesc(sub.id)} title="Add description">
+                      {openDescs[sub.id] ? '- Note' : '+ Note'}
                     </button>
                     <button className="mb-delete-btn" onClick={() => deleteSubsection(sIdx, ssIdx)}>✕</button>
                   </div>
                   {openDescs[sub.id] && (
                     <div className="mb-desc-container">
-                      <textarea className="mb-desc-textarea" placeholder="Add subsection description..." value={sub.description || ''} onChange={e => updateSubsectionDesc(sIdx, ssIdx, e.target.value)} />
+                      <div className="mb-desc-wrapper">
+                        <textarea className="mb-desc-textarea" placeholder="Add subsection description..." value={sub.description || ''} onChange={e => updateSubsectionDesc(sIdx, ssIdx, e.target.value)} />
+                        <span className="mb-desc-icon">✎</span>
+                        <span className="mb-desc-count">{(sub.description || '').length}</span>
+                      </div>
                     </div>
                   )}
 
@@ -475,14 +497,18 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
                                   placeholder="Item label"
                                 />
                               </div>
-                              <button className="mb-text-btn" onClick={() => toggleDesc(item.id)}>
-                                {openDescs[item.id] ? '- DESC' : '+ DESC'}
+                              <button className={`mb-text-btn ${openDescs[item.id] ? 'active' : ''}`} onClick={() => toggleDesc(item.id)} title="Add description">
+                                {openDescs[item.id] ? '- Note' : '+ Note'}
                               </button>
                               <button className="mb-item-delete" onClick={() => deleteSubsectionItem(sIdx, ssIdx, iIdx)}>✕</button>
                             </div>
                             {openDescs[item.id] && (
                               <div className="mb-desc-container">
-                                <textarea className="mb-desc-textarea" placeholder="Add description..." value={item.description || ''} onChange={e => updateSubsectionItemDesc(sIdx, ssIdx, iIdx, e.target.value)} />
+                                <div className="mb-desc-wrapper">
+                                  <textarea className="mb-desc-textarea" placeholder="Add description..." value={item.description || ''} onChange={e => updateSubsectionItemDesc(sIdx, ssIdx, iIdx, e.target.value)} />
+                                  <span className="mb-desc-icon">✎</span>
+                                  <span className="mb-desc-count">{(item.description || '').length}</span>
+                                </div>
                               </div>
                             )}
                           </React.Fragment>

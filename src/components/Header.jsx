@@ -150,21 +150,26 @@ const Header = ({ roadmap, progress, onManualSave, onEdit, isEditing, roadmapsLi
           </div>
 
           <div className="header-right">
-            <div className="header-stats-wrapper">
+            <div className="header-stats-card">
               <div className="progress-container">
                 <div className="progress-label">PROGRESS</div>
-                <ProgressRing percentage={percentage} size={64} strokeWidth={4} />
+                <ProgressRing percentage={percentage} size={56} strokeWidth={4} />
               </div>
               
-              <div className="stats-row">
-                <div className="stat-pill stat-done">
-                  <span className="dot">●</span> {doneItems} DONE
+              <div className="stats-columns">
+                <div className="stat-col">
+                  <div className="stat-num stat-done-num">{doneItems}</div>
+                  <div className="stat-text">Done</div>
                 </div>
-                <div className="stat-pill stat-in-progress">
-                  <span className="dot">●</span> {inProgressItems} IN PROGRESS
+                <div className="stat-divider"></div>
+                <div className="stat-col">
+                  <div className="stat-num stat-in-progress-num">{inProgressItems}</div>
+                  <div className="stat-text">In Progress</div>
                 </div>
-                <div className="stat-pill stat-remaining">
-                  <span className="dot">●</span> {remainingItems} REMAINING
+                <div className="stat-divider"></div>
+                <div className="stat-col">
+                  <div className="stat-num stat-remaining-num">{remainingItems}</div>
+                  <div className="stat-text">Remaining</div>
                 </div>
               </div>
             </div>
