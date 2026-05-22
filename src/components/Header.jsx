@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ProgressRing from './ProgressRing';
+import BlueRoutesLogo from './BlueRoutesLogo';
 import './Header.css';
-import { Target, Download, Menu, Plus, FileText, Check, ChevronDown, Edit2, Copy, RotateCcw, Trash2, PenLine, FileJson, FileDown, Eye, Pencil, Activity, CheckCircle, Clock, ListTodo, Save } from 'lucide-react';
+import { Download, Menu, Plus, FileText, Check, ChevronDown, Edit2, Copy, RotateCcw, Trash2, PenLine, FileJson, FileDown, Eye, Pencil, Activity, CheckCircle, Clock, ListTodo, Save } from 'lucide-react';
 
 const Header = ({ 
   roadmap, progress, onManualSave, onEdit, isEditing, 
@@ -197,9 +198,8 @@ const Header = ({
       <div className="header-container">
         <div className="header-top-row">
           <div className="brand-logo">
-            <Target className="brand-icon" size={28} />
+            <BlueRoutesLogo />
             <div className="brand-text-wrapper">
-              <h1 className="website-name">RoaFy</h1>
               {isEditing ? (
                 <span className="mode-badge edit-badge">
                   <Pencil size={13} /> Edit Mode

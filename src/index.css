@@ -113,4 +113,29 @@ button {
   transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
+/* ── Berry Logo Animations ── */
+@keyframes berryFloat {
+  0%   { transform: translateY(0px) rotate(-3deg); }
+  50%  { transform: translateY(-8px) rotate(3deg); }
+  100% { transform: translateY(0px) rotate(-3deg); }
+}
+
+@keyframes berryShadow {
+  0%   { transform: scaleX(1);   opacity: 0.20; }
+  50%  { transform: scaleX(0.6); opacity: 0.08; }
+  100% { transform: scaleX(1);   opacity: 0.20; }
+}
+
+.berry-float {
+  animation: berryFloat 3s ease-in-out infinite;
+}
+
+.berry-shadow {
+  width: 22px;
+  height: 5px;
+  border-radius: 50%;
+  background: #1d4ed8;
+  filter: blur(4px);
+  animation: berryShadow 3s ease-in-out infinite;
+}
 
