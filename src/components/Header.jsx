@@ -121,89 +121,74 @@ const Header = ({
             )}
           </div>
 
-          <div className="menu-controls-wrapper">
-            <div className="menu-container" ref={optionsRef}>
-              <button className="menu-btn" onClick={() => { setIsMenuOpen(!isMenuOpen); setIsSwitcherOpen(false); }}>
-                <Menu size={20} />
-              </button>
-              {isMenuOpen && (
-                <div className="dropdown-menu">
-                  <div className="dropdown-item" onClick={() => { onRenameMap?.(); setIsMenuOpen(false); }}>
-                    <PenLine size={16} /> Rename Map
-                  </div>
-                  <div className="dropdown-item" onClick={() => { onEdit(); setIsMenuOpen(false); }}>
-                    <Edit2 size={16} /> Edit Map
-                  </div>
-                  <div className="dropdown-item" onClick={() => { onDuplicateMap?.(); setIsMenuOpen(false); }}>
-                    <Copy size={16} /> Duplicate Map
-                  </div>
-                  <div className="dropdown-item danger-item" onClick={() => { setConfirmAction('reset'); setIsMenuOpen(false); }}>
-                    <RotateCcw size={16} /> Reset Map
-                  </div>
-                  <div className="dropdown-divider"></div>
-                  <div className="dropdown-item" onClick={() => { onExportPDF?.(); setIsMenuOpen(false); }}>
-                    <FileDown size={16} /> Export as PDF
-                  </div>
-                  <div className="dropdown-item" onClick={() => { onExportJSON?.(); setIsMenuOpen(false); }}>
-                    <FileJson size={16} /> Export as JSON
-                  </div>
-                  <div className="dropdown-divider"></div>
-                  <div className="dropdown-item danger-item" onClick={() => { setConfirmAction('delete'); setIsMenuOpen(false); }}>
-                    <Trash2 size={16} /> Delete Map
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="menu-container" ref={switcherRef}>
-              <button className="menu-btn switcher-btn" onClick={() => { setIsSwitcherOpen(!isSwitcherOpen); setIsMenuOpen(false); }}>
-                <ChevronDown size={20} />
-              </button>
-              {isSwitcherOpen && (
-                <div className="dropdown-menu">
-                  <div className="dropdown-item" onClick={() => { onCreateRoadmap(); setIsSwitcherOpen(false); }}>
-                    <Plus size={16} /> New Roadmap
-                  </div>
-                  <div className="dropdown-divider"></div>
-                  {roadmapsList.map(r => (
-                    <div 
-                      key={r.id} 
-                      className={`dropdown-item ${currentRoadmapId === r.id ? 'active' : ''}`}
-                      onClick={() => { onSwitchRoadmap(r.id); setIsSwitcherOpen(false); }}
-                    >
-                      <FileText size={16} /> 
-                      <span style={{flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
-                        {r.title || 'Untitled'}
-                      </span>
-                      {currentRoadmapId === r.id && <Check size={16} />}
+          {!isEditing && (
+            <div className="menu-controls-wrapper">
+              <div className="menu-container" ref={optionsRef}>
+                <button className="menu-btn" onClick={() => { setIsMenuOpen(!isMenuOpen); setIsSwitcherOpen(false); }}>
+                  <Menu size={20} />
+                </button>
+                {isMenuOpen && (
+                  <div className="dropdown-menu">
+                    <div className="dropdown-item" onClick={() => { onRenameMap?.(); setIsMenuOpen(false); }}>
+                      <PenLine size={16} /> Rename Map
                     </div>
-                  ))}
-                </div>
-              )}
+                    <div className="dropdown-item" onClick={() => { onEdit(); setIsMenuOpen(false); }}>
+                      <Edit2 size={16} /> Edit Map
+                    </div>
+                    <div className="dropdown-item" onClick={() => { onDuplicateMap?.(); setIsMenuOpen(false); }}>
+                      <Copy size={16} /> Duplicate Map
+                    </div>
+                    <div className="dropdown-item danger-item" onClick={() => { setConfirmAction('reset'); setIsMenuOpen(false); }}>
+                      <RotateCcw size={16} /> Reset Map
+                    </div>
+                    <div className="dropdown-divider"></div>
+                    <div className="dropdown-item" onClick={() => { onExportPDF?.(); setIsMenuOpen(false); }}>
+                      <FileDown size={16} /> Export as PDF
+                    </div>
+                    <div className="dropdown-item" onClick={() => { onExportJSON?.(); setIsMenuOpen(false); }}>
+                      <FileJson size={16} /> Export as JSON
+                    </div>
+                    <div className="dropdown-divider"></div>
+                    <div className="dropdown-item danger-item" onClick={() => { setConfirmAction('delete'); setIsMenuOpen(false); }}>
+                      <Trash2 size={16} /> Delete Map
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="menu-container" ref={switcherRef}>
+                <button className="menu-btn switcher-btn" onClick={() => { setIsSwitcherOpen(!isSwitcherOpen); setIsMenuOpen(false); }}>
+                  <ChevronDown size={20} />
+                </button>
+                {isSwitcherOpen && (
+                  <div className="dropdown-menu">
+                    <div className="dropdown-item" onClick={() => { onCreateRoadmap(); setIsSwitcherOpen(false); }}>
+                      <Plus size={16} /> New Roadmap
+                    </div>
+                    <div className="dropdown-divider"></div>
+                    {roadmapsList.map(r => (
+                      <div 
+                        key={r.id} 
+                        className={`dropdown-item ${currentRoadmapId === r.id ? 'active' : ''}`}
+                        onClick={() => { onSwitchRoadmap(r.id); setIsSwitcherOpen(false); }}
+                      >
+                        <FileText size={16} /> 
+                        <span style={{flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+                          {r.title || 'Untitled'}
+                        </span>
+                        {currentRoadmapId === r.id && <Check size={16} />}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         <div className="header-content-row">
           <div className="header-left">
-            <div className="mode-tabs">
-              <button 
-                className={`mode-tab ${!isEditing ? 'active' : ''}`} 
-                onClick={() => {
-                  if (isEditing) onManualSave();
-                }}
-              >
-                View Mode
-              </button>
-              <button 
-                className={`mode-tab ${isEditing ? 'active' : ''}`} 
-                onClick={() => {
-                  if (!isEditing) onEdit();
-                }}
-              >
-                Edit Mode
-              </button>
-            </div>
+            {/* View toggle moved to main content tabs */}
           </div>
 
           <div className="header-right">

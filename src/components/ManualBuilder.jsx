@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './ManualBuilder.css';
 import { ChevronRight } from 'lucide-react';
 
-const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
+const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [saveText, setSaveText] = useState("SAVE");
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
 
   useEffect(() => {
     if (!roadmap) {
@@ -290,6 +291,11 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
           />
         </div>
         <div className="mb-header-actions">
+          {onCancel && (
+            <button className="mb-cancel-btn" onClick={() => setShowCancelConfirm(true)} title="Cancel">
+              ✕
+            </button>
+          )}
           <button className={`mb-text-btn ${openDescs['roadmap'] ? 'active' : ''}`} onClick={() => toggleDesc('roadmap')} title="Add description">
             {openDescs['roadmap'] ? '- Note' : '+ Note'}
           </button>
@@ -527,6 +533,24 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave }) => {
           </div>
         ))}
       </div>
+      {showCancelConfirm && (
+        <div className="modal-overlay" onClick={() => setShowCancelConfirm(false)}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <h3>Discard changes?</h3>
+            <p>Are you sure you want to discard your edits?</p>
+            <div className="modal-actions">
+              <button className="modal-btn-cancel" onClick={() => setShowCancelConfirm(false)}>Keep Editing</button>
+              <button className="modal-btn-danger" onClick={() => {
+                setShowCancelConfirm(false);
+                if (history.length > 0) {
+                  setRoadmap(history[0]);
+                }
+                if (onCancel) onCancel();
+              }}>Discard</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

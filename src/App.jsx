@@ -16,6 +16,7 @@ function App() {
   const [isEditing, setIsEditing] = useState(() => !getRoadmap());
   const [roadmapsList, setRoadmapsList] = useState([]);
   const [currentRoadmapId, setCurrentRoadmapId] = useState(() => getActiveRoadmapId());
+  const [currentView, setCurrentView] = useState('list');
 
   const updateRoadmapsList = () => {
     const all = getAllRoadmaps();
@@ -108,6 +109,10 @@ function App() {
     setIsEditing(true);
   };
 
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+  };
+
   const handleRenameMap = () => {
     const newTitle = window.prompt("Rename Map:", roadmap?.title);
     if (newTitle && newTitle.trim() !== "") {
@@ -188,15 +193,35 @@ function App() {
           <ManualBuilder 
             roadmap={roadmap} 
             setRoadmap={handleSetRoadmap} 
-            onSave={handleSaveOnly}
+            onSave={handleManualSave}
+            onCancel={handleCancelEdit}
           />
         ) : (
           roadmap && (
-            <RoadmapTree 
-              roadmap={roadmap} 
-              progress={progress} 
-              onItemClick={handleItemClick} 
-            />
+            <>
+              <div className="view-tabs-container">
+                {['list', 'graph', 'timeline', 'board'].map(view => (
+                   <button 
+                     key={view}
+                     className={`view-tab ${currentView === view ? 'active' : ''}`}
+                     onClick={() => setCurrentView(view)}
+                   >
+                     {view.charAt(0).toUpperCase() + view.slice(1)}
+                   </button>
+                ))}
+              </div>
+
+              {currentView === 'list' && (
+                <RoadmapTree 
+                  roadmap={roadmap} 
+                  progress={progress} 
+                  onItemClick={handleItemClick} 
+                />
+              )}
+              {currentView === 'graph' && <div className="placeholder-view">Graph View coming soon</div>}
+              {currentView === 'timeline' && <div className="placeholder-view">Timeline View coming soon</div>}
+              {currentView === 'board' && <div className="placeholder-view">Board View coming soon</div>}
+            </>
           )
         )}
       </main>
