@@ -146,6 +146,24 @@ const Header = ({
     setIsMenuOpen(false);
   };
 
+  // Ripple factory — colour matches the destination mode
+  const createRipple = (e, color = 'rgba(255,255,255,0.25)') => {
+    const el = e.currentTarget;
+    const circle = document.createElement('span');
+    const diameter = Math.max(el.clientWidth, el.clientHeight) * 2.2;
+    const radius = diameter / 2;
+    const rect = el.getBoundingClientRect();
+    circle.className = 'ripple-wave';
+    circle.style.width  = `${diameter}px`;
+    circle.style.height = `${diameter}px`;
+    circle.style.left   = `${e.clientX - rect.left  - radius}px`;
+    circle.style.top    = `${e.clientY - rect.top   - radius}px`;
+    circle.style.background = color;
+    el.querySelector('.ripple-wave')?.remove();
+    el.appendChild(circle);
+    setTimeout(() => circle.remove(), 500);
+  };
+
   const renderMenu = (ref) => (
     <div className="menu-container" ref={ref}>
       <button className="menu-btn" onClick={() => { setIsMenuOpen(!isMenuOpen); setIsSwitcherOpen(false); }}>
@@ -155,10 +173,12 @@ const Header = ({
         <div className="dropdown-menu">
           {isEditing ? (
             <>
-              <div className="dropdown-item" onClick={handleEditCancelClick}>
+              {/* amber ripple — leaving edit mode */}
+              <div className="dropdown-item" onClick={(e) => { createRipple(e, 'rgba(251,146,60,0.35)'); handleEditCancelClick(); }}>
                 <Eye size={16} /> View Mode
               </div>
-              <div className="dropdown-item" onClick={handleEditSaveClick}>
+              {/* amber ripple — save & leave edit mode */}
+              <div className="dropdown-item" onClick={(e) => { createRipple(e, 'rgba(251,146,60,0.35)'); handleEditSaveClick(); }}>
                 <Save size={16} /> Save & Exit
               </div>
             </>
@@ -168,7 +188,8 @@ const Header = ({
                 <Plus size={16} /> New Roadmap
               </div>
               <div className="dropdown-divider"></div>
-              <div className="dropdown-item" onClick={() => { onEdit(); setIsMenuOpen(false); }}>
+              {/* indigo ripple — entering edit mode */}
+              <div className="dropdown-item" onClick={(e) => { createRipple(e, 'rgba(99,102,241,0.4)'); onEdit(); setIsMenuOpen(false); }}>
                 <Edit2 size={16} /> Edit Map
               </div>
               <div className="dropdown-item" onClick={() => { onDuplicateMap?.(); setIsMenuOpen(false); }}>
@@ -199,18 +220,6 @@ const Header = ({
         <div className="header-top-row">
           <div className="brand-logo">
             <BlueRoutesLogo />
-            <div className="brand-text-wrapper">
-              {isEditing ? (
-                <span className="mode-badge edit-badge">
-                  <Pencil size={13} /> Edit Mode
-                  <span className="pulse-dot"></span>
-                </span>
-              ) : (
-                <span className="mode-badge view-badge">
-                  <Eye size={13} /> View Mode
-                </span>
-              )}
-            </div>
             {deferredPrompt && (
               <button className="install-button" onClick={handleInstallClick}>
                 <Download size={14} />

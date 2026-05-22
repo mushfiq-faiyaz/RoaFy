@@ -1,0 +1,88 @@
+/* ── Centering shell (no background, no pointer events) ── */
+.mode-splash-outer {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+/* ── Floating card ── */
+.mode-splash-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 38px 56px;
+  border-radius: 28px;
+  color: #ffffff;
+  min-width: 220px;
+  will-change: transform, opacity;
+}
+
+/* ── Enter: spring pop 0.9 → 1.04 → 1 ── */
+@keyframes splashEnter {
+  0%   { opacity: 0;   transform: scale(0.82); }
+  55%  { opacity: 1;   transform: scale(1.06); }
+  100% { opacity: 1;   transform: scale(1);    }
+}
+
+/* ── Exit: shrink + fade ── */
+@keyframes splashExit {
+  0%   { opacity: 1; transform: scale(1);    }
+  100% { opacity: 0; transform: scale(0.86); }
+}
+
+.mode-splash-card.splash-enter {
+  animation: splashEnter 360ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.mode-splash-card.splash-exit {
+  animation: splashExit 280ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+/* ── Edit Mode — amber / orange gradient ── */
+.splash-edit {
+  background: linear-gradient(
+    135deg,
+    #f97316 0%,
+    #fb923c 45%,
+    #fbbf24 100%
+  );
+  box-shadow:
+    0 28px 70px rgba(249, 115, 22, 0.55),
+    0 8px  24px rgba(249, 115, 22, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* ── View Mode — indigo / violet gradient ── */
+.splash-view {
+  background: linear-gradient(
+    135deg,
+    #4f46e5 0%,
+    #7c3aed 48%,
+    #a78bfa 100%
+  );
+  box-shadow:
+    0 28px 70px rgba(99, 102, 241, 0.55),
+    0 8px  24px rgba(99, 102, 241, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+/* ── Icon ── */
+.splash-icon-wrap {
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25));
+  opacity: 0.96;
+}
+
+/* ── Label ── */
+.splash-label {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  white-space: nowrap;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}

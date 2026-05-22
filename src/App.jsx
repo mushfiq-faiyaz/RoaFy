@@ -4,6 +4,7 @@ import UploadZone from './components/UploadZone';
 import RoadmapTree from './components/RoadmapTree';
 import ManualBuilder from './components/ManualBuilder';
 import ScrollNavigator from './components/ScrollNavigator';
+import ModeSplash from './components/ModeSplash';
 import { getRoadmap, saveRoadmap, getProgress, saveProgress, getAllRoadmaps, getActiveRoadmapId, setActiveRoadmapId, saveRoadmapData } from './utils/storage';
 import { extractTextFromPdf } from './utils/pdfExtract';
 import { parseRoadmap } from './utils/parseRoadmap';
@@ -18,6 +19,9 @@ function App() {
   const [roadmapsList, setRoadmapsList] = useState([]);
   const [currentRoadmapId, setCurrentRoadmapId] = useState(() => getActiveRoadmapId());
   const [currentView, setCurrentView] = useState('list');
+  const [showSplash, setShowSplash] = useState(false);
+  const [splashMode, setSplashMode] = useState(false);
+  const isMountedRef = useRef(false);
 
   const pendingScrollRestore = useRef(false);
   const scrollState = useRef({ top: 0, mainOffset: 0 });
@@ -86,6 +90,16 @@ function App() {
     }));
     setRoadmapsList(list);
   };
+
+  // Show splash card whenever the mode actually changes (skip first mount)
+  useEffect(() => {
+    if (!isMountedRef.current) {
+      isMountedRef.current = true;
+      return;
+    }
+    setSplashMode(isEditing);
+    setShowSplash(true);
+  }, [isEditing]);
 
   useEffect(() => {
     updateRoadmapsList();
@@ -294,6 +308,13 @@ function App() {
       </main>
       
       <ScrollNavigator />
+
+      {showSplash && (
+        <ModeSplash
+          isEditing={splashMode}
+          onHide={() => setShowSplash(false)}
+        />
+      )}
     </div>
   );
 }
