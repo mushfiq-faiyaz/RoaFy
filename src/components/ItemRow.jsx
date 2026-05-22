@@ -29,7 +29,7 @@ const ItemRow = ({ item, status, onClick, className = '' }) => {
 
   return (
     <>
-      <div className={`item-row ${statusClass} ${className}`} onClick={handleRowClick} style={{ userSelect: 'none' }}>
+      <div className={`item-row ${statusClass} ${className}`} onClick={handleRowClick} style={{ userSelect: 'none' }} data-scroll-anchor={item.id}>
         <div className="item-status-circle" onClick={handleCircleClick} style={{ cursor: 'pointer' }}>
           {status === 2 && <span className="checkmark">✓</span>}
         </div>

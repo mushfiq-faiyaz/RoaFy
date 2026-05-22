@@ -582,6 +582,11 @@
   gap: 10px;
 }
 
+.adds-group {
+  flex: 1;
+  width: 100%;
+}
+
 .mb-undo-redo-group {
   display: flex;
   align-items: center;
@@ -598,7 +603,7 @@
   background: transparent;
   border-width: 1px;
   border-style: solid;
-  border-radius: 20px; /* Fully rounded pill */
+  border-radius: 6px;
   padding: 6px 14px;
   font-size: 11px;
   font-weight: 600;
@@ -606,6 +611,7 @@
   transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   font-family: inherit;
   white-space: nowrap;
+  flex: 1;
 }
 
 .btn-item {

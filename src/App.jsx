@@ -27,19 +27,19 @@ function App() {
     if (!containerRef.current) return;
     const mainEl = document.querySelector('.main-content');
     
-    // Find closest section to anchor to
-    const sections = Array.from(document.querySelectorAll('[data-section-index]'));
+    // Find closest anchor to anchor to
+    const anchors = Array.from(document.querySelectorAll('[data-scroll-anchor]'));
     let bestAnchor = null;
     let minDiff = Infinity;
     const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
     
-    sections.forEach(sec => {
-      const rect = sec.getBoundingClientRect();
+    anchors.forEach(el => {
+      const rect = el.getBoundingClientRect();
       const diff = Math.abs(rect.top - headerHeight);
       if (diff < minDiff) {
         minDiff = diff;
         bestAnchor = {
-          index: sec.getAttribute('data-section-index'),
+          id: el.getAttribute('data-scroll-anchor'),
           viewportTop: rect.top
         };
       }
@@ -60,7 +60,7 @@ function App() {
         if (!containerRef.current) return;
         
         if (scrollState.current.anchor) {
-          const anchorEl = document.querySelector(`[data-section-index="${scrollState.current.anchor.index}"]`);
+          const anchorEl = document.querySelector(`[data-scroll-anchor="${scrollState.current.anchor.id}"]`);
           if (anchorEl) {
             const currentViewportTop = anchorEl.getBoundingClientRect().top;
             const diff = currentViewportTop - scrollState.current.anchor.viewportTop;
@@ -152,18 +152,20 @@ function App() {
     saveProgress(newProgress); // Auto-save progress
   };
 
-  const handleManualSave = () => {
-    if (roadmap) {
-      saveRoadmap(roadmap);
+  const handleManualSave = (savedRoadmap) => {
+    const finalRoadmap = savedRoadmap || roadmap;
+    if (finalRoadmap) {
+      saveRoadmap(finalRoadmap);
       saveProgress(progress);
       captureScroll();
       setIsEditing(false);
     }
   };
 
-  const handleSaveOnly = () => {
-    if (roadmap) {
-      saveRoadmap(roadmap);
+  const handleSaveOnly = (savedRoadmap) => {
+    const finalRoadmap = savedRoadmap || roadmap;
+    if (finalRoadmap) {
+      saveRoadmap(finalRoadmap);
       saveProgress(progress);
     }
   };
@@ -258,7 +260,7 @@ function App() {
           <ManualBuilder 
             roadmap={roadmap} 
             setRoadmap={handleSetRoadmap} 
-            onSave={handleManualSave}
+            onSave={handleSaveOnly}
             onCancel={handleCancelEdit}
           />
         ) : (

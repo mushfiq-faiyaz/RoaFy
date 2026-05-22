@@ -249,37 +249,39 @@ const Header = ({
           </div>
         </div>
 
-        <div className="header-content-row">
-          <div className="header-left">
-            {/* View toggle moved to main content tabs */}
-          </div>
+        {!isEditing && (
+          <div className="header-content-row">
+            <div className="header-left">
+              {/* View toggle moved to main content tabs */}
+            </div>
 
-          <div className="header-right">
-            <div className="header-stats-card" ref={statsCardRef}>
-              <div className="progress-container">
-                <div className="progress-label">PROGRESS</div>
-                <ProgressRing percentage={percentage} size={56} strokeWidth={4} />
-              </div>
-              
-              <div className="stats-columns">
-                <div className="stat-col">
-                  <div className="stat-num stat-done-num">{doneItems}</div>
-                  <div className="stat-text">Done</div>
+            <div className="header-right">
+              <div className="header-stats-card" ref={statsCardRef}>
+                <div className="progress-container">
+                  <div className="progress-label">PROGRESS</div>
+                  <ProgressRing percentage={percentage} size={56} strokeWidth={4} />
                 </div>
-                <div className="stat-divider"></div>
-                <div className="stat-col">
-                  <div className="stat-num stat-in-progress-num">{inProgressItems}</div>
-                  <div className="stat-text">In Progress</div>
-                </div>
-                <div className="stat-divider"></div>
-                <div className="stat-col">
-                  <div className="stat-num stat-remaining-num">{remainingItems}</div>
-                  <div className="stat-text">Remaining</div>
+                
+                <div className="stats-columns">
+                  <div className="stat-col">
+                    <div className="stat-num stat-done-num">{doneItems}</div>
+                    <div className="stat-text">Done</div>
+                  </div>
+                  <div className="stat-divider"></div>
+                  <div className="stat-col">
+                    <div className="stat-num stat-in-progress-num">{inProgressItems}</div>
+                    <div className="stat-text">In Progress</div>
+                  </div>
+                  <div className="stat-divider"></div>
+                  <div className="stat-col">
+                    <div className="stat-num stat-remaining-num">{remainingItems}</div>
+                    <div className="stat-text">Remaining</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </header>
 

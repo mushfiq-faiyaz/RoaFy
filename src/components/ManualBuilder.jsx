@@ -1,15 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './ManualBuilder.css';
-import { ChevronRight, Menu, Eye, Save, X, Undo2, Redo2 } from 'lucide-react';
+import { ChevronRight, Menu, Eye, Save, X, Undo2, Redo2, Check } from 'lucide-react';
 
-const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
+const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel }) => {
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [saveText, setSaveText] = useState("SAVE");
+  const [saveState, setSaveState] = useState('idle');
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
   const [showStickyToolbar, setShowStickyToolbar] = useState(false);
   const [isStickyMenuOpen, setIsStickyMenuOpen] = useState(false);
   const originalToolbarRef = useRef(null);
+
+  const roadmap = history[historyIndex] || initialRoadmap;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -30,16 +32,15 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
   }, []);
 
   useEffect(() => {
-    if (!roadmap) {
+    if (!initialRoadmap) {
       const initial = { title: "My Roadmap", sections: [] };
-      setRoadmap(initial);
       setHistory([initial]);
       setHistoryIndex(0);
     } else if (history.length === 0) {
-      setHistory([roadmap]);
+      setHistory([initialRoadmap]);
       setHistoryIndex(0);
     }
-  }, [roadmap, setRoadmap, history.length]);
+  }, [initialRoadmap, history.length]);
 
   useEffect(() => {
     const handleRequestCancel = () => {
@@ -55,11 +56,24 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
 
   if (!roadmap) return null;
 
+  const handleExitRequest = () => {
+    if (historyIndex > 0) {
+      setShowCancelConfirm(true);
+    } else {
+      if (onCancel) onCancel();
+    }
+  };
+
   const handleSaveClick = () => {
     if (onSave) {
-      onSave();
-      setSaveText("SAVED!");
-      setTimeout(() => setSaveText("SAVE"), 2000);
+      setRoadmap(roadmap);
+      onSave(roadmap);
+      
+      setHistory([roadmap]);
+      setHistoryIndex(0);
+      
+      setSaveState('saved');
+      setTimeout(() => setSaveState('idle'), 1500);
     }
   };
 
@@ -68,22 +82,17 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
     newHistory.push(newRoadmap);
     setHistory(newHistory);
     setHistoryIndex(newHistory.length - 1);
-    setRoadmap(newRoadmap);
   };
 
   const undo = () => {
     if (historyIndex > 0) {
-      const newIndex = historyIndex - 1;
-      setHistoryIndex(newIndex);
-      setRoadmap(history[newIndex]);
+      setHistoryIndex(historyIndex - 1);
     }
   };
 
   const redo = () => {
     if (historyIndex < history.length - 1) {
-      const newIndex = historyIndex + 1;
-      setHistoryIndex(newIndex);
-      setRoadmap(history[newIndex]);
+      setHistoryIndex(historyIndex + 1);
     }
   };
 
@@ -326,7 +335,7 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
         <div className="mb-header-actions-container">
           <div className="mb-header-actions-group controls-group">
             {onCancel && (
-              <button className="mb-cancel-btn" onClick={() => setShowCancelConfirm(true)} title="Cancel">
+              <button className="mb-cancel-btn" onClick={handleExitRequest} title="Cancel">
                 ✕
               </button>
             )}
@@ -350,10 +359,17 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
             </div>
             {onSave && (
               <button 
-                className="mb-save-btn" 
+                className={`mb-save-btn ${saveState === 'saved' ? 'saved-state' : ''}`} 
                 onClick={handleSaveClick}
               >
-                {saveText}
+                {saveState === 'saved' ? (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <Check size={14} strokeWidth={3} />
+                    <span>Saved</span>
+                  </div>
+                ) : (
+                  "SAVE"
+                )}
               </button>
             )}
           </div>
@@ -375,7 +391,7 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
           <div className="mb-sticky-toolbar-content">
             <div className="mb-sticky-left" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               {onCancel && (
-                <button className="menu-btn menu-btn-danger" onClick={() => setShowCancelConfirm(true)} title="Cancel">
+                <button className="menu-btn menu-btn-danger" onClick={handleExitRequest} title="Cancel">
                   <X size={18} />
                 </button>
               )}
@@ -388,7 +404,19 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
             </div>
             <div className="mb-sticky-right" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               {onSave && (
-                <button className="mb-save-btn" onClick={handleSaveClick}>{saveText}</button>
+                <button 
+                  className={`mb-save-btn ${saveState === 'saved' ? 'saved-state' : ''}`} 
+                  onClick={handleSaveClick}
+                >
+                  {saveState === 'saved' ? (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <Check size={14} strokeWidth={3} />
+                      <span>Saved</span>
+                    </div>
+                  ) : (
+                    "SAVE"
+                  )}
+                </button>
               )}
               <div className="menu-container" style={{ position: 'relative' }}>
                 <button className="menu-btn" onClick={() => setIsStickyMenuOpen(!isStickyMenuOpen)}>
@@ -397,8 +425,8 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
                 {isStickyMenuOpen && (
                   <div className="dropdown-menu" style={{ top: '100%', right: '0', marginTop: '8px' }}>
                     <div className="dropdown-item" onClick={() => { 
-                      if (historyIndex > 0) setShowCancelConfirm(true); else if (onCancel) onCancel(); 
                       setIsStickyMenuOpen(false); 
+                      handleExitRequest();
                     }}>
                       <Eye size={16} /> View Mode
                     </div>
@@ -431,6 +459,7 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
               <React.Fragment key={item.id}>
                 <div 
                   className="mb-item-row"
+                  data-scroll-anchor={item.id}
                   draggable
                   onDragStart={(e) => handleDragStart(e, { type: 'root', iIdx })}
                   onDragOver={handleDragOver}
@@ -465,7 +494,7 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
         )}
 
         {roadmap.sections?.map((section, sIdx) => (
-          <div key={section.id} className="section-card" data-section-index={sIdx}>
+          <div key={section.id} className="section-card" data-section-index={sIdx} data-scroll-anchor={section.id}>
             <div className="mb-section-header">
               <span className="mb-section-number">{sIdx + 1}.</span>
               <div style={{display: 'flex', alignItems: 'baseline', flex: 1, gap: '8px', minWidth: 0}}>
@@ -502,6 +531,7 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
                   <React.Fragment key={item.id}>
                     <div 
                       className="mb-item-row"
+                      data-scroll-anchor={item.id}
                       draggable
                       onDragStart={(e) => handleDragStart(e, { type: 'section', sIdx, iIdx })}
                       onDragOver={handleDragOver}
@@ -537,7 +567,7 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
 
             <div className="mb-subsections">
               {section.subsections?.map((sub, ssIdx) => (
-                <div key={sub.id} className="subsection-card">
+                <div key={sub.id} className="subsection-card" data-scroll-anchor={sub.id}>
                   <div className="mb-subsection-header">
                     <span className="mb-subsection-number">{sIdx + 1}.{ssIdx + 1}</span>
                     <div style={{display: 'flex', alignItems: 'baseline', flex: 1, gap: '8px', minWidth: 0}}>
@@ -573,7 +603,8 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
                         {sub.items.map((item, iIdx) => (
                           <React.Fragment key={item.id}>
                             <div 
-                              className="mb-item-row"
+                              className="mb-item-row mb-subsection-item"
+                              data-scroll-anchor={item.id}
                               draggable
                               onDragStart={(e) => handleDragStart(e, { type: 'subsection', sIdx, ssIdx, iIdx })}
                               onDragOver={handleDragOver}
@@ -619,19 +650,21 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
         ))}
       </div>
       {showCancelConfirm && (
-        <div className="modal-overlay" onClick={() => setShowCancelConfirm(false)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <h3>Discard changes?</h3>
-            <p>Are you sure you want to discard your edits?</p>
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Unsaved Changes</h3>
+            <p>You have unsaved changes. If you leave now, your edits will be lost.</p>
             <div className="modal-actions">
               <button className="modal-btn-cancel" onClick={() => setShowCancelConfirm(false)}>Keep Editing</button>
-              <button className="modal-btn-danger" onClick={() => {
-                setShowCancelConfirm(false);
-                if (history.length > 0) {
-                  setRoadmap(history[0]);
-                }
-                if (onCancel) onCancel();
-              }}>Discard</button>
+              <button 
+                className="modal-btn-cancel danger-item" 
+                onClick={() => {
+                  setShowCancelConfirm(false);
+                  if (onCancel) onCancel();
+                }}
+              >
+                Discard & Exit
+              </button>
             </div>
           </div>
         </div>

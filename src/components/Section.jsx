@@ -88,7 +88,7 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
   const percentage = total === 0 ? 0 : (done / total) * 100;
 
   return (
-    <div className="tree-section" data-section-index={index}>
+    <div className="tree-section" data-section-index={index} data-scroll-anchor={section.id}>
       <div 
         className="section-header" 
         onClick={() => setIsExpanded(!isExpanded)}
@@ -129,7 +129,7 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
               
               return (
                 <React.Fragment key={itemObj.id || `label-${i}`}>
-                  <div className="subsection-label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingRight: '20px' }}>
+                  <div className="subsection-label" data-scroll-anchor={itemObj.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingRight: '20px' }}>
                     <span>{itemObj.text}</span>
                     {subTotal > 0 && (
                       <ProgressRing 
