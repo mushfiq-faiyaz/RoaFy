@@ -108,6 +108,59 @@ function App() {
     setIsEditing(true);
   };
 
+  const handleRenameMap = () => {
+    const newTitle = window.prompt("Rename Map:", roadmap?.title);
+    if (newTitle && newTitle.trim() !== "") {
+      const updated = { ...roadmap, title: newTitle.trim() };
+      handleSetRoadmap(updated);
+      updateRoadmapsList();
+    }
+  };
+
+  const handleDuplicateMap = () => {
+    if (!roadmap) return;
+    const newId = Date.now().toString();
+    const newRoadmap = { ...roadmap, title: roadmap.title + ' (Copy)' };
+    saveRoadmapData(newId, newRoadmap, progress);
+    setActiveRoadmapId(newId);
+    setCurrentRoadmapId(newId);
+    setRoadmapState(newRoadmap);
+    setProgressState(progress);
+    updateRoadmapsList();
+  };
+
+  const handleResetMap = () => {
+    setProgressState({});
+    saveProgress({});
+  };
+
+  const handleExportPDF = () => {
+    window.print();
+  };
+
+  const handleExportJSON = () => {
+    if (!roadmap) return;
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ roadmap, progress }));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", (roadmap.title || "roadmap") + ".json");
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  };
+
+  const handleDeleteMap = () => {
+    const all = getAllRoadmaps();
+    delete all[currentRoadmapId];
+    localStorage.setItem('roafy-roadmaps', JSON.stringify(all));
+    const remainingIds = Object.keys(all);
+    if (remainingIds.length > 0) {
+      handleSwitchRoadmap(remainingIds[0]);
+    } else {
+      handleCreateRoadmap();
+    }
+  };
+
   return (
     <div className="app-container">
       <div className="bg-orb-1"></div>
@@ -122,6 +175,12 @@ function App() {
         onSwitchRoadmap={handleSwitchRoadmap}
         onCreateRoadmap={handleCreateRoadmap}
         currentRoadmapId={currentRoadmapId}
+        onRenameMap={handleRenameMap}
+        onDuplicateMap={handleDuplicateMap}
+        onResetMap={handleResetMap}
+        onExportPDF={handleExportPDF}
+        onExportJSON={handleExportJSON}
+        onDeleteMap={handleDeleteMap}
       />
       
       <main className="container main-content">
