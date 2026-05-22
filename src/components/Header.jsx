@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ProgressRing from './ProgressRing';
 import './Header.css';
-import { Target, Download, Menu, Plus, FileText, Check, ChevronDown, Edit2, Copy, RotateCcw, Trash2, PenLine, FileJson, FileDown, Eye, Pencil } from 'lucide-react';
+import { Target, Download, Menu, Plus, FileText, Check, ChevronDown, Edit2, Copy, RotateCcw, Trash2, PenLine, FileJson, FileDown, Eye, Pencil, Activity, CheckCircle, Clock, ListTodo } from 'lucide-react';
 
 const Header = ({ 
   roadmap, progress, onManualSave, onEdit, isEditing, 
@@ -12,8 +12,33 @@ const Header = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSwitcherOpen, setIsSwitcherOpen] = useState(false);
   const [confirmAction, setConfirmAction] = useState(null);
+  const [showStickyProgress, setShowStickyProgress] = useState(false);
   const optionsRef = useRef(null);
   const switcherRef = useRef(null);
+  const statsCardRef = useRef(null);
+
+  useEffect(() => {
+    if (isEditing) {
+      setShowStickyProgress(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting && entry.boundingClientRect.y < 0) {
+          setShowStickyProgress(true);
+        } else {
+          setShowStickyProgress(false);
+        }
+      },
+      { threshold: 0 }
+    );
+    
+    if (statsCardRef.current) {
+      observer.observe(statsCardRef.current);
+    }
+    return () => observer.disconnect();
+  }, [isEditing]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -204,7 +229,7 @@ const Header = ({
           </div>
 
           <div className="header-right">
-            <div className="header-stats-card">
+            <div className="header-stats-card" ref={statsCardRef}>
               <div className="progress-container">
                 <div className="progress-label">PROGRESS</div>
                 <ProgressRing percentage={percentage} size={56} strokeWidth={4} />
@@ -231,6 +256,33 @@ const Header = ({
         </div>
       </div>
     </header>
+
+      {/* Sticky Progress Bar for View Mode */}
+      {!isEditing && (
+        <div className={`sticky-progress-bar ${showStickyProgress ? 'visible' : ''}`}>
+          <div className="sticky-progress-content">
+            <div className="sticky-prog-pill purp">
+              <Activity size={14} strokeWidth={2} />
+              <span className="sticky-prog-num">{Math.round(percentage)}%</span>
+            </div>
+            <div className="sticky-prog-pill done">
+              <CheckCircle size={14} strokeWidth={2} />
+              <span className="sticky-prog-num">{doneItems}</span>
+              <span className="sticky-prog-label">DONE</span>
+            </div>
+            <div className="sticky-prog-pill ip">
+              <Clock size={14} strokeWidth={2} />
+              <span className="sticky-prog-num">{inProgressItems}</span>
+              <span className="sticky-prog-label">IN PROGRESS</span>
+            </div>
+            <div className="sticky-prog-pill rem">
+              <ListTodo size={14} strokeWidth={2} />
+              <span className="sticky-prog-num">{remainingItems}</span>
+              <span className="sticky-prog-label">LEFT</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {confirmAction && (
         <div className="modal-overlay" onClick={() => setConfirmAction(null)}>

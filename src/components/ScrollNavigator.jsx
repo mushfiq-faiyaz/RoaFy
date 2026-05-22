@@ -12,6 +12,8 @@ const ScrollNavigator = () => {
   const scrollDirection = useRef(0);
   const holdThresholdCrossed = useRef(false);
   const currentSpeed = useRef(4);
+  const clickCount = useRef(0);
+  const clickTimerRef = useRef(null);
 
   const getScrollContainer = () => {
     return document.querySelector('.app-container') || document.documentElement;
@@ -54,8 +56,26 @@ const ScrollNavigator = () => {
     stopAutoScroll();
     
     if (!holdThresholdCrossed.current) {
-      // Execute single click jump
-      jumpToSection(direction);
+      clickCount.current += 1;
+      
+      if (clickCount.current === 1) {
+        clickTimerRef.current = setTimeout(() => {
+          clickCount.current = 0;
+          jumpToSection(direction);
+        }, 250);
+      } else if (clickCount.current === 2) {
+        clearTimeout(clickTimerRef.current);
+        clickCount.current = 0;
+        
+        const container = getScrollContainer();
+        if (container) {
+          if (direction === -1) {
+            container.scrollTo({ top: 0, behavior: 'auto' });
+          } else {
+            container.scrollTo({ top: container.scrollHeight, behavior: 'auto' });
+          }
+        }
+      }
     }
   };
 
@@ -82,9 +102,17 @@ const ScrollNavigator = () => {
     let targetY = null;
     const currentY = containerScrollTop;
 
+    let topBarHeight = 0;
+    const topBar = document.querySelector('.sticky-progress-bar.visible') || document.querySelector('.sticky-header') || document.querySelector('.header');
+    if (topBar) {
+      topBarHeight = topBar.getBoundingClientRect().height;
+    }
+    const offset = topBarHeight + 8;
+    const visualCurrentY = currentY + offset;
+
     if (direction === -1) {
       for (let i = positions.length - 1; i >= 0; i--) {
-        if (positions[i] < currentY - 10) {
+        if (positions[i] < visualCurrentY - 10) {
           targetY = positions[i];
           break;
         }
@@ -92,7 +120,7 @@ const ScrollNavigator = () => {
       if (targetY === null) targetY = 0; // fallback to top
     } else {
       for (let i = 0; i < positions.length; i++) {
-        if (positions[i] > currentY + 10) {
+        if (positions[i] > visualCurrentY + 10) {
           targetY = positions[i];
           break;
         }
@@ -101,7 +129,11 @@ const ScrollNavigator = () => {
     }
 
     if (targetY !== null) {
-      container.scrollTo({ top: targetY, behavior: 'smooth' });
+      let finalY = targetY;
+      if (targetY !== 0 && targetY !== container.scrollHeight) {
+        finalY = Math.max(0, targetY - offset);
+      }
+      container.scrollTo({ top: finalY, behavior: 'smooth' });
     }
   };
 
@@ -129,6 +161,7 @@ const ScrollNavigator = () => {
       container.removeEventListener('scroll', handleScroll);
       if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
       if (holdTimerRef.current) clearTimeout(holdTimerRef.current);
+      if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
     };
   }, []);
