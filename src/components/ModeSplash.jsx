@@ -22,8 +22,8 @@ const ModeSplash = ({ isEditing, onHide }) => {
       >
         <div className="splash-icon-wrap">
           {isEditing
-            ? <Pencil size={52} strokeWidth={1.5} />
-            : <Eye     size={52} strokeWidth={1.5} />
+            ? <Pencil size={34} strokeWidth={1.5} />
+            : <Eye     size={34} strokeWidth={1.5} />
           }
         </div>
         <div className="splash-label">
