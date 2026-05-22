@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './ManualBuilder.css';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Menu, Eye, Save, X, Undo2, Redo2 } from 'lucide-react';
 
 const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
   const [history, setHistory] = useState([]);
@@ -8,6 +8,7 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
   const [saveText, setSaveText] = useState("SAVE");
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
   const [showStickyToolbar, setShowStickyToolbar] = useState(false);
+  const [isStickyMenuOpen, setIsStickyMenuOpen] = useState(false);
   const originalToolbarRef = useRef(null);
 
   useEffect(() => {
@@ -39,6 +40,18 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
       setHistoryIndex(0);
     }
   }, [roadmap, setRoadmap, history.length]);
+
+  useEffect(() => {
+    const handleRequestCancel = () => {
+      if (historyIndex > 0) {
+        setShowCancelConfirm(true);
+      } else {
+        if (onCancel) onCancel();
+      }
+    };
+    window.addEventListener('request-cancel-edit', handleRequestCancel);
+    return () => window.removeEventListener('request-cancel-edit', handleRequestCancel);
+  }, [historyIndex, onCancel]);
 
   if (!roadmap) return null;
 
@@ -360,18 +373,42 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
       <div className="mb-sticky-wrapper">
         <div className={`mb-sticky-toolbar ${showStickyToolbar ? 'visible' : ''}`}>
           <div className="mb-sticky-toolbar-content">
-            {onCancel && (
-              <button className="mb-cancel-btn" onClick={() => setShowCancelConfirm(true)} title="Cancel">
-                ✕
+            <div className="mb-sticky-left" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              {onCancel && (
+                <button className="menu-btn menu-btn-danger" onClick={() => setShowCancelConfirm(true)} title="Cancel">
+                  <X size={18} />
+                </button>
+              )}
+              <button className="menu-btn" onClick={undo} disabled={historyIndex <= 0} title="Undo">
+                <Undo2 size={18} />
               </button>
-            )}
-            <div className="mb-sticky-center">
-              <button className="mb-undo-btn" onClick={undo} disabled={historyIndex <= 0}>↩</button>
-              <button className="mb-redo-btn" onClick={redo} disabled={historyIndex >= history.length - 1}>↪</button>
+              <button className="menu-btn" onClick={redo} disabled={historyIndex >= history.length - 1} title="Redo">
+                <Redo2 size={18} />
+              </button>
             </div>
-            {onSave && (
-              <button className="mb-save-btn" onClick={handleSaveClick}>{saveText}</button>
-            )}
+            <div className="mb-sticky-right" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              {onSave && (
+                <button className="mb-save-btn" onClick={handleSaveClick}>{saveText}</button>
+              )}
+              <div className="menu-container" style={{ position: 'relative' }}>
+                <button className="menu-btn" onClick={() => setIsStickyMenuOpen(!isStickyMenuOpen)}>
+                  <Menu size={20} />
+                </button>
+                {isStickyMenuOpen && (
+                  <div className="dropdown-menu" style={{ top: '100%', right: '0', marginTop: '8px' }}>
+                    <div className="dropdown-item" onClick={() => { 
+                      if (historyIndex > 0) setShowCancelConfirm(true); else if (onCancel) onCancel(); 
+                      setIsStickyMenuOpen(false); 
+                    }}>
+                      <Eye size={16} /> View Mode
+                    </div>
+                    <div className="dropdown-item" onClick={() => { handleSaveClick(); setIsStickyMenuOpen(false); }}>
+                      <Save size={16} /> Save & Exit
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -428,7 +465,7 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
         )}
 
         {roadmap.sections?.map((section, sIdx) => (
-          <div key={section.id} className="section-card">
+          <div key={section.id} className="section-card" data-section-index={sIdx}>
             <div className="mb-section-header">
               <span className="mb-section-number">{sIdx + 1}.</span>
               <div style={{display: 'flex', alignItems: 'baseline', flex: 1, gap: '8px', minWidth: 0}}>

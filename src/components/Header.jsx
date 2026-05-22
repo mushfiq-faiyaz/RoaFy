@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ProgressRing from './ProgressRing';
 import './Header.css';
-import { Target, Download, Menu, Plus, FileText, Check, ChevronDown, Edit2, Copy, RotateCcw, Trash2, PenLine, FileJson, FileDown, Eye, Pencil, Activity, CheckCircle, Clock, ListTodo } from 'lucide-react';
+import { Target, Download, Menu, Plus, FileText, Check, ChevronDown, Edit2, Copy, RotateCcw, Trash2, PenLine, FileJson, FileDown, Eye, Pencil, Activity, CheckCircle, Clock, ListTodo, Save } from 'lucide-react';
 
 const Header = ({ 
   roadmap, progress, onManualSave, onEdit, isEditing, 
@@ -14,6 +14,7 @@ const Header = ({
   const [confirmAction, setConfirmAction] = useState(null);
   const [showStickyProgress, setShowStickyProgress] = useState(false);
   const optionsRef = useRef(null);
+  const stickyOptionsRef = useRef(null);
   const switcherRef = useRef(null);
   const statsCardRef = useRef(null);
 
@@ -42,7 +43,11 @@ const Header = ({
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (optionsRef.current && !optionsRef.current.contains(event.target)) {
+      const clickedOutsideOriginal = optionsRef.current && !optionsRef.current.contains(event.target);
+      const clickedOutsideSticky = stickyOptionsRef.current && !stickyOptionsRef.current.contains(event.target);
+      const stickyDoesNotExist = !stickyOptionsRef.current;
+      
+      if (clickedOutsideOriginal && (clickedOutsideSticky || stickyDoesNotExist)) {
         setIsMenuOpen(false);
       }
       if (switcherRef.current && !switcherRef.current.contains(event.target)) {
@@ -130,6 +135,62 @@ const Header = ({
   const percentage = totalItems === 0 ? 0 : (doneItems / totalItems) * 100;
   const remainingItems = totalItems - doneItems - inProgressItems;
 
+  const handleEditCancelClick = () => {
+    window.dispatchEvent(new Event('request-cancel-edit'));
+    setIsMenuOpen(false);
+  };
+
+  const handleEditSaveClick = () => {
+    onManualSave();
+    setIsMenuOpen(false);
+  };
+
+  const renderMenu = (ref) => (
+    <div className="menu-container" ref={ref}>
+      <button className="menu-btn" onClick={() => { setIsMenuOpen(!isMenuOpen); setIsSwitcherOpen(false); }}>
+        <Menu size={20} />
+      </button>
+      {isMenuOpen && (
+        <div className="dropdown-menu">
+          {isEditing ? (
+            <>
+              <div className="dropdown-item" onClick={handleEditCancelClick}>
+                <Eye size={16} /> View Mode
+              </div>
+              <div className="dropdown-item" onClick={handleEditSaveClick}>
+                <Save size={16} /> Save & Exit
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="dropdown-item" onClick={() => { onCreateRoadmap(); setIsMenuOpen(false); }}>
+                <Plus size={16} /> New Roadmap
+              </div>
+              <div className="dropdown-divider"></div>
+              <div className="dropdown-item" onClick={() => { onEdit(); setIsMenuOpen(false); }}>
+                <Edit2 size={16} /> Edit Map
+              </div>
+              <div className="dropdown-item" onClick={() => { onDuplicateMap?.(); setIsMenuOpen(false); }}>
+                <Copy size={16} /> Duplicate Map
+              </div>
+              <div className="dropdown-item danger-item" onClick={() => { setConfirmAction('reset'); setIsMenuOpen(false); }}>
+                <RotateCcw size={16} /> Reset Map
+              </div>
+              <div className="dropdown-divider"></div>
+              <div className="dropdown-item" onClick={() => { onExportPDF?.(); setIsMenuOpen(false); }}>
+                <FileDown size={16} /> Export as PDF
+              </div>
+              <div className="dropdown-divider"></div>
+              <div className="dropdown-item danger-item" onClick={() => { setConfirmAction('delete'); setIsMenuOpen(false); }}>
+                <Trash2 size={16} /> Delete Map
+              </div>
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <>
       <header className="header">
@@ -158,45 +219,10 @@ const Header = ({
             )}
           </div>
 
-          {!isEditing && (
-            <div className="menu-controls-wrapper">
-              <div className="menu-container" ref={optionsRef}>
-                <button className="menu-btn" onClick={() => { setIsMenuOpen(!isMenuOpen); setIsSwitcherOpen(false); }}>
-                  <Menu size={20} />
-                </button>
-                {isMenuOpen && (
-                  <div className="dropdown-menu">
-                    <div className="dropdown-item" onClick={() => { onCreateRoadmap(); setIsMenuOpen(false); }}>
-                      <Plus size={16} /> New Roadmap
-                    </div>
-                    <div className="dropdown-divider"></div>
-                    <div className="dropdown-item" onClick={() => { onRenameMap?.(); setIsMenuOpen(false); }}>
-                      <PenLine size={16} /> Rename Map
-                    </div>
-                    <div className="dropdown-item" onClick={() => { onEdit(); setIsMenuOpen(false); }}>
-                      <Edit2 size={16} /> Edit Map
-                    </div>
-                    <div className="dropdown-item" onClick={() => { onDuplicateMap?.(); setIsMenuOpen(false); }}>
-                      <Copy size={16} /> Duplicate Map
-                    </div>
-                    <div className="dropdown-item danger-item" onClick={() => { setConfirmAction('reset'); setIsMenuOpen(false); }}>
-                      <RotateCcw size={16} /> Reset Map
-                    </div>
-                    <div className="dropdown-divider"></div>
-                    <div className="dropdown-item" onClick={() => { onExportPDF?.(); setIsMenuOpen(false); }}>
-                      <FileDown size={16} /> Export as PDF
-                    </div>
-                    <div className="dropdown-item" onClick={() => { onExportJSON?.(); setIsMenuOpen(false); }}>
-                      <FileJson size={16} /> Export as JSON
-                    </div>
-                    <div className="dropdown-divider"></div>
-                    <div className="dropdown-item danger-item" onClick={() => { setConfirmAction('delete'); setIsMenuOpen(false); }}>
-                      <Trash2 size={16} /> Delete Map
-                    </div>
-                  </div>
-                )}
-              </div>
+          <div className="menu-controls-wrapper">
+            {renderMenu(optionsRef)}
 
+            {!isEditing && (
               <div className="menu-container" ref={switcherRef}>
                 <button className="menu-btn switcher-btn" onClick={() => { setIsSwitcherOpen(!isSwitcherOpen); setIsMenuOpen(false); }}>
                   <ChevronDown size={20} />
@@ -219,8 +245,8 @@ const Header = ({
                   </div>
                 )}
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         <div className="header-content-row">
@@ -280,6 +306,9 @@ const Header = ({
               <span className="sticky-prog-num">{remainingItems}</span>
               <span className="sticky-prog-label">LEFT</span>
             </div>
+          </div>
+          <div className="sticky-menu-wrapper">
+            {renderMenu(stickyOptionsRef)}
           </div>
         </div>
       )}

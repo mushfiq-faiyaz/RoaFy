@@ -88,7 +88,7 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
   const percentage = total === 0 ? 0 : (done / total) * 100;
 
   return (
-    <div className="tree-section">
+    <div className="tree-section" data-section-index={index}>
       <div 
         className="section-header" 
         onClick={() => setIsExpanded(!isExpanded)}

@@ -448,6 +448,17 @@
   pointer-events: auto;
 }
 
+.sticky-menu-wrapper {
+  position: absolute;
+  right: 24px;
+}
+
+@media (max-width: 768px) {
+  .sticky-menu-wrapper {
+    right: 16px;
+  }
+}
+
 .sticky-progress-content {
   display: flex;
   align-items: center;

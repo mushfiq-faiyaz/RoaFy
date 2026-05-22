@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import Header from './components/Header';
 import UploadZone from './components/UploadZone';
 import RoadmapTree from './components/RoadmapTree';
@@ -18,6 +18,65 @@ function App() {
   const [roadmapsList, setRoadmapsList] = useState([]);
   const [currentRoadmapId, setCurrentRoadmapId] = useState(() => getActiveRoadmapId());
   const [currentView, setCurrentView] = useState('list');
+
+  const pendingScrollRestore = useRef(false);
+  const scrollState = useRef({ top: 0, mainOffset: 0 });
+  const containerRef = useRef(null);
+
+  const captureScroll = () => {
+    if (!containerRef.current) return;
+    const mainEl = document.querySelector('.main-content');
+    
+    // Find closest section to anchor to
+    const sections = Array.from(document.querySelectorAll('[data-section-index]'));
+    let bestAnchor = null;
+    let minDiff = Infinity;
+    const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+    
+    sections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      const diff = Math.abs(rect.top - headerHeight);
+      if (diff < minDiff) {
+        minDiff = diff;
+        bestAnchor = {
+          index: sec.getAttribute('data-section-index'),
+          viewportTop: rect.top
+        };
+      }
+    });
+
+    scrollState.current = {
+      top: containerRef.current.scrollTop,
+      mainOffset: mainEl ? mainEl.offsetTop : 0,
+      anchor: bestAnchor
+    };
+    pendingScrollRestore.current = true;
+  };
+
+  useLayoutEffect(() => {
+    if (pendingScrollRestore.current) {
+      pendingScrollRestore.current = false;
+      requestAnimationFrame(() => {
+        if (!containerRef.current) return;
+        
+        if (scrollState.current.anchor) {
+          const anchorEl = document.querySelector(`[data-section-index="${scrollState.current.anchor.index}"]`);
+          if (anchorEl) {
+            const currentViewportTop = anchorEl.getBoundingClientRect().top;
+            const diff = currentViewportTop - scrollState.current.anchor.viewportTop;
+            containerRef.current.scrollTop += diff;
+            return;
+          }
+        }
+        
+        // Fallback
+        const mainEl = document.querySelector('.main-content');
+        const newMainOffset = mainEl ? mainEl.offsetTop : 0;
+        const delta = newMainOffset - scrollState.current.mainOffset;
+        containerRef.current.scrollTop = scrollState.current.top + delta;
+      });
+    }
+  }, [isEditing]);
 
   const updateRoadmapsList = () => {
     const all = getAllRoadmaps();
@@ -97,6 +156,7 @@ function App() {
     if (roadmap) {
       saveRoadmap(roadmap);
       saveProgress(progress);
+      captureScroll();
       setIsEditing(false);
     }
   };
@@ -109,10 +169,12 @@ function App() {
   };
 
   const handleEdit = () => {
+    captureScroll();
     setIsEditing(true);
   };
 
   const handleCancelEdit = () => {
+    captureScroll();
     setIsEditing(false);
   };
 
@@ -170,7 +232,7 @@ function App() {
   };
 
   return (
-    <div className="app-container">
+    <div className="app-container" ref={containerRef}>
       <div className="bg-orb-1"></div>
       <div className="bg-orb-2"></div>
       <Header 
