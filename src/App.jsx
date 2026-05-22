@@ -3,6 +3,7 @@ import Header from './components/Header';
 import UploadZone from './components/UploadZone';
 import RoadmapTree from './components/RoadmapTree';
 import ManualBuilder from './components/ManualBuilder';
+import ScrollNavigator from './components/ScrollNavigator';
 import { getRoadmap, saveRoadmap, getProgress, saveProgress, getAllRoadmaps, getActiveRoadmapId, setActiveRoadmapId, saveRoadmapData } from './utils/storage';
 import { extractTextFromPdf } from './utils/pdfExtract';
 import { parseRoadmap } from './utils/parseRoadmap';
@@ -31,13 +32,7 @@ function App() {
     updateRoadmapsList();
   }, [roadmap]);
 
-  useEffect(() => {
-    if (isEditing) {
-      document.documentElement.classList.add('edit-mode');
-    } else {
-      document.documentElement.classList.remove('edit-mode');
-    }
-  }, [isEditing]);
+
 
   const handleCreateRoadmap = () => {
     const newId = Date.now().toString();
@@ -233,6 +228,8 @@ function App() {
           )
         )}
       </main>
+      
+      <ScrollNavigator />
     </div>
   );
 }

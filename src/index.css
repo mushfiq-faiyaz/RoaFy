@@ -40,8 +40,9 @@ html, body {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
   color: #f0f0f0;
   margin: 0;
-  overflow-x: hidden;
+  overflow: hidden;
   max-width: 100vw;
+  height: 100vh;
 }
 
 .bg-orb-1 {
@@ -66,8 +67,8 @@ h1, h2, h3, h4, h5, h6, .mb-title-input, .tree-root-title {
 #root {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  overflow-x: hidden;
+  height: 100vh;
+  overflow: hidden;
   max-width: 100vw;
 }
 
@@ -112,37 +113,4 @@ button {
   transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.1);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,255,255,0.2);
-}
 
-/* Edit Mode Thick Samsung-style Scrollbar */
-html.edit-mode::-webkit-scrollbar {
-  width: 18px; /* hit area */
-}
-html.edit-mode::-webkit-scrollbar-track {
-  background: rgba(20, 20, 25, 0.5);
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  background-clip: padding-box;
-}
-html.edit-mode::-webkit-scrollbar-thumb {
-  background: #8b5cf6; /* muted purple */
-  border: 6px solid transparent;
-  border-radius: 10px;
-  background-clip: padding-box;
-}
-html.edit-mode::-webkit-scrollbar-thumb:hover {
-  background: #7c3aed;
-}

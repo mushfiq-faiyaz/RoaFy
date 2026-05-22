@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ProgressRing from './ProgressRing';
 import './Header.css';
-import { Target, Download, Menu, Plus, FileText, Check, ChevronDown, Edit2, Copy, RotateCcw, Trash2, PenLine, FileJson, FileDown } from 'lucide-react';
+import { Target, Download, Menu, Plus, FileText, Check, ChevronDown, Edit2, Copy, RotateCcw, Trash2, PenLine, FileJson, FileDown, Eye, Pencil } from 'lucide-react';
 
 const Header = ({ 
   roadmap, progress, onManualSave, onEdit, isEditing, 
@@ -112,7 +112,19 @@ const Header = ({
         <div className="header-top-row">
           <div className="brand-logo">
             <Target className="brand-icon" size={28} />
-            <h1 className="website-name">RoaFy</h1>
+            <div className="brand-text-wrapper">
+              <h1 className="website-name">RoaFy</h1>
+              {isEditing ? (
+                <span className="mode-badge edit-badge">
+                  <Pencil size={13} /> Edit Mode
+                  <span className="pulse-dot"></span>
+                </span>
+              ) : (
+                <span className="mode-badge view-badge">
+                  <Eye size={13} /> View Mode
+                </span>
+              )}
+            </div>
             {deferredPrompt && (
               <button className="install-button" onClick={handleInstallClick}>
                 <Download size={14} />
@@ -129,6 +141,10 @@ const Header = ({
                 </button>
                 {isMenuOpen && (
                   <div className="dropdown-menu">
+                    <div className="dropdown-item" onClick={() => { onCreateRoadmap(); setIsMenuOpen(false); }}>
+                      <Plus size={16} /> New Roadmap
+                    </div>
+                    <div className="dropdown-divider"></div>
                     <div className="dropdown-item" onClick={() => { onRenameMap?.(); setIsMenuOpen(false); }}>
                       <PenLine size={16} /> Rename Map
                     </div>
@@ -162,10 +178,6 @@ const Header = ({
                 </button>
                 {isSwitcherOpen && (
                   <div className="dropdown-menu">
-                    <div className="dropdown-item" onClick={() => { onCreateRoadmap(); setIsSwitcherOpen(false); }}>
-                      <Plus size={16} /> New Roadmap
-                    </div>
-                    <div className="dropdown-divider"></div>
                     {roadmapsList.map(r => (
                       <div 
                         key={r.id} 

@@ -310,41 +310,50 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
             placeholder="Roadmap Title"
           />
         </div>
-        <div className="mb-header-actions">
-          {onCancel && (
-            <button className="mb-cancel-btn" onClick={() => setShowCancelConfirm(true)} title="Cancel">
-              ✕
+        <div className="mb-header-actions-container">
+          <div className="mb-header-actions-group controls-group">
+            {onCancel && (
+              <button className="mb-cancel-btn" onClick={() => setShowCancelConfirm(true)} title="Cancel">
+                ✕
+              </button>
+            )}
+            <div className="mb-undo-redo-group">
+              <button 
+                className="mb-undo-btn"
+                onClick={undo} 
+                disabled={historyIndex <= 0}
+                title="Undo"
+              >
+                ↩
+              </button>
+              <button 
+                className="mb-redo-btn"
+                onClick={redo} 
+                disabled={historyIndex >= history.length - 1}
+                title="Redo"
+              >
+                ↪
+              </button>
+            </div>
+            {onSave && (
+              <button 
+                className="mb-save-btn" 
+                onClick={handleSaveClick}
+              >
+                {saveText}
+              </button>
+            )}
+          </div>
+          
+          <div className="mb-header-actions-divider"></div>
+          
+          <div className="mb-header-actions-group adds-group">
+            <button className="mb-add-action-btn btn-item" onClick={addRootItem}>+ ITEM</button>
+            <button className="mb-add-action-btn btn-section" onClick={addSection}>+ SECTION</button>
+            <button className={`mb-add-action-btn btn-note ${openDescs['roadmap'] ? 'active' : ''}`} onClick={() => toggleDesc('roadmap')} title="Add description">
+              {openDescs['roadmap'] ? '- NOTE' : '+ NOTE'}
             </button>
-          )}
-          <button className={`mb-text-btn ${openDescs['roadmap'] ? 'active' : ''}`} onClick={() => toggleDesc('roadmap')} title="Add description">
-            {openDescs['roadmap'] ? '- Note' : '+ Note'}
-          </button>
-          <button 
-            className="mb-undo-btn"
-            onClick={undo} 
-            disabled={historyIndex <= 0}
-            title="Undo"
-          >
-            ↩
-          </button>
-          <button 
-            className="mb-redo-btn"
-            onClick={redo} 
-            disabled={historyIndex >= history.length - 1}
-            title="Redo"
-          >
-            ↪
-          </button>
-          {onSave && (
-            <button 
-              className="mb-save-btn" 
-              onClick={handleSaveClick}
-            >
-              {saveText}
-            </button>
-          )}
-          <button className="mb-add-item-btn" onClick={addRootItem}>+ ITEM</button>
-          <button className="mb-add-section-btn" onClick={addSection}>+ SECTION</button>
+          </div>
         </div>
       </div>
 
