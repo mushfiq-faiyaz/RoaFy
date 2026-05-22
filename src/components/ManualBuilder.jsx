@@ -6,9 +6,12 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel }
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [saveState, setSaveState] = useState('idle');
+  const [revertState, setRevertState] = useState('idle');
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+  const [showRevertConfirm, setShowRevertConfirm] = useState(false);
   const [showStickyToolbar, setShowStickyToolbar] = useState(false);
   const [isStickyMenuOpen, setIsStickyMenuOpen] = useState(false);
+  const [isReverting, setIsReverting] = useState(false);
   const originalToolbarRef = useRef(null);
 
   const roadmap = history[historyIndex] || initialRoadmap;
@@ -62,6 +65,22 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel }
     } else {
       if (onCancel) onCancel();
     }
+  };
+
+  const handleRevert = () => {
+    setShowRevertConfirm(true);
+  };
+
+  const handleRevertConfirm = () => {
+    const base = initialRoadmap || { title: 'My Roadmap', sections: [] };
+    setHistory([base]);
+    setHistoryIndex(0);
+    setRoadmap(base);
+    setIsReverting(true);
+    setTimeout(() => setIsReverting(false), 400);
+    setRevertState('reverted');
+    setTimeout(() => setRevertState('idle'), 1500);
+    setShowRevertConfirm(false);
   };
 
   const handleSaveClick = () => {
@@ -335,8 +354,17 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel }
         <div className="mb-header-actions-container">
           <div className="mb-header-actions-group controls-group">
             {onCancel && (
-              <button className="mb-cancel-btn" onClick={handleExitRequest} title="Cancel">
-                ✕
+              <button
+                className={`mb-revert-btn${revertState === 'reverted' ? ' reverted-state' : ''}`}
+                onClick={handleRevert}
+                title="Revert all unsaved changes"
+              >
+                {revertState === 'reverted' ? (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <span style={{ fontSize: '13px' }}>↺</span>
+                    <span>Reverted</span>
+                  </div>
+                ) : 'Revert'}
               </button>
             )}
             <div className="mb-undo-redo-group">
@@ -391,8 +419,17 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel }
           <div className="mb-sticky-toolbar-content">
             <div className="mb-sticky-left" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               {onCancel && (
-                <button className="menu-btn menu-btn-danger" onClick={handleExitRequest} title="Cancel">
-                  <X size={18} />
+                <button
+                  className={`mb-revert-sticky-btn${revertState === 'reverted' ? ' reverted-state' : ''}`}
+                  onClick={handleRevert}
+                  title="Revert all unsaved changes"
+                >
+                  {revertState === 'reverted' ? (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                      <span style={{ fontSize: '13px' }}>↺</span>
+                      <span>Reverted</span>
+                    </div>
+                  ) : 'Revert'}
                 </button>
               )}
               <button className="menu-btn" onClick={undo} disabled={historyIndex <= 0} title="Undo">
@@ -451,7 +488,7 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel }
         </div>
       )}
 
-      <div className="mb-sections">
+      <div className={`mb-sections${isReverting ? ' revert-pulse' : ''}`}>
         {roadmap.items?.length > 0 && (
           <div className="mb-direct-items" style={{marginBottom: '16px', background: '#16161a', padding: '16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)'}}>
             <div style={{color:'rgba(255,255,255,0.4)', fontSize:'12px', fontWeight:600, marginBottom:'12px', textTransform:'uppercase'}}>Roadmap Items</div>
@@ -649,6 +686,19 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel }
           </div>
         ))}
       </div>
+      {showRevertConfirm && (
+        <div className="modal-overlay" onClick={() => setShowRevertConfirm(false)}>
+          <div className="modal-content revert-modal" onClick={e => e.stopPropagation()}>
+            <div className="revert-modal-icon">↺</div>
+            <h3>Revert all changes?</h3>
+            <p>This will undo all unsaved edits and restore the last saved state.</p>
+            <div className="modal-actions">
+              <button className="modal-btn-cancel" onClick={() => setShowRevertConfirm(false)}>Cancel</button>
+              <button className="modal-btn-danger" onClick={handleRevertConfirm}>Revert</button>
+            </div>
+          </div>
+        </div>
+      )}
       {showCancelConfirm && (
         <div className="modal-overlay">
           <div className="modal-content">
