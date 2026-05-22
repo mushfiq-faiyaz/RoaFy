@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './ManualBuilder.css';
 import { ChevronRight } from 'lucide-react';
 
@@ -7,6 +7,26 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [saveText, setSaveText] = useState("SAVE");
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+  const [showStickyToolbar, setShowStickyToolbar] = useState(false);
+  const originalToolbarRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting && entry.boundingClientRect.y < 0) {
+          setShowStickyToolbar(true);
+        } else {
+          setShowStickyToolbar(false);
+        }
+      },
+      { threshold: 0 }
+    );
+    
+    if (originalToolbarRef.current) {
+      observer.observe(originalToolbarRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!roadmap) {
@@ -281,7 +301,7 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
 
   return (
     <div className="manual-builder fade-in">
-      <div className="mb-header">
+      <div className="mb-header" ref={originalToolbarRef}>
         <div className="auto-input-wrapper" data-value={roadmap.title || "Roadmap Title"} style={{ flex: 1, minWidth: 0, marginRight: '16px' }}>
           <input 
             className="mb-title-input" 
@@ -325,6 +345,25 @@ const ManualBuilder = ({ roadmap, setRoadmap, onSave, onCancel }) => {
           )}
           <button className="mb-add-item-btn" onClick={addRootItem}>+ ITEM</button>
           <button className="mb-add-section-btn" onClick={addSection}>+ SECTION</button>
+        </div>
+      </div>
+
+      <div className="mb-sticky-wrapper">
+        <div className={`mb-sticky-toolbar ${showStickyToolbar ? 'visible' : ''}`}>
+          <div className="mb-sticky-toolbar-content">
+            {onCancel && (
+              <button className="mb-cancel-btn" onClick={() => setShowCancelConfirm(true)} title="Cancel">
+                ✕
+              </button>
+            )}
+            <div className="mb-sticky-center">
+              <button className="mb-undo-btn" onClick={undo} disabled={historyIndex <= 0}>↩</button>
+              <button className="mb-redo-btn" onClick={redo} disabled={historyIndex >= history.length - 1}>↪</button>
+            </div>
+            {onSave && (
+              <button className="mb-save-btn" onClick={handleSaveClick}>{saveText}</button>
+            )}
+          </div>
         </div>
       </div>
 

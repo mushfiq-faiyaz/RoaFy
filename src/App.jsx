@@ -31,6 +31,14 @@ function App() {
     updateRoadmapsList();
   }, [roadmap]);
 
+  useEffect(() => {
+    if (isEditing) {
+      document.documentElement.classList.add('edit-mode');
+    } else {
+      document.documentElement.classList.remove('edit-mode');
+    }
+  }, [isEditing]);
+
   const handleCreateRoadmap = () => {
     const newId = Date.now().toString();
     const newRoadmap = { title: "New Roadmap", sections: [] };

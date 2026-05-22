@@ -126,3 +126,23 @@ button {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255,255,255,0.2);
 }
+
+/* Edit Mode Thick Samsung-style Scrollbar */
+html.edit-mode::-webkit-scrollbar {
+  width: 18px; /* hit area */
+}
+html.edit-mode::-webkit-scrollbar-track {
+  background: rgba(20, 20, 25, 0.5);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  background-clip: padding-box;
+}
+html.edit-mode::-webkit-scrollbar-thumb {
+  background: #8b5cf6; /* muted purple */
+  border: 6px solid transparent;
+  border-radius: 10px;
+  background-clip: padding-box;
+}
+html.edit-mode::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+}
