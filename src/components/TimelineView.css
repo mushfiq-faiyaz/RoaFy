@@ -1,0 +1,500 @@
+.timeline-view-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Banner Alert Styles */
+.timeline-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: #f59e0b;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  animation: fadeIn 0.2s ease;
+}
+
+.banner-icon {
+  flex-shrink: 0;
+}
+
+/* Dateless Phase Cards Styles */
+.timeline-unmapped-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.unmapped-header {
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: -0.2px;
+}
+
+.unmapped-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.unmapped-card {
+  background: #16161a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.unmapped-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+.timeline-set-dates-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  width: max-content;
+}
+
+.timeline-set-dates-btn:hover {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.3);
+  color: #818cf8;
+}
+
+/* Timeline Grid Layout */
+.timeline-main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.timeline-header {
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: -0.2px;
+}
+
+.timeline-grid-outer {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  background: #16161a;
+  overflow: hidden;
+}
+
+.timeline-grid-container {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  max-height: 520px;
+  overflow-y: auto;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.06) transparent;
+}
+
+/* Custom Scrollbar for Grid Y scroll */
+.timeline-grid-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.timeline-grid-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.timeline-grid-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 99px;
+}
+
+/* Left Months Column styling */
+.timeline-months-column {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  background: #1a1a20;
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  user-select: none;
+}
+
+.timeline-month-row {
+  height: 76px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.timeline-month-row:last-child {
+  border-bottom: none;
+}
+
+.month-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8fafc;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.month-year {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* Right Scrollable Timeline Grid */
+.timeline-phases-area {
+  overflow-x: auto;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.06) transparent;
+}
+
+/* Custom Scrollbar for Grid X scroll */
+.timeline-phases-area::-webkit-scrollbar {
+  height: 6px;
+}
+
+.timeline-phases-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.timeline-phases-area::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 99px;
+}
+
+.timeline-phases-grid {
+  position: relative;
+}
+
+.timeline-grid-row-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 76px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+}
+
+/* Gantt Bar Styles */
+.timeline-bar {
+  position: absolute;
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  overflow: visible;
+  user-select: none;
+  z-index: 5;
+}
+
+.timeline-bar:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  z-index: 8;
+}
+
+.timeline-bar-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  text-align: center;
+}
+
+.timeline-bar-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: inherit;
+}
+
+/* Edit icon on hover */
+.timeline-bar-edit-icon {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  opacity: 0;
+  color: inherit;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+.timeline-bar:hover .timeline-bar-edit-icon {
+  opacity: 0.7;
+}
+
+/* Short duration bar fallback label outside */
+.timeline-bar.short-bar .timeline-bar-content {
+  display: none;
+}
+
+.timeline-bar-label-outside {
+  position: absolute;
+  left: calc(100% + 8px);
+  background: #202330;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Accents mapping values */
+.timeline-bar.accent-blue {
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  color: #60a5fa;
+}
+.timeline-bar.accent-blue:hover {
+  border-color: rgba(59, 130, 246, 0.7);
+}
+
+.timeline-bar.accent-purple {
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  color: #a78bfa;
+}
+.timeline-bar.accent-purple:hover {
+  border-color: rgba(139, 92, 246, 0.7);
+}
+
+.timeline-bar.accent-green {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+}
+.timeline-bar.accent-green:hover {
+  border-color: rgba(16, 185, 129, 0.7);
+}
+
+.timeline-bar.accent-orange {
+  background: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  color: #fb923c;
+}
+.timeline-bar.accent-orange:hover {
+  border-color: rgba(249, 115, 22, 0.7);
+}
+
+/* Date Setter Modal styling */
+.timeline-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 10, 14, 0.8);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  animation: fadeIn 0.18s ease-out;
+}
+
+.timeline-modal-content {
+  background: #1a1b23;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 360px;
+  padding: 24px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: slideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.timeline-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timeline-modal-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.2px;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+.modal-close-btn:hover {
+  color: #ffffff;
+}
+
+.timeline-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-phase-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.modal-validation-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.modal-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.modal-date-input {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.modal-date-input:focus {
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+/* Custom icon for native month picker trigger */
+.modal-date-input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.modal-date-input::-webkit-calendar-picker-indicator:hover {
+  opacity: 0.8;
+}
+
+.timeline-modal-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.modal-btn-clear {
+  color: #ef4444;
+  font-size: 13px;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.modal-btn-clear:hover {
+  opacity: 0.8;
+}
+
+.modal-btn-cancel {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.modal-btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.modal-btn-save {
+  background: #3b82f6;
+  color: #ffffff;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.modal-btn-save:hover {
+  background: #2563eb;
+}
+
+@media (max-width: 768px) {
+  .timeline-months-column {
+    width: 80px;
+  }
+  .month-name {
+    font-size: 12px;
+  }
+}

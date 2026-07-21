@@ -5,6 +5,9 @@ import RoadmapTree from './components/RoadmapTree';
 import ManualBuilder from './components/ManualBuilder';
 import ScrollNavigator from './components/ScrollNavigator';
 import ModeSplash from './components/ModeSplash';
+import BoardView from './components/BoardView';
+import TimelineView from './components/TimelineView';
+import GraphView from './components/GraphView';
 import { getRoadmap, saveRoadmap, getProgress, saveProgress, getAllRoadmaps, getActiveRoadmapId, setActiveRoadmapId, saveRoadmapData } from './utils/storage';
 import { extractTextFromPdf } from './utils/pdfExtract';
 import { parseRoadmap } from './utils/parseRoadmap';
@@ -166,6 +169,24 @@ function App() {
     saveProgress(newProgress); // Auto-save progress
   };
 
+  const handleItemStatusChange = (itemId, newStatus) => {
+    const newProgress = { ...progress, [itemId]: newStatus };
+    setProgressState(newProgress);
+    saveProgress(newProgress); // Auto-save progress
+  };
+
+  const handleUpdateSectionDates = (sectionIndex, startDate, endDate) => {
+    if (!roadmap || !roadmap.sections) return;
+    const newSections = [...roadmap.sections];
+    newSections[sectionIndex] = {
+      ...newSections[sectionIndex],
+      startDate,
+      endDate
+    };
+    const newRoadmap = { ...roadmap, sections: newSections };
+    handleSetRoadmap(newRoadmap);
+  };
+
   const handleManualSave = (savedRoadmap) => {
     const finalRoadmap = savedRoadmap || roadmap;
     if (finalRoadmap) {
@@ -247,6 +268,18 @@ function App() {
     }
   };
 
+  const handleSwitchToList = (anchorId) => {
+    setCurrentView('list');
+    if (anchorId) {
+      setTimeout(() => {
+        const el = document.querySelector(`[data-scroll-anchor="${anchorId}"]`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 120);
+    }
+  };
+
   return (
     <div className="app-container" ref={containerRef}>
       <div className="bg-orb-1"></div>
@@ -299,9 +332,26 @@ function App() {
                   onItemClick={handleItemClick} 
                 />
               )}
-              {currentView === 'graph' && <div className="placeholder-view">Graph View coming soon</div>}
-              {currentView === 'timeline' && <div className="placeholder-view">Timeline View coming soon</div>}
-              {currentView === 'board' && <div className="placeholder-view">Board View coming soon</div>}
+              {currentView === 'graph' && (
+                <GraphView 
+                  roadmap={roadmap} 
+                  progress={progress} 
+                  onSwitchToList={handleSwitchToList} 
+                />
+              )}
+              {currentView === 'timeline' && (
+                <TimelineView 
+                  roadmap={roadmap} 
+                  onUpdateSectionDates={handleUpdateSectionDates} 
+                />
+              )}
+              {currentView === 'board' && (
+                <BoardView 
+                  roadmap={roadmap} 
+                  progress={progress} 
+                  onItemStatusChange={handleItemStatusChange} 
+                />
+              )}
             </>
           )
         )}
