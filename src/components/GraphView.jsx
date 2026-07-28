@@ -2,6 +2,15 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { Plus, Minus, Maximize2, Check, ChevronDown, ChevronUp, ArrowRight, X, GitFork } from 'lucide-react';
 import './GraphView.css';
 
+const VIVID_PALETTE = [
+  { border: '#eab308', tintBg: 'rgba(234, 179, 8, 0.09)', textAccent: '#fde047' }, // Yellow
+  { border: '#3b82f6', tintBg: 'rgba(59, 130, 246, 0.09)', textAccent: '#93c5fd' }, // Blue
+  { border: '#f97316', tintBg: 'rgba(249, 115, 22, 0.09)', textAccent: '#fdba74' }, // Orange
+  { border: '#14b8a6', tintBg: 'rgba(20, 184, 166, 0.09)', textAccent: '#5eead4' }, // Teal
+  { border: '#ec4899', tintBg: 'rgba(236, 72, 153, 0.09)', textAccent: '#f472b6' }, // Pink
+  { border: '#a855f7', tintBg: 'rgba(168, 85, 247, 0.09)', textAccent: '#c084fc' }  // Purple
+];
+
 const GraphView = ({ roadmap, progress, onSwitchToList }) => {
   const [expandedPhases, setExpandedPhases] = useState({});
   const [selectedSection, setSelectedSection] = useState(null);
@@ -97,6 +106,7 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
 
       const phaseId = sec.id || `phase-${pIdx}`;
       const isExpanded = !!expandedPhases[phaseId];
+      const vividStyle = VIVID_PALETTE[pIdx % VIVID_PALETTE.length];
 
       const sections = (sec.subsections || []).map((sub, sIdx) => {
         const sProg = getSectionProgress(sub);
@@ -107,7 +117,8 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
           done: sProg.done,
           isCompleted: sProg.total > 0 && sProg.done === sProg.total,
           anchorId: sub.id || sec.id,
-          phaseId
+          phaseId,
+          vividStyle
         };
       });
 
@@ -119,7 +130,8 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
         isCompleted: pProg.total > 0 && pProg.done === pProg.total,
         isExpanded,
         sections,
-        rawSection: sec
+        rawSection: sec,
+        vividStyle
       };
     });
 
@@ -413,9 +425,11 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
 
   const { rootNode, phases, sections, connectors } = layout;
 
+  const isVivid = roadmap?.graphTheme === 'vivid';
+
   return (
     <div
-      className={`graph-view-wrapper fade-in ${isDragging ? 'is-dragging' : ''}`}
+      className={`graph-view-wrapper fade-in ${isDragging ? 'is-dragging' : ''} ${isVivid ? 'vivid-view' : ''}`}
       ref={containerRef}
       onWheel={handleWheel}
       onMouseDown={handleMouseDown}
@@ -447,7 +461,7 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
               <path
                 key={conn.id}
                 d={pathData}
-                className="graph-connector-line"
+                className={`graph-connector-line ${isVivid ? 'is-vivid' : ''}`}
               />
             );
           })}
@@ -457,7 +471,7 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
         <div className="graph-nodes-layer">
           {/* Root Node */}
           <div
-            className="graph-node node-root"
+            className={`graph-node node-root ${isVivid ? 'is-vivid' : ''}`}
             style={{ left: `${rootNode.x}px`, top: `${rootNode.y}px` }}
           >
             <div className="node-root-content">
@@ -477,8 +491,16 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
           {phases.map(phase => (
             <div
               key={phase.id}
-              className={`graph-node node-phase ${phase.isExpanded ? 'is-expanded' : ''}`}
-              style={{ left: `${phase.x}px`, top: `${phase.y}px` }}
+              className={`graph-node node-phase ${phase.isExpanded ? 'is-expanded' : ''} ${isVivid ? 'is-vivid' : ''}`}
+              style={{
+                left: `${phase.x}px`,
+                top: `${phase.y}px`,
+                ...(isVivid && phase.vividStyle ? {
+                  borderColor: phase.vividStyle.border,
+                  backgroundColor: '#12131a',
+                  backgroundImage: `linear-gradient(135deg, ${phase.vividStyle.tintBg} 0%, rgba(18, 19, 26, 0.95) 100%)`
+                } : {})
+              }}
               onClick={(e) => handlePhaseTap(phase.id, e)}
             >
               <div className="node-phase-content">
@@ -489,7 +511,16 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
                 )}
                 <h4 className="node-phase-title">{phase.label}</h4>
                 <div className="node-phase-meta">
-                  <span className="node-phase-badge">{phase.done}/{phase.total}</span>
+                  <span
+                    className="node-phase-badge"
+                    style={isVivid && phase.vividStyle ? {
+                      color: phase.vividStyle.textAccent,
+                      borderColor: `${phase.vividStyle.border}44`,
+                      background: `${phase.vividStyle.border}18`
+                    } : {}}
+                  >
+                    {phase.done}/{phase.total}
+                  </span>
                   {phase.sections.length > 0 && (
                     <span className="node-phase-toggle">
                       {phase.isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
@@ -504,8 +535,16 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
           {sections.map(sec => (
             <div
               key={sec.id}
-              className="graph-node node-section"
-              style={{ left: `${sec.x}px`, top: `${sec.y}px` }}
+              className={`graph-node node-section ${isVivid ? 'is-vivid' : ''}`}
+              style={{
+                left: `${sec.x}px`,
+                top: `${sec.y}px`,
+                ...(isVivid && sec.vividStyle ? {
+                  borderColor: sec.vividStyle.border,
+                  backgroundColor: '#12131a',
+                  backgroundImage: `linear-gradient(135deg, ${sec.vividStyle.tintBg} 0%, rgba(18, 19, 26, 0.95) 100%)`
+                } : {})
+              }}
               onClick={(e) => handleSectionTap(sec, e)}
             >
               <div className="node-section-content">

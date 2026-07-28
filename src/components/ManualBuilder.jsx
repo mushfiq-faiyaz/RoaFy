@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './ManualBuilder.css';
-import { ChevronRight, Menu, Eye, Save, X, Undo2, Redo2, Check } from 'lucide-react';
+import { ChevronRight, Menu, Eye, Save, X, Undo2, Redo2, Check, Settings } from 'lucide-react';
 
-const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel }) => {
+const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, onGraphThemeChange }) => {
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [saveState, setSaveState] = useState('idle');
@@ -11,8 +11,10 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel }
   const [showRevertConfirm, setShowRevertConfirm] = useState(false);
   const [showStickyToolbar, setShowStickyToolbar] = useState(false);
   const [isStickyMenuOpen, setIsStickyMenuOpen] = useState(false);
+  const [isStickySettingsOpen, setIsStickySettingsOpen] = useState(false);
   const [isReverting, setIsReverting] = useState(false);
   const originalToolbarRef = useRef(null);
+  const stickySettingsRef = useRef(null);
 
   const roadmap = history[historyIndex] || initialRoadmap;
 
@@ -56,6 +58,16 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel }
     window.addEventListener('request-cancel-edit', handleRequestCancel);
     return () => window.removeEventListener('request-cancel-edit', handleRequestCancel);
   }, [historyIndex, onCancel]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (stickySettingsRef.current && !stickySettingsRef.current.contains(event.target)) {
+        setIsStickySettingsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   if (!roadmap) return null;
 
@@ -455,8 +467,50 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel }
                   )}
                 </button>
               )}
+              <div className="menu-container" style={{ position: 'relative' }} ref={stickySettingsRef}>
+                <button 
+                  className={`menu-btn ${isStickySettingsOpen ? 'active' : ''}`} 
+                  onClick={() => { setIsStickySettingsOpen(!isStickySettingsOpen); setIsStickyMenuOpen(false); }}
+                  title="Map Settings"
+                >
+                  <Settings size={20} />
+                </button>
+                {isStickySettingsOpen && (
+                  <div className="dropdown-menu settings-dropdown" style={{ top: '100%', right: '0', marginTop: '8px' }}>
+                    <div className="settings-list">
+                      <div className="dropdown-section">
+                        <div className="dropdown-section-label">Graph Style</div>
+                        <div className="segmented-control">
+                          <button 
+                            className={`segmented-btn ${(roadmap?.graphTheme || 'classic') === 'classic' ? 'active' : ''}`}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const updated = { ...roadmap, graphTheme: 'classic' };
+                              updateState(updated);
+                              if (onGraphThemeChange) onGraphThemeChange('classic');
+                            }}
+                          >
+                            Classic
+                          </button>
+                          <button 
+                            className={`segmented-btn ${(roadmap?.graphTheme || 'classic') === 'vivid' ? 'active' : ''}`}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const updated = { ...roadmap, graphTheme: 'vivid' };
+                              updateState(updated);
+                              if (onGraphThemeChange) onGraphThemeChange('vivid');
+                            }}
+                          >
+                            Vivid
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
               <div className="menu-container" style={{ position: 'relative' }}>
-                <button className="menu-btn" onClick={() => setIsStickyMenuOpen(!isStickyMenuOpen)}>
+                <button className="menu-btn" onClick={() => { setIsStickyMenuOpen(!isStickyMenuOpen); setIsStickySettingsOpen(false); }}>
                   <Menu size={20} />
                 </button>
                 {isStickyMenuOpen && (

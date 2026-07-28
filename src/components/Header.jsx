@@ -2,20 +2,24 @@ import React, { useState, useEffect, useRef } from 'react';
 import ProgressRing from './ProgressRing';
 import BlueRoutesLogo from './BlueRoutesLogo';
 import './Header.css';
-import { Download, Menu, Plus, FileText, Check, ChevronDown, Edit2, Copy, RotateCcw, Trash2, PenLine, FileJson, FileDown, Eye, Pencil, Activity, CheckCircle, Clock, ListTodo, Save } from 'lucide-react';
+import { Download, Menu, Plus, FileText, Check, ChevronDown, Edit2, Copy, RotateCcw, Trash2, PenLine, FileJson, FileDown, Eye, Pencil, Activity, CheckCircle, Clock, ListTodo, Save, Settings } from 'lucide-react';
 
 const Header = ({ 
   roadmap, progress, onManualSave, onEdit, isEditing, 
   roadmapsList = [], onSwitchRoadmap, onCreateRoadmap, currentRoadmapId,
-  onRenameMap, onDuplicateMap, onResetMap, onExportPDF, onExportJSON, onDeleteMap 
+  onRenameMap, onDuplicateMap, onResetMap, onExportPDF, onExportJSON, onDeleteMap,
+  onGraphThemeChange
 }) => {
+  const currentTheme = roadmap?.graphTheme || 'classic';
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isSwitcherOpen, setIsSwitcherOpen] = useState(false);
   const [confirmAction, setConfirmAction] = useState(null);
   const [showStickyProgress, setShowStickyProgress] = useState(false);
   const optionsRef = useRef(null);
   const stickyOptionsRef = useRef(null);
+  const settingsRef = useRef(null);
   const switcherRef = useRef(null);
   const statsCardRef = useRef(null);
 
@@ -50,6 +54,9 @@ const Header = ({
       
       if (clickedOutsideOriginal && (clickedOutsideSticky || stickyDoesNotExist)) {
         setIsMenuOpen(false);
+      }
+      if (settingsRef.current && !settingsRef.current.contains(event.target)) {
+        setIsSettingsOpen(false);
       }
       if (switcherRef.current && !switcherRef.current.contains(event.target)) {
         setIsSwitcherOpen(false);
@@ -166,7 +173,7 @@ const Header = ({
 
   const renderMenu = (ref) => (
     <div className="menu-container" ref={ref}>
-      <button className="menu-btn" onClick={() => { setIsMenuOpen(!isMenuOpen); setIsSwitcherOpen(false); }}>
+      <button className="menu-btn" onClick={() => { setIsMenuOpen(!isMenuOpen); setIsSettingsOpen(false); setIsSwitcherOpen(false); }}>
         <Menu size={20} />
       </button>
       {isMenuOpen && (
@@ -228,8 +235,43 @@ const Header = ({
             )}
           </div>
 
-          <div className="menu-controls-wrapper">
+          <div className={`menu-controls-wrapper ${isEditing ? 'is-editing' : ''}`}>
             {renderMenu(optionsRef)}
+
+            {isEditing && (
+              <div className="menu-container" ref={settingsRef}>
+                <button 
+                  className={`menu-btn settings-btn ${isSettingsOpen ? 'active' : ''}`}
+                  onClick={() => { setIsSettingsOpen(!isSettingsOpen); setIsMenuOpen(false); }}
+                  title="Map Settings"
+                >
+                  <Settings size={20} />
+                </button>
+                {isSettingsOpen && (
+                  <div className="dropdown-menu settings-dropdown">
+                    <div className="settings-list">
+                      <div className="dropdown-section">
+                        <div className="dropdown-section-label">Graph Style</div>
+                        <div className="segmented-control">
+                          <button 
+                            className={`segmented-btn ${currentTheme === 'classic' ? 'active' : ''}`}
+                            onClick={(e) => { e.stopPropagation(); onGraphThemeChange?.('classic'); }}
+                          >
+                            Classic
+                          </button>
+                          <button 
+                            className={`segmented-btn ${currentTheme === 'vivid' ? 'active' : ''}`}
+                            onClick={(e) => { e.stopPropagation(); onGraphThemeChange?.('vivid'); }}
+                          >
+                            Vivid
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             {!isEditing && (
               <div className="menu-container" ref={switcherRef}>

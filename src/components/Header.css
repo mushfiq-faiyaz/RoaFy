@@ -357,6 +357,54 @@
   margin: 4px 0;
 }
 
+.dropdown-section {
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dropdown-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.segmented-control {
+  display: flex;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.segmented-btn {
+  flex: 1;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.segmented-btn:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.segmented-btn.active {
+  background: #6366f1;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
 @media (max-width: 768px) {
   .header-content-row {
     flex-direction: column;
@@ -385,6 +433,33 @@
   flex-direction: column;
   gap: 42px;
   align-items: flex-end;
+}
+
+.menu-controls-wrapper.is-editing {
+  gap: 10px;
+}
+
+.menu-btn.settings-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.85);
+  transition: all 0.2s ease;
+}
+
+.menu-btn.settings-btn:hover,
+.menu-btn.settings-btn.active {
+  background: rgba(99, 102, 241, 0.18);
+  border-color: rgba(129, 140, 248, 0.5);
+  color: #818cf8;
+}
+
+.settings-dropdown {
+  width: 240px;
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
 }
 
 .menu-btn.switcher-btn {
