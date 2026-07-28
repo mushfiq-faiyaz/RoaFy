@@ -17,7 +17,7 @@ export const getAllRoadmaps = () => {
   const defaultId = 'default-ai-roadmap';
   if (!all[defaultId]) {
     all[defaultId] = {
-      roadmap: { graphTheme: 'classic', ...aiRoadmapData },
+      roadmap: { graphTheme: 'classic', graphLayout: 'vertical', ...aiRoadmapData },
       progress: {}
     };
   }

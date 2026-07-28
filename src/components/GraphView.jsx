@@ -3,12 +3,12 @@ import { Plus, Minus, Maximize2, Check, ChevronDown, ChevronUp, ArrowRight, X, G
 import './GraphView.css';
 
 const VIVID_PALETTE = [
-  { border: '#eab308', tintBg: 'rgba(234, 179, 8, 0.09)', textAccent: '#fde047' }, // Yellow
-  { border: '#3b82f6', tintBg: 'rgba(59, 130, 246, 0.09)', textAccent: '#93c5fd' }, // Blue
-  { border: '#f97316', tintBg: 'rgba(249, 115, 22, 0.09)', textAccent: '#fdba74' }, // Orange
-  { border: '#14b8a6', tintBg: 'rgba(20, 184, 166, 0.09)', textAccent: '#5eead4' }, // Teal
-  { border: '#ec4899', tintBg: 'rgba(236, 72, 153, 0.09)', textAccent: '#f472b6' }, // Pink
-  { border: '#a855f7', tintBg: 'rgba(168, 85, 247, 0.09)', textAccent: '#c084fc' }  // Purple
+  { border: '#d97706', borderMuted: '#fcd34d', textAccent: '#b45309', badgeBg: '#fef3c7' }, // Gold/Yellow
+  { border: '#2563eb', borderMuted: '#93c5fd', textAccent: '#1d4ed8', badgeBg: '#dbeafe' }, // Blue
+  { border: '#ea580c', borderMuted: '#fdba74', textAccent: '#c2410c', badgeBg: '#ffedd5' }, // Orange
+  { border: '#0d9488', borderMuted: '#5eead4', textAccent: '#0f766e', badgeBg: '#ccfbf1' }, // Teal
+  { border: '#db2777', borderMuted: '#f472b6', textAccent: '#be185d', badgeBg: '#fce7f3' }, // Pink
+  { border: '#9333ea', borderMuted: '#c084fc', textAccent: '#7e22ce', badgeBg: '#f3e8ff' }  // Purple
 ];
 
 const GraphView = ({ roadmap, progress, onSwitchToList }) => {
@@ -143,96 +143,187 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
       isCompleted: rootTotal > 0 && rootDone === rootTotal
     };
 
-    // Calculate node coordinates (top-down tree layout)
-    const ROOT_Y = 70;
-    const PHASE_Y = 240;
-    const SECTION_Y = 410;
+    const isHorizontal = (roadmap?.graphLayout || 'vertical') === 'horizontal';
 
-    const SEC_SPACING = 210;
-    const PHASE_MIN_WIDTH = 250;
-    const GAP_BETWEEN_PHASES = 40;
-
-    let currentX = 0;
     const positionedPhases = [];
     const positionedSections = [];
     const connectors = [];
 
-    phases.forEach((phase) => {
-      let branchWidth = PHASE_MIN_WIDTH;
-      const secCount = phase.sections.length;
+    let rootX = 0;
+    let rootY = 0;
 
-      if (phase.isExpanded && secCount > 0) {
-        branchWidth = Math.max(PHASE_MIN_WIDTH, secCount * SEC_SPACING);
-      }
+    if (isHorizontal) {
+      // Horizontal (left-to-right) layout
+      const ROOT_X = 140;
+      const PHASE_X = 460;
+      const SECTION_X = 760;
 
-      const phaseX = currentX + branchWidth / 2;
-      const phaseY = PHASE_Y;
+      const SEC_SPACING_Y = 130;
+      const PHASE_MIN_HEIGHT = 150;
+      const GAP_BETWEEN_PHASES_Y = 40;
 
-      if (phase.isExpanded && secCount > 0) {
-        phase.sections.forEach((sec, j) => {
-          const secX = currentX + (j + 0.5) * (branchWidth / secCount);
-          const secY = SECTION_Y;
+      let currentY = 0;
 
-          positionedSections.push({
-            ...sec,
-            x: secX,
-            y: secY
+      phases.forEach((phase) => {
+        let branchHeight = PHASE_MIN_HEIGHT;
+        const secCount = phase.sections.length;
+
+        if (phase.isExpanded && secCount > 0) {
+          branchHeight = Math.max(PHASE_MIN_HEIGHT, secCount * SEC_SPACING_Y);
+        }
+
+        const phaseX = PHASE_X;
+        const phaseY = currentY + branchHeight / 2;
+
+        if (phase.isExpanded && secCount > 0) {
+          phase.sections.forEach((sec, j) => {
+            const secX = SECTION_X;
+            const secY = currentY + (j + 0.5) * (branchHeight / secCount);
+
+            positionedSections.push({
+              ...sec,
+              x: secX,
+              y: secY
+            });
+
+            // Connector between Phase and Section (horizontal)
+            connectors.push({
+              id: `conn-${phase.id}-${sec.id}`,
+              x1: phaseX + 115,
+              y1: phaseY,
+              x2: secX - 97,
+              y2: secY,
+              isHorizontal: true
+            });
           });
+        }
 
-          // Connector between Phase and Section
-          connectors.push({
-            id: `conn-${phase.id}-${sec.id}`,
-            x1: phaseX,
-            y1: phaseY + 36,
-            x2: secX,
-            y2: secY - 28
-          });
+        positionedPhases.push({
+          ...phase,
+          x: phaseX,
+          y: phaseY
         });
-      }
 
-      positionedPhases.push({
-        ...phase,
-        x: phaseX,
-        y: phaseY
+        currentY += branchHeight + GAP_BETWEEN_PHASES_Y;
       });
 
-      currentX += branchWidth + GAP_BETWEEN_PHASES;
-    });
+      const totalHeight = Math.max(currentY - GAP_BETWEEN_PHASES_Y, 300);
+      rootX = ROOT_X;
+      rootY = totalHeight / 2;
 
-    const totalWidth = Math.max(currentX - GAP_BETWEEN_PHASES, 400);
-    const rootX = totalWidth / 2;
-    const rootY = ROOT_Y;
-
-    // Connectors between Root and each Phase
-    positionedPhases.forEach((phase) => {
-      connectors.push({
-        id: `conn-root-${phase.id}`,
-        x1: rootX,
-        y1: rootY + 36,
-        x2: phase.x,
-        y2: phase.y - 36
+      // Connectors between Root and each Phase (horizontal)
+      positionedPhases.forEach((phase) => {
+        connectors.push({
+          id: `conn-root-${phase.id}`,
+          x1: rootX + 130,
+          y1: rootY,
+          x2: phase.x - 115,
+          y2: phase.y,
+          isHorizontal: true
+        });
       });
-    });
 
-    // Compute bounding box for auto-fitting
-    let maxY = PHASE_Y + 40;
-    if (positionedSections.length > 0) {
-      maxY = SECTION_Y + 40;
+    } else {
+      // Vertical (top-down) layout
+      const ROOT_Y = 80;
+      const PHASE_Y = 270;
+      const SECTION_Y = 460;
+
+      const SEC_SPACING = 240;
+      const PHASE_MIN_WIDTH = 270;
+      const GAP_BETWEEN_PHASES = 50;
+
+      let currentX = 0;
+
+      phases.forEach((phase) => {
+        let branchWidth = PHASE_MIN_WIDTH;
+        const secCount = phase.sections.length;
+
+        if (phase.isExpanded && secCount > 0) {
+          branchWidth = Math.max(PHASE_MIN_WIDTH, secCount * SEC_SPACING);
+        }
+
+        const phaseX = currentX + branchWidth / 2;
+        const phaseY = PHASE_Y;
+
+        if (phase.isExpanded && secCount > 0) {
+          phase.sections.forEach((sec, j) => {
+            const secX = currentX + (j + 0.5) * (branchWidth / secCount);
+            const secY = SECTION_Y;
+
+            positionedSections.push({
+              ...sec,
+              x: secX,
+              y: secY
+            });
+
+            // Connector between Phase and Section (vertical)
+            connectors.push({
+              id: `conn-${phase.id}-${sec.id}`,
+              x1: phaseX,
+              y1: phaseY + 42,
+              x2: secX,
+              y2: secY - 32,
+              isHorizontal: false
+            });
+          });
+        }
+
+        positionedPhases.push({
+          ...phase,
+          x: phaseX,
+          y: phaseY
+        });
+
+        currentX += branchWidth + GAP_BETWEEN_PHASES;
+      });
+
+      const totalWidth = Math.max(currentX - GAP_BETWEEN_PHASES, 400);
+      rootX = totalWidth / 2;
+      rootY = ROOT_Y;
+
+      // Connectors between Root and each Phase (vertical)
+      positionedPhases.forEach((phase) => {
+        connectors.push({
+          id: `conn-root-${phase.id}`,
+          x1: rootX,
+          y1: rootY + 45,
+          x2: phase.x,
+          y2: phase.y - 42,
+          isHorizontal: false
+        });
+      });
     }
 
-    const bounds = {
-      minX: 0,
-      maxX: totalWidth,
-      minY: ROOT_Y - 40,
-      maxY
-    };
+    // Compute exact bounding box from all node card extents
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+
+    const allNodesWithDims = [
+      { x: rootX, y: rootY, w: 260, h: 100 },
+      ...positionedPhases.map(p => ({ x: p.x, y: p.y, w: 230, h: 90 })),
+      ...positionedSections.map(s => ({ x: s.x, y: s.y, w: 195, h: 70 }))
+    ];
+
+    allNodesWithDims.forEach(n => {
+      const left = n.x - n.w / 2;
+      const right = n.x + n.w / 2;
+      const top = n.y - n.h / 2;
+      const bottom = n.y + n.h / 2;
+      if (left < minX) minX = left;
+      if (right > maxX) maxX = right;
+      if (top < minY) minY = top;
+      if (bottom > maxY) maxY = bottom;
+    });
+
+    const bounds = { minX, maxX, minY, maxY };
 
     return {
       rootNode: { ...rootNode, x: rootX, y: rootY },
       phases: positionedPhases,
       sections: positionedSections,
       connectors,
-      bounds
+      bounds,
+      isHorizontal
     };
   }, [roadmap, expandedPhases, getPhaseProgress, getSectionProgress, calculateProgress]);
 
@@ -246,14 +337,14 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
     const paddingX = 40;
     const paddingY = 40;
 
-    const graphWidth = (bounds.maxX - bounds.minX) + 260; // account for node width
-    const graphHeight = (bounds.maxY - bounds.minY) + 120; // account for node height
+    const graphWidth = Math.max(bounds.maxX - bounds.minX, 100);
+    const graphHeight = Math.max(bounds.maxY - bounds.minY, 100);
 
     const scaleX = (containerWidth - paddingX * 2) / graphWidth;
     const scaleY = (containerHeight - paddingY * 2) / graphHeight;
     let targetScale = Math.min(scaleX, scaleY);
 
-    targetScale = Math.max(0.35, Math.min(targetScale, 1.15));
+    targetScale = Math.max(0.15, Math.min(targetScale, 1.15));
 
     const centerX = (bounds.minX + bounds.maxX) / 2;
     const centerY = (bounds.minY + bounds.maxY) / 2;
@@ -455,8 +546,14 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
         {/* SVG Connectors Layer */}
         <svg className="graph-svg-connectors">
           {connectors.map(conn => {
-            const midY = (conn.y1 + conn.y2) / 2;
-            const pathData = `M ${conn.x1} ${conn.y1} C ${conn.x1} ${midY}, ${conn.x2} ${midY}, ${conn.x2} ${conn.y2}`;
+            let pathData;
+            if (conn.isHorizontal) {
+              const midX = (conn.x1 + conn.x2) / 2;
+              pathData = `M ${conn.x1} ${conn.y1} C ${midX} ${conn.y1}, ${midX} ${conn.y2}, ${conn.x2} ${conn.y2}`;
+            } else {
+              const midY = (conn.y1 + conn.y2) / 2;
+              pathData = `M ${conn.x1} ${conn.y1} C ${conn.x1} ${midY}, ${conn.x2} ${midY}, ${conn.x2} ${conn.y2}`;
+            }
             return (
               <path
                 key={conn.id}
@@ -474,6 +571,7 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
             className={`graph-node node-root ${isVivid ? 'is-vivid' : ''}`}
             style={{ left: `${rootNode.x}px`, top: `${rootNode.y}px` }}
           >
+            {isVivid && <span className="node-vivid-accent-bar" style={{ backgroundColor: '#6366f1' }} />}
             <div className="node-root-content">
               {rootNode.isCompleted && (
                 <div className="node-badge-completed" title="Completed">
@@ -494,15 +592,13 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
               className={`graph-node node-phase ${phase.isExpanded ? 'is-expanded' : ''} ${isVivid ? 'is-vivid' : ''}`}
               style={{
                 left: `${phase.x}px`,
-                top: `${phase.y}px`,
-                ...(isVivid && phase.vividStyle ? {
-                  borderColor: phase.vividStyle.border,
-                  backgroundColor: '#12131a',
-                  backgroundImage: `linear-gradient(135deg, ${phase.vividStyle.tintBg} 0%, rgba(18, 19, 26, 0.95) 100%)`
-                } : {})
+                top: `${phase.y}px`
               }}
               onClick={(e) => handlePhaseTap(phase.id, e)}
             >
+              {isVivid && phase.vividStyle && (
+                <span className="node-vivid-accent-bar" style={{ backgroundColor: phase.vividStyle.border }} />
+              )}
               <div className="node-phase-content">
                 {phase.isCompleted && (
                   <div className="node-badge-completed" title="Completed">
@@ -515,8 +611,7 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
                     className="node-phase-badge"
                     style={isVivid && phase.vividStyle ? {
                       color: phase.vividStyle.textAccent,
-                      borderColor: `${phase.vividStyle.border}44`,
-                      background: `${phase.vividStyle.border}18`
+                      background: phase.vividStyle.badgeBg
                     } : {}}
                   >
                     {phase.done}/{phase.total}
@@ -538,15 +633,13 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
               className={`graph-node node-section ${isVivid ? 'is-vivid' : ''}`}
               style={{
                 left: `${sec.x}px`,
-                top: `${sec.y}px`,
-                ...(isVivid && sec.vividStyle ? {
-                  borderColor: sec.vividStyle.border,
-                  backgroundColor: '#12131a',
-                  backgroundImage: `linear-gradient(135deg, ${sec.vividStyle.tintBg} 0%, rgba(18, 19, 26, 0.95) 100%)`
-                } : {})
+                top: `${sec.y}px`
               }}
               onClick={(e) => handleSectionTap(sec, e)}
             >
+              {isVivid && sec.vividStyle && (
+                <span className="node-vivid-accent-bar" style={{ backgroundColor: sec.vividStyle.borderMuted || sec.vividStyle.border }} />
+              )}
               <div className="node-section-content">
                 {sec.isCompleted && (
                   <div className="node-badge-completed sec-check" title="Completed">

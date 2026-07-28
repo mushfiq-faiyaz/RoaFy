@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import './ManualBuilder.css';
 import { ChevronRight, Menu, Eye, Save, X, Undo2, Redo2, Check, Settings } from 'lucide-react';
 
-const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, onGraphThemeChange }) => {
+const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, onGraphThemeChange, onGraphLayoutChange }) => {
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [saveState, setSaveState] = useState('idle');
@@ -502,6 +502,34 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, 
                             }}
                           >
                             Vivid
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="dropdown-section">
+                        <div className="dropdown-section-label">Graph Layout</div>
+                        <div className="segmented-control">
+                          <button 
+                            className={`segmented-btn ${(roadmap?.graphLayout || 'vertical') === 'vertical' ? 'active' : ''}`}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const updated = { ...roadmap, graphLayout: 'vertical' };
+                              updateState(updated);
+                              if (onGraphLayoutChange) onGraphLayoutChange('vertical');
+                            }}
+                          >
+                            Vertical
+                          </button>
+                          <button 
+                            className={`segmented-btn ${(roadmap?.graphLayout || 'vertical') === 'horizontal' ? 'active' : ''}`}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const updated = { ...roadmap, graphLayout: 'horizontal' };
+                              updateState(updated);
+                              if (onGraphLayoutChange) onGraphLayoutChange('horizontal');
+                            }}
+                          >
+                            Horizontal
                           </button>
                         </div>
                       </div>

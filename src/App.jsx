@@ -127,7 +127,7 @@ function App() {
 
   const handleCreateRoadmap = () => {
     const newId = Date.now().toString();
-    const newRoadmap = { title: "New Roadmap", graphTheme: 'classic', sections: [] };
+    const newRoadmap = { title: "New Roadmap", graphTheme: 'classic', graphLayout: 'vertical', sections: [] };
     setActiveRoadmapId(newId);
     setCurrentRoadmapId(newId);
     saveRoadmapData(newId, newRoadmap, {});
@@ -140,6 +140,12 @@ function App() {
   const handleGraphThemeChange = (newTheme) => {
     if (!roadmap) return;
     const updated = { ...roadmap, graphTheme: newTheme };
+    handleSetRoadmap(updated);
+  };
+
+  const handleGraphLayoutChange = (newLayout) => {
+    if (!roadmap) return;
+    const updated = { ...roadmap, graphLayout: newLayout };
     handleSetRoadmap(updated);
   };
 
@@ -322,6 +328,7 @@ function App() {
         onExportJSON={handleExportJSON}
         onDeleteMap={handleDeleteMap}
         onGraphThemeChange={handleGraphThemeChange}
+        onGraphLayoutChange={handleGraphLayoutChange}
       />
       
       <main className="container main-content">
@@ -332,6 +339,7 @@ function App() {
             onSave={handleSaveOnly}
             onCancel={handleCancelEdit}
             onGraphThemeChange={handleGraphThemeChange}
+            onGraphLayoutChange={handleGraphLayoutChange}
           />
         ) : (
           roadmap && (

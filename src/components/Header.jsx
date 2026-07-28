@@ -8,9 +8,10 @@ const Header = ({
   roadmap, progress, onManualSave, onEdit, isEditing, 
   roadmapsList = [], onSwitchRoadmap, onCreateRoadmap, currentRoadmapId,
   onRenameMap, onDuplicateMap, onResetMap, onExportPDF, onExportJSON, onDeleteMap,
-  onGraphThemeChange
+  onGraphThemeChange, onGraphLayoutChange
 }) => {
   const currentTheme = roadmap?.graphTheme || 'classic';
+  const currentLayout = roadmap?.graphLayout || 'vertical';
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -264,6 +265,24 @@ const Header = ({
                             onClick={(e) => { e.stopPropagation(); onGraphThemeChange?.('vivid'); }}
                           >
                             Vivid
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="dropdown-section">
+                        <div className="dropdown-section-label">Graph Layout</div>
+                        <div className="segmented-control">
+                          <button 
+                            className={`segmented-btn ${currentLayout === 'vertical' ? 'active' : ''}`}
+                            onClick={(e) => { e.stopPropagation(); onGraphLayoutChange?.('vertical'); }}
+                          >
+                            Vertical
+                          </button>
+                          <button 
+                            className={`segmented-btn ${currentLayout === 'horizontal' ? 'active' : ''}`}
+                            onClick={(e) => { e.stopPropagation(); onGraphLayoutChange?.('horizontal'); }}
+                          >
+                            Horizontal
                           </button>
                         </div>
                       </div>
