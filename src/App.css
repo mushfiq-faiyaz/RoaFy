@@ -1,8 +1,7 @@
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  overflow-y: auto;
+  min-height: 100vh;
   overflow-x: hidden;
   max-width: 100vw;
   /* Firefox */
@@ -11,16 +10,22 @@
 }
 
 /* Custom pill scrollbar — white capsule with purple stripe */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
 .app-container::-webkit-scrollbar {
   width: 14px;
 }
 
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
 .app-container::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.04);
   border-radius: 99px;
   margin: 6px 0;
 }
 
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
 .app-container::-webkit-scrollbar-thumb {
   background:
     linear-gradient(
@@ -36,6 +41,8 @@
   transition: background 200ms ease;
 }
 
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover,
 .app-container::-webkit-scrollbar-thumb:hover {
   background:
     linear-gradient(
@@ -50,22 +57,28 @@
 
 /* ── Mobile / PWA — thick, touch-friendly scrollbar ── */
 @media (max-width: 768px) {
-  .app-container {
+  html, body, .app-container {
     /* Firefox mobile */
     scrollbar-width: auto;
     scrollbar-color: #8b5cf6 rgba(255, 255, 255, 0.06);
   }
 
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar,
   .app-container::-webkit-scrollbar {
     width: 10px; /* comfortably visible on a phone */
   }
 
+  html::-webkit-scrollbar-track,
+  body::-webkit-scrollbar-track,
   .app-container::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 99px;
     margin: 4px 0;
   }
 
+  html::-webkit-scrollbar-thumb,
+  body::-webkit-scrollbar-thumb,
   .app-container::-webkit-scrollbar-thumb {
     background:
       linear-gradient(
@@ -80,6 +93,8 @@
     min-height: 48px;
   }
 
+  html::-webkit-scrollbar-thumb:active,
+  body::-webkit-scrollbar-thumb:active,
   .app-container::-webkit-scrollbar-thumb:active {
     background:
       linear-gradient(

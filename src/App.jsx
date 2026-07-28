@@ -31,7 +31,6 @@ function App() {
   const containerRef = useRef(null);
 
   const captureScroll = () => {
-    if (!containerRef.current) return;
     const mainEl = document.querySelector('.main-content');
     
     // Find closest anchor to anchor to
@@ -52,8 +51,10 @@ function App() {
       }
     });
 
+    const currentScroll = (containerRef.current && containerRef.current.scrollTop) || window.scrollY || 0;
+
     scrollState.current = {
-      top: containerRef.current.scrollTop,
+      top: currentScroll,
       mainOffset: mainEl ? mainEl.offsetTop : 0,
       anchor: bestAnchor
     };
@@ -64,14 +65,28 @@ function App() {
     if (pendingScrollRestore.current) {
       pendingScrollRestore.current = false;
       requestAnimationFrame(() => {
-        if (!containerRef.current) return;
-        
+        const applyScrollOffset = (delta) => {
+          if (containerRef.current && containerRef.current.scrollTop > 0) {
+            containerRef.current.scrollTop += delta;
+          } else {
+            window.scrollBy(0, delta);
+          }
+        };
+
+        const setScrollPosition = (pos) => {
+          if (containerRef.current && containerRef.current.scrollTop > 0) {
+            containerRef.current.scrollTop = pos;
+          } else {
+            window.scrollTo(0, pos);
+          }
+        };
+
         if (scrollState.current.anchor) {
           const anchorEl = document.querySelector(`[data-scroll-anchor="${scrollState.current.anchor.id}"]`);
           if (anchorEl) {
             const currentViewportTop = anchorEl.getBoundingClientRect().top;
             const diff = currentViewportTop - scrollState.current.anchor.viewportTop;
-            containerRef.current.scrollTop += diff;
+            applyScrollOffset(diff);
             return;
           }
         }
@@ -80,7 +95,7 @@ function App() {
         const mainEl = document.querySelector('.main-content');
         const newMainOffset = mainEl ? mainEl.offsetTop : 0;
         const delta = newMainOffset - scrollState.current.mainOffset;
-        containerRef.current.scrollTop = scrollState.current.top + delta;
+        setScrollPosition(scrollState.current.top + delta);
       });
     }
   }, [isEditing]);

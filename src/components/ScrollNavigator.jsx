@@ -154,10 +154,12 @@ const ScrollNavigator = () => {
       }
     };
 
-    // Make sure we attach to the scrollable element itself
+    // Make sure we attach to the scrollable element itself and window
+    window.addEventListener('scroll', handleScroll, { passive: true });
     container.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
+      window.removeEventListener('scroll', handleScroll);
       container.removeEventListener('scroll', handleScroll);
       if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
       if (holdTimerRef.current) clearTimeout(holdTimerRef.current);

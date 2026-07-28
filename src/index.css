@@ -40,9 +40,8 @@ html, body {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
   color: #f0f0f0;
   margin: 0;
-  overflow: hidden;
+  min-height: 100vh;
   max-width: 100vw;
-  height: 100vh;
 }
 
 .bg-orb-1 {
@@ -67,8 +66,7 @@ h1, h2, h3, h4, h5, h6, .mb-title-input, .tree-root-title {
 #root {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   max-width: 100vw;
 }
 
