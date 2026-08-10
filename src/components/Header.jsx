@@ -155,7 +155,7 @@ const Header = ({
   };
 
   const handleEditSaveClick = () => {
-    onManualSave();
+    window.dispatchEvent(new Event('request-save-exit-edit'));
     setIsMenuOpen(false);
   };
 

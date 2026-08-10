@@ -16,11 +16,11 @@ const MarkerSettingsPopup = ({ currentStyle, onChange, onClose }) => {
   }, [onClose]);
 
   const options = [
-    { value: 'circle', label: 'Circle Checkbox', desc: 'Round checkbox/radio' },
-    { value: 'number', label: 'Numbered List', desc: '1. 2. 3. based on order' },
-    { value: 'alpha', label: 'Alphabetical List', desc: 'a. b. c. based on order' },
-    { value: 'roman', label: 'Roman Numerals', desc: 'i. ii. iii. based on order' },
-    { value: 'none', label: 'No Marker', desc: 'Plain list, no glyphs' }
+    { value: 'circle', label: 'Circle', glyph: <div className="marker-opt-preview-glyph-circle" /> },
+    { value: 'number', label: 'Numbered', glyph: '1.' },
+    { value: 'alpha', label: 'Alphabetical', glyph: 'a.' },
+    { value: 'roman', label: 'Roman', glyph: 'i.' },
+    { value: 'none', label: 'None', glyph: '—' }
   ];
 
   return (
@@ -44,21 +44,19 @@ const MarkerSettingsPopup = ({ currentStyle, onChange, onClose }) => {
           <div className="marker-opt-radio-wrapper">
             <div className="marker-opt-radio-inner" />
           </div>
-          <div className="marker-opt-text-container">
-            <span className="marker-opt-title">
-              {opt.label}
-            </span>
-            <span className="marker-opt-desc">
-              {opt.desc}
-            </span>
+          <div className="marker-opt-preview-glyph">
+            {opt.glyph}
           </div>
+          <span className="marker-opt-title">
+            {opt.label}
+          </span>
         </div>
       ))}
     </div>
   );
 };
 
-const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, onGraphThemeChange, onGraphLayoutChange }) => {
+const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onSaveAndExit, onCancel, onGraphThemeChange, onGraphLayoutChange }) => {
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [saveState, setSaveState] = useState('idle');
@@ -115,6 +113,16 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, 
     window.addEventListener('request-cancel-edit', handleRequestCancel);
     return () => window.removeEventListener('request-cancel-edit', handleRequestCancel);
   }, [historyIndex, onCancel]);
+
+  useEffect(() => {
+    const handleRequestSaveExit = () => {
+      if (onSaveAndExit) {
+        onSaveAndExit(roadmap);
+      }
+    };
+    window.addEventListener('request-save-exit-edit', handleRequestSaveExit);
+    return () => window.removeEventListener('request-save-exit-edit', handleRequestSaveExit);
+  }, [roadmap, onSaveAndExit]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -637,7 +645,10 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, 
                     }}>
                       <Eye size={16} /> View Mode
                     </div>
-                    <div className="dropdown-item" onClick={() => { handleSaveClick(); setIsStickyMenuOpen(false); }}>
+                    <div className="dropdown-item" onClick={() => { 
+                      if (onSaveAndExit) onSaveAndExit(roadmap);
+                      setIsStickyMenuOpen(false); 
+                    }}>
                       <Save size={16} /> Save & Exit
                     </div>
                   </div>

@@ -259,6 +259,7 @@ function App() {
   const handleManualSave = (savedRoadmap) => {
     const finalRoadmap = savedRoadmap || roadmap;
     if (finalRoadmap) {
+      setRoadmapState(finalRoadmap);
       saveRoadmap(finalRoadmap);
       saveProgress(progress);
       captureScroll();
@@ -270,6 +271,7 @@ function App() {
   const handleSaveOnly = (savedRoadmap) => {
     const finalRoadmap = savedRoadmap || roadmap;
     if (finalRoadmap) {
+      setRoadmapState(finalRoadmap);
       saveRoadmap(finalRoadmap);
       saveProgress(progress);
       setRoadmapBeforeEdit(finalRoadmap);
@@ -397,6 +399,7 @@ function App() {
             roadmap={roadmap} 
             setRoadmap={handleSetRoadmap} 
             onSave={handleSaveOnly}
+            onSaveAndExit={handleManualSave}
             onCancel={handleCancelEdit}
             onGraphThemeChange={handleGraphThemeChange}
             onGraphLayoutChange={handleGraphLayoutChange}
