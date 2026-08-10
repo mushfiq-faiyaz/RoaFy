@@ -283,3 +283,25 @@
 .add-topic-btn:hover {
   background: rgba(255, 255, 255, 0.14);
 }
+
+/* ── Custom Text Markers (Edit Mode Per-Section Style) ── */
+.item-status-text-marker {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+  min-width: 20px;
+  text-align: left;
+  flex-shrink: 0;
+  transition: color 150ms ease;
+  user-select: none;
+}
+
+.item-row.status-1 .item-status-text-marker {
+  color: #f59e0b; /* in progress status color */
+}
+
+.item-row.status-2 .item-status-text-marker {
+  color: rgba(255, 255, 255, 0.2); /* completed status color */
+  text-decoration: line-through;
+  text-decoration-color: rgba(255, 255, 255, 0.1);
+}

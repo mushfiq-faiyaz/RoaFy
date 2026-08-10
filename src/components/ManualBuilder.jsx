@@ -2,6 +2,62 @@ import React, { useEffect, useState, useRef } from 'react';
 import './ManualBuilder.css';
 import { ChevronRight, Menu, Eye, Save, X, Undo2, Redo2, Check, Settings } from 'lucide-react';
 
+const MarkerSettingsPopup = ({ currentStyle, onChange, onClose }) => {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [onClose]);
+
+  const options = [
+    { value: 'circle', label: 'Circle Checkbox', desc: 'Round checkbox/radio' },
+    { value: 'number', label: 'Numbered List', desc: '1. 2. 3. based on order' },
+    { value: 'alpha', label: 'Alphabetical List', desc: 'a. b. c. based on order' },
+    { value: 'roman', label: 'Roman Numerals', desc: 'i. ii. iii. based on order' },
+    { value: 'none', label: 'No Marker', desc: 'Plain list, no glyphs' }
+  ];
+
+  return (
+    <div 
+      ref={containerRef}
+      className="marker-settings-popup"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className="marker-settings-title">
+        Marker Style
+      </div>
+      {options.map((opt) => (
+        <div 
+          key={opt.value}
+          className={`marker-opt-label ${currentStyle === opt.value ? 'active' : ''}`}
+          onClick={() => {
+            onChange(opt.value);
+            onClose();
+          }}
+        >
+          <div className="marker-opt-radio-wrapper">
+            <div className="marker-opt-radio-inner" />
+          </div>
+          <div className="marker-opt-text-container">
+            <span className="marker-opt-title">
+              {opt.label}
+            </span>
+            <span className="marker-opt-desc">
+              {opt.desc}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, onGraphThemeChange, onGraphLayoutChange }) => {
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -13,6 +69,7 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, 
   const [isStickyMenuOpen, setIsStickyMenuOpen] = useState(false);
   const [isStickySettingsOpen, setIsStickySettingsOpen] = useState(false);
   const [isReverting, setIsReverting] = useState(false);
+  const [openMarkerSettings, setOpenMarkerSettings] = useState(null);
   const originalToolbarRef = useRef(null);
   const stickySettingsRef = useRef(null);
 
@@ -158,6 +215,12 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, 
     updateState({ ...roadmap, sections: newSections });
   };
 
+  const updateSectionMarkerStyle = (sIdx, markerStyle) => {
+    const newSections = [...roadmap.sections];
+    newSections[sIdx] = { ...newSections[sIdx], markerStyle };
+    updateState({ ...roadmap, sections: newSections });
+  };
+
   const deleteSection = (sIdx) => {
     const newSections = roadmap.sections.filter((_, i) => i !== sIdx);
     updateState({ ...roadmap, sections: newSections });
@@ -179,6 +242,16 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, 
     const section = { ...newSections[sIdx] };
     const subsections = [...(section.subsections || [])];
     subsections[ssIdx] = { ...subsections[ssIdx], title };
+    section.subsections = subsections;
+    newSections[sIdx] = section;
+    updateState({ ...roadmap, sections: newSections });
+  };
+
+  const updateSubsectionMarkerStyle = (sIdx, ssIdx, markerStyle) => {
+    const newSections = [...roadmap.sections];
+    const section = { ...newSections[sIdx] };
+    const subsections = [...(section.subsections || [])];
+    subsections[ssIdx] = { ...subsections[ssIdx], markerStyle };
     section.subsections = subsections;
     newSections[sIdx] = section;
     updateState({ ...roadmap, sections: newSections });
@@ -628,10 +701,15 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, 
         )}
 
         {roadmap.sections?.map((section, sIdx) => (
-          <div key={section.id} className="section-card" data-section-index={sIdx} data-scroll-anchor={section.id}>
+          <div 
+            key={section.id} 
+            className={`section-card ${openMarkerSettings?.type === 'section' && openMarkerSettings?.sIdx === sIdx ? 'has-open-settings' : ''}`} 
+            data-section-index={sIdx} 
+            data-scroll-anchor={section.id}
+          >
             <div className="mb-section-header">
               <span className="mb-section-number">{sIdx + 1}.</span>
-              <div style={{display: 'flex', alignItems: 'baseline', flex: 1, gap: '8px', minWidth: 0}}>
+              <div style={{display: 'flex', alignItems: 'center', flex: 1, gap: '8px', minWidth: 0}}>
                 <div className="auto-input-wrapper" data-value={section.title || "Section Title"} style={{fontSize: '18px', fontWeight: 700}}>
                   <input 
                     className="mb-section-input" 
@@ -641,6 +719,31 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, 
                   />
                 </div>
                 <span style={{color: 'rgba(255,255,255,0.25)', fontWeight: 500, fontSize: '11px', whiteSpace: 'nowrap'}}>(Section)</span>
+                
+                {/* Marker style settings */}
+                <div className="marker-settings-container" style={{ position: 'relative' }}>
+                  <button 
+                    className={`marker-settings-btn ${openMarkerSettings?.type === 'section' && openMarkerSettings?.sIdx === sIdx ? 'active' : ''}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (openMarkerSettings?.type === 'section' && openMarkerSettings?.sIdx === sIdx) {
+                        setOpenMarkerSettings(null);
+                      } else {
+                        setOpenMarkerSettings({ type: 'section', sIdx });
+                      }
+                    }}
+                    title="Marker Style Settings"
+                  >
+                    <Settings size={14} />
+                  </button>
+                  {openMarkerSettings?.type === 'section' && openMarkerSettings?.sIdx === sIdx && (
+                    <MarkerSettingsPopup 
+                      currentStyle={section.markerStyle || 'circle'}
+                      onChange={(style) => updateSectionMarkerStyle(sIdx, style)}
+                      onClose={() => setOpenMarkerSettings(null)}
+                    />
+                  )}
+                </div>
               </div>
               <button className="mb-add-item-btn" onClick={() => addSectionItem(sIdx)}>+ ITEM</button>
               <button className="mb-add-subsection-btn" onClick={() => addSubsection(sIdx)}>+ SUBSECTION</button>
@@ -701,10 +804,14 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, 
 
             <div className="mb-subsections">
               {section.subsections?.map((sub, ssIdx) => (
-                <div key={sub.id} className="subsection-card" data-scroll-anchor={sub.id}>
+                <div 
+                  key={sub.id} 
+                  className={`subsection-card ${openMarkerSettings?.type === 'subsection' && openMarkerSettings?.sIdx === sIdx && openMarkerSettings?.ssIdx === ssIdx ? 'has-open-settings' : ''}`} 
+                  data-scroll-anchor={sub.id}
+                >
                   <div className="mb-subsection-header">
                     <span className="mb-subsection-number">{sIdx + 1}.{ssIdx + 1}</span>
-                    <div style={{display: 'flex', alignItems: 'baseline', flex: 1, gap: '8px', minWidth: 0}}>
+                    <div style={{display: 'flex', alignItems: 'center', flex: 1, gap: '8px', minWidth: 0}}>
                       <div className="auto-input-wrapper" data-value={sub.title || "Subsection Title"} style={{fontSize: '14px', fontWeight: 600}}>
                         <input 
                           className="mb-subsection-input" 
@@ -714,6 +821,31 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, 
                         />
                       </div>
                       <span style={{color: 'rgba(255,255,255,0.25)', fontWeight: 500, fontSize: '11px', whiteSpace: 'nowrap'}}>(Subsection)</span>
+                      
+                      {/* Marker style settings */}
+                      <div className="marker-settings-container" style={{ position: 'relative' }}>
+                        <button 
+                          className={`marker-settings-btn ${openMarkerSettings?.type === 'subsection' && openMarkerSettings?.sIdx === sIdx && openMarkerSettings?.ssIdx === ssIdx ? 'active' : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (openMarkerSettings?.type === 'subsection' && openMarkerSettings?.sIdx === sIdx && openMarkerSettings?.ssIdx === ssIdx) {
+                              setOpenMarkerSettings(null);
+                            } else {
+                              setOpenMarkerSettings({ type: 'subsection', sIdx, ssIdx });
+                            }
+                          }}
+                          title="Marker Style Settings"
+                        >
+                          <Settings size={12} />
+                        </button>
+                        {openMarkerSettings?.type === 'subsection' && openMarkerSettings?.sIdx === sIdx && openMarkerSettings?.ssIdx === ssIdx && (
+                          <MarkerSettingsPopup 
+                            currentStyle={sub.markerStyle || 'circle'}
+                            onChange={(style) => updateSubsectionMarkerStyle(sIdx, ssIdx, style)}
+                            onClose={() => setOpenMarkerSettings(null)}
+                          />
+                        )}
+                      </div>
                     </div>
                     <button className="mb-add-item-btn" onClick={() => addSubsectionItem(sIdx, ssIdx)}>+ ITEM</button>
                     <button className={`mb-text-btn ${openDescs[sub.id] ? 'active' : ''}`} onClick={() => toggleDesc(sub.id)} title="Add description">

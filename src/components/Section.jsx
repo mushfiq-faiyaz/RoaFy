@@ -18,36 +18,45 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
   let done = 0;
   
   const allItems = [];
+  let sectionItemIndex = 0;
 
   if (section.items) {
     section.items.forEach(item => {
       total++;
       if (progress[item.id] === 2) done++;
-      allItems.push({ type: 'item', data: item, level: 'section' });
+      allItems.push({ 
+        type: 'item', 
+        data: item, 
+        level: 'section', 
+        markerStyle: section.markerStyle || 'circle', 
+        index: sectionItemIndex++ 
+      });
     });
   }
 
   if (section.subsections) {
     section.subsections.forEach(sub => {
+      let subItemIndex = 0;
+      let subTotal = 0;
+      let subDone = 0;
+      if (sub.items) {
+        sub.items.forEach(i => {
+          subTotal++;
+          if (progress[i.id] === 2) subDone++;
+        });
+      }
+      if (sub.groups) {
+        sub.groups.forEach(g => {
+          if (g.items) {
+            g.items.forEach(i => {
+              subTotal++;
+              if (progress[i.id] === 2) subDone++;
+            });
+          }
+        });
+      }
+
       if (sub.title) {
-        let subTotal = 0;
-        let subDone = 0;
-        if (sub.items) {
-          sub.items.forEach(i => {
-            subTotal++;
-            if (progress[i.id] === 2) subDone++;
-          });
-        }
-        if (sub.groups) {
-          sub.groups.forEach(g => {
-            if (g.items) {
-              g.items.forEach(i => {
-                subTotal++;
-                if (progress[i.id] === 2) subDone++;
-              });
-            }
-          });
-        }
         allItems.push({ type: 'label', text: sub.title, id: sub.id || `sub-${Math.random()}`, total: subTotal, done: subDone, description: sub.description });
       }
       
@@ -55,7 +64,13 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
         sub.items.forEach(item => {
           total++;
           if (progress[item.id] === 2) done++;
-          allItems.push({ type: 'item', data: item, level: 'subsection' });
+          allItems.push({ 
+            type: 'item', 
+            data: item, 
+            level: 'subsection', 
+            markerStyle: sub.markerStyle || section.markerStyle || 'circle', 
+            index: subItemIndex++ 
+          });
         });
       }
       
@@ -76,7 +91,13 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
             group.items.forEach(item => {
               total++;
               if (progress[item.id] === 2) done++;
-              allItems.push({ type: 'item', data: item });
+              allItems.push({ 
+                type: 'item', 
+                data: item, 
+                level: 'subsection', 
+                markerStyle: sub.markerStyle || section.markerStyle || 'circle', 
+                index: subItemIndex++ 
+              });
             });
           }
         });
@@ -158,6 +179,8 @@ const Section = ({ section, progress, onItemClick, index = 0 }) => {
                   status={progress[itemObj.data.id] || 0}
                   onClick={() => onItemClick(itemObj.data.id)}
                   className={itemObj.level === 'subsection' ? 'indent-subsection' : 'indent-section'}
+                  markerStyle={itemObj.markerStyle}
+                  index={itemObj.index}
                 />
               );
             }

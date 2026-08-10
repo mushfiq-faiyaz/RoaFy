@@ -374,11 +374,8 @@ const Header = ({
                         className="dropdown-item danger-item reset-settings-btn" 
                         onClick={(e) => { 
                           e.stopPropagation(); 
-                          const proceed = window.confirm("Are you sure you want to reset all settings to default? This will revert your layout, theme, and view toggles.");
-                          if (proceed) {
-                            setValidationError(null); 
-                            onResetSettings?.(); 
-                          }
+                          setConfirmAction('reset-settings');
+                          setIsSettingsOpen(false);
                         }}
                         style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center', fontSize: '13px', padding: '10px 14px' }}
                       >
@@ -486,20 +483,29 @@ const Header = ({
       {confirmAction && (
         <div className="modal-overlay" onClick={() => setConfirmAction(null)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <h3>{confirmAction === 'reset' ? 'Reset Map?' : 'Delete Map?'}</h3>
+            <h3>
+              {confirmAction === 'reset' && 'Reset Map?'}
+              {confirmAction === 'delete' && 'Delete Map?'}
+              {confirmAction === 'reset-settings' && 'Reset Settings?'}
+            </h3>
             <p>
-              {confirmAction === 'reset' 
-                ? "Reset to original version? This can't be undone." 
-                : "Delete this map? This can't be undone."}
+              {confirmAction === 'reset' && "Reset to original version? This can't be undone."}
+              {confirmAction === 'delete' && "Delete this map? This can't be undone."}
+              {confirmAction === 'reset-settings' && "Are you sure you want to reset all settings to default? This will revert your layout, theme, and view toggles."}
             </p>
             <div className="modal-actions">
-              <button className="modal-btn-cancel" onClick={() => setConfirmAction(null)}>Cancel</button>
+              <button className="modal-btn-cancel" onClick={() => setConfirmAction(null)}>
+                {confirmAction === 'reset-settings' ? 'Keep Settings' : 'Cancel'}
+              </button>
               <button className="modal-btn-danger" onClick={() => {
                  if (confirmAction === 'reset') { onResetMap?.(); }
                  else if (confirmAction === 'delete') { onDeleteMap?.(); }
+                 else if (confirmAction === 'reset-settings') { onResetSettings?.(); }
                  setConfirmAction(null);
               }}>
-                 {confirmAction === 'reset' ? 'Reset' : 'Delete'}
+                 {confirmAction === 'reset' && 'Reset'}
+                 {confirmAction === 'delete' && 'Delete'}
+                 {confirmAction === 'reset-settings' && 'Reset Settings'}
               </button>
             </div>
           </div>

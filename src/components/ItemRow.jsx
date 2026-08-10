@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { ChevronRight, ChevronDown } from 'lucide-react';
 
-const ItemRow = ({ item, status, onClick, className = '' }) => {
+const ItemRow = ({ item, status, onClick, className = '', markerStyle = 'circle', index = 0 }) => {
   const [showDesc, setShowDesc] = useState(false);
   const clickTimeoutRef = useRef(null);
   let statusClass = 'status-0';
@@ -27,12 +27,80 @@ const ItemRow = ({ item, status, onClick, className = '' }) => {
     if (onClick) onClick();
   };
 
-  return (
-    <>
-      <div className={`item-row ${statusClass} ${className}`} onClick={handleRowClick} style={{ userSelect: 'none' }} data-scroll-anchor={item.id}>
+  const getAlphaMarker = (idx) => {
+    let num = idx;
+    let result = '';
+    while (num >= 0) {
+      result = String.fromCharCode((num % 26) + 97) + result;
+      num = Math.floor(num / 26) - 1;
+    }
+    return result + '.';
+  };
+
+  const getRomanMarker = (num) => {
+    const romanNumerals = [
+      { value: 1000, numeral: 'm' },
+      { value: 900, numeral: 'cm' },
+      { value: 500, numeral: 'd' },
+      { value: 400, numeral: 'cd' },
+      { value: 100, numeral: 'c' },
+      { value: 90, numeral: 'xc' },
+      { value: 50, numeral: 'l' },
+      { value: 40, numeral: 'xl' },
+      { value: 10, numeral: 'x' },
+      { value: 9, numeral: 'ix' },
+      { value: 5, numeral: 'v' },
+      { value: 4, numeral: 'iv' },
+      { value: 1, numeral: 'i' }
+    ];
+    let result = '';
+    let remaining = num;
+    for (const entry of romanNumerals) {
+      while (remaining >= entry.value) {
+        result += entry.numeral;
+        remaining -= entry.value;
+      }
+    }
+    return result + '.';
+  };
+
+  const renderMarker = () => {
+    if (markerStyle === 'circle') {
+      return (
         <div className="item-status-circle" onClick={handleCircleClick} style={{ cursor: 'pointer' }}>
           {status === 2 && <span className="checkmark">✓</span>}
         </div>
+      );
+    }
+    if (markerStyle === 'none') {
+      return null;
+    }
+    let markerText = '';
+    if (markerStyle === 'number') {
+      markerText = `${index + 1}.`;
+    } else if (markerStyle === 'alpha') {
+      markerText = getAlphaMarker(index);
+    } else if (markerStyle === 'roman') {
+      markerText = getRomanMarker(index + 1);
+    }
+    return (
+      <div 
+        className="item-status-text-marker" 
+        onClick={(e) => {
+          e.stopPropagation();
+          if (onClick) onClick();
+        }}
+        style={{ cursor: 'pointer' }}
+      >
+        {markerText}
+      </div>
+    );
+  };
+
+  return (
+    <>
+      <div className={`item-row ${statusClass} ${className}`} onClick={handleRowClick} style={{ userSelect: 'none' }} data-scroll-anchor={item.id}>
+        {renderMarker()}
         <div className="item-label">
           {item.label}
         </div>

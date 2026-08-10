@@ -951,3 +951,168 @@
     padding-right: 12px;
   }
 }
+
+/* ── Marker Settings Popup & Button ── */
+.section-card.has-open-settings,
+.subsection-card.has-open-settings {
+  overflow: visible !important;
+}
+
+.marker-settings-container {
+  display: inline-flex;
+  align-items: center;
+}
+
+.marker-settings-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  transition: color 150ms ease, background-color 150ms ease;
+}
+
+.marker-settings-btn:hover,
+.marker-settings-btn.active {
+  color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+@keyframes macosDropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.marker-settings-popup {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: auto;
+  margin-top: 8px;
+  background: rgba(22, 23, 29, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 8px;
+  z-index: 1000;
+  width: 220px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 1px rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  animation: macosDropIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top right;
+}
+
+.marker-settings-title {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 9.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 6px 12px 4px 12px;
+  margin-bottom: 2px;
+  user-select: none;
+}
+
+.marker-opt-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 10px;
+  transition: all 120ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  user-select: none;
+  border: 1px solid transparent;
+  background-color: transparent;
+}
+
+.marker-opt-label:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+
+.marker-opt-label.active {
+  background-color: color-mix(in srgb, var(--accent-color, var(--accent-blue)) 12%, transparent);
+  border-color: color-mix(in srgb, var(--accent-color, var(--accent-blue)) 18%, transparent);
+}
+
+.marker-opt-label.active:hover {
+  background-color: color-mix(in srgb, var(--accent-color, var(--accent-blue)) 16%, transparent);
+}
+
+/* Custom Radio Styling */
+.marker-opt-radio-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  transition: all 150ms ease;
+  flex-shrink: 0;
+}
+
+.marker-opt-label.active .marker-opt-radio-wrapper {
+  border-color: var(--accent-color, var(--accent-blue));
+  background-color: color-mix(in srgb, var(--accent-color, var(--accent-blue)) 10%, transparent);
+  box-shadow: 0 0 4px color-mix(in srgb, var(--accent-color, var(--accent-blue)) 25%, transparent);
+}
+
+.marker-opt-radio-inner {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-color, var(--accent-blue));
+  opacity: 0;
+  transform: scale(0.5);
+  transition: transform 150ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 150ms ease;
+}
+
+.marker-opt-label.active .marker-opt-radio-inner {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.marker-opt-text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.marker-opt-title {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12.5px;
+  font-weight: 500;
+  transition: color 120ms ease;
+  line-height: 1.2;
+}
+
+.marker-opt-label.active .marker-opt-title {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.marker-opt-desc {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 9.5px;
+  line-height: 1.2;
+}
+
+.marker-opt-label.active .marker-opt-desc {
+  color: rgba(255, 255, 255, 0.55);
+}
