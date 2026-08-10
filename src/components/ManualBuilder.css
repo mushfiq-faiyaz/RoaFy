@@ -1135,3 +1135,14 @@
   color: #ffffff;
   font-weight: 600;
 }
+
+.mb-item-circle-indicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  margin-right: 8px;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}

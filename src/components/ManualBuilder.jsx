@@ -38,7 +38,6 @@ const MarkerSettingsPopup = ({ currentStyle, onChange, onClose }) => {
           className={`marker-opt-label ${currentStyle === opt.value ? 'active' : ''}`}
           onClick={() => {
             onChange(opt.value);
-            onClose();
           }}
         >
           <div className="marker-opt-radio-wrapper">
@@ -54,6 +53,60 @@ const MarkerSettingsPopup = ({ currentStyle, onChange, onClose }) => {
       ))}
     </div>
   );
+};
+
+const getAlphaMarker = (idx) => {
+  let num = idx;
+  let result = '';
+  while (num >= 0) {
+    result = String.fromCharCode((num % 26) + 97) + result;
+    num = Math.floor(num / 26) - 1;
+  }
+  return result + '.';
+};
+
+const getRomanMarker = (num) => {
+  const romanNumerals = [
+    { value: 1000, numeral: 'm' },
+    { value: 900, numeral: 'cm' },
+    { value: 500, numeral: 'd' },
+    { value: 400, numeral: 'cd' },
+    { value: 100, numeral: 'c' },
+    { value: 90, numeral: 'xc' },
+    { value: 50, numeral: 'l' },
+    { value: 40, numeral: 'xl' },
+    { value: 10, numeral: 'x' },
+    { value: 9, numeral: 'ix' },
+    { value: 5, numeral: 'v' },
+    { value: 4, numeral: 'iv' },
+    { value: 1, numeral: 'i' }
+  ];
+  let result = '';
+  let remaining = num;
+  for (const entry of romanNumerals) {
+    while (remaining >= entry.value) {
+      result += entry.numeral;
+      remaining -= entry.value;
+    }
+  }
+  return result + '.';
+};
+
+const renderEditModeMarker = (markerStyle, index) => {
+  const style = markerStyle || 'circle';
+  if (style === 'none') return null;
+  if (style === 'circle') {
+    return <span className="mb-item-circle-indicator" style={{ cursor: 'grab' }} />;
+  }
+  let markerText = '';
+  if (style === 'number') {
+    markerText = `${index + 1}.`;
+  } else if (style === 'alpha') {
+    markerText = getAlphaMarker(index);
+  } else if (style === 'roman') {
+    markerText = getRomanMarker(index + 1);
+  }
+  return <span className="mb-item-number" style={{ cursor: 'grab' }}>{markerText}</span>;
 };
 
 const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onSaveAndExit, onCancel, onGraphThemeChange, onGraphLayoutChange }) => {
@@ -785,7 +838,7 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onSaveAndE
                       onDragOver={handleDragOver}
                       onDrop={(e) => handleDrop(e, { type: 'section', sIdx, iIdx })}
                     >
-                      <span className="mb-item-number" style={{cursor: 'grab'}}>{iIdx + 1}.</span>
+                      {renderEditModeMarker(section.markerStyle, iIdx)}
                       <div className="auto-input-wrapper" data-value={item.label || "Section item label"} style={{ flex: 1, minWidth: 0 }}>
                         <input 
                           className="mb-item-input" 
@@ -887,7 +940,7 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onSaveAndE
                               onDragOver={handleDragOver}
                               onDrop={(e) => handleDrop(e, { type: 'subsection', sIdx, ssIdx, iIdx })}
                             >
-                              <span className="mb-item-number" style={{cursor: 'grab'}}>{iIdx + 1}.</span>
+                              {renderEditModeMarker(sub.markerStyle || section.markerStyle, iIdx)}
                               <div className="auto-input-wrapper" data-value={item.label || "Item label"} style={{ flex: 1, minWidth: 0 }}>
                                 <input 
                                   className="mb-item-input" 
