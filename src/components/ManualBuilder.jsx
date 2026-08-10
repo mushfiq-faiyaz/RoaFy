@@ -69,6 +69,21 @@ const ManualBuilder = ({ roadmap: initialRoadmap, setRoadmap, onSave, onCancel, 
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    const handleExternalSettings = (e) => {
+      const updatedRoadmap = e.detail;
+      const themeChanged = roadmap.graphTheme !== updatedRoadmap.graphTheme;
+      const layoutChanged = roadmap.graphLayout !== updatedRoadmap.graphLayout;
+      const viewsChanged = JSON.stringify(roadmap.enabledViews) !== JSON.stringify(updatedRoadmap.enabledViews);
+      
+      if (themeChanged || layoutChanged || viewsChanged) {
+        updateState(updatedRoadmap);
+      }
+    };
+    window.addEventListener('external-settings-changed', handleExternalSettings);
+    return () => window.removeEventListener('external-settings-changed', handleExternalSettings);
+  }, [roadmap, historyIndex, history]);
+
   if (!roadmap) return null;
 
   const handleExitRequest = () => {

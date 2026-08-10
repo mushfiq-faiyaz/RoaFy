@@ -2,13 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import ProgressRing from './ProgressRing';
 import BlueRoutesLogo from './BlueRoutesLogo';
 import './Header.css';
-import { Download, Menu, Plus, FileText, Check, ChevronDown, Edit2, Copy, RotateCcw, Trash2, PenLine, FileJson, FileDown, Eye, Pencil, Activity, CheckCircle, Clock, ListTodo, Save, Settings } from 'lucide-react';
+import { Download, Menu, Plus, FileText, Check, ChevronDown, Edit2, Copy, RotateCcw, Trash2, PenLine, FileJson, FileDown, Eye, Pencil, Activity, CheckCircle, Clock, ListTodo, Save, Settings, ChevronLeft } from 'lucide-react';
 
 const Header = ({ 
   roadmap, progress, onManualSave, onEdit, isEditing, 
   roadmapsList = [], onSwitchRoadmap, onCreateRoadmap, currentRoadmapId,
   onRenameMap, onDuplicateMap, onResetMap, onExportPDF, onExportJSON, onDeleteMap,
-  onGraphThemeChange, onGraphLayoutChange
+  onGraphThemeChange, onGraphLayoutChange,
+  currentView, onViewChange, onUpdateEnabledViews, onResetSettings
 }) => {
   const currentTheme = roadmap?.graphTheme || 'classic';
   const currentLayout = roadmap?.graphLayout || 'vertical';
@@ -18,6 +19,8 @@ const Header = ({
   const [isSwitcherOpen, setIsSwitcherOpen] = useState(false);
   const [confirmAction, setConfirmAction] = useState(null);
   const [showStickyProgress, setShowStickyProgress] = useState(false);
+  const [validationError, setValidationError] = useState(null);
+  const toastTimeoutRef = useRef(null);
   const optionsRef = useRef(null);
   const stickyOptionsRef = useRef(null);
   const settingsRef = useRef(null);
@@ -55,9 +58,11 @@ const Header = ({
       
       if (clickedOutsideOriginal && (clickedOutsideSticky || stickyDoesNotExist)) {
         setIsMenuOpen(false);
+        setValidationError(null);
       }
       if (settingsRef.current && !settingsRef.current.contains(event.target)) {
         setIsSettingsOpen(false);
+        setValidationError(null);
       }
       if (switcherRef.current && !switcherRef.current.contains(event.target)) {
         setIsSwitcherOpen(false);
@@ -154,6 +159,45 @@ const Header = ({
     setIsMenuOpen(false);
   };
 
+  const enabledViews = roadmap?.enabledViews || { list: true, graph: true, timeline: true, board: true };
+  const fallbackOrder = ['list', 'graph', 'timeline', 'board'];
+
+  const handleToggleView = (view) => {
+    const isCurrentlyEnabled = enabledViews[view];
+    const enabledCount = Object.values(enabledViews).filter(Boolean).length;
+
+    if (isCurrentlyEnabled && enabledCount === 1) {
+      setValidationError("At least one view must stay enabled.");
+      if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+      toastTimeoutRef.current = setTimeout(() => {
+        setValidationError(null);
+      }, 3000);
+      return;
+    }
+
+    setValidationError(null);
+    const updatedViews = {
+      ...enabledViews,
+      [view]: !isCurrentlyEnabled
+    };
+
+    onUpdateEnabledViews?.(updatedViews);
+
+    // If current view is disabled, switch to first enabled
+    if (view === currentView && isCurrentlyEnabled) {
+      const nextView = fallbackOrder.find(v => updatedViews[v]);
+      if (nextView && onViewChange) {
+        onViewChange(nextView);
+      }
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    };
+  }, []);
+
   // Ripple factory — colour matches the destination mode
   const createRipple = (e, color = 'rgba(255,255,255,0.25)') => {
     const el = e.currentTarget;
@@ -174,7 +218,12 @@ const Header = ({
 
   const renderMenu = (ref) => (
     <div className="menu-container" ref={ref}>
-      <button className="menu-btn" onClick={() => { setIsMenuOpen(!isMenuOpen); setIsSettingsOpen(false); setIsSwitcherOpen(false); }}>
+      <button className="menu-btn" onClick={() => { 
+        setIsMenuOpen(!isMenuOpen); 
+        setIsSettingsOpen(false); 
+        setIsSwitcherOpen(false); 
+        setValidationError(null);
+      }}>
         <Menu size={20} />
       </button>
       {isMenuOpen && (
@@ -285,6 +334,55 @@ const Header = ({
                             Horizontal
                           </button>
                         </div>
+                      </div>
+
+                      <div className="dropdown-section">
+                        <div className="dropdown-section-label">Enabled Views</div>
+                        <div className="views-toggle-list" style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '4px' }}>
+                          {fallbackOrder.map(view => {
+                            const isEnabled = enabledViews[view];
+                            return (
+                              <div 
+                                key={view} 
+                                className="toggle-item-row" 
+                                onClick={(e) => { e.stopPropagation(); handleToggleView(view); }}
+                                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}
+                              >
+                                <span style={{ textTransform: 'capitalize', fontSize: '13px', color: 'rgba(255,255,255,0.85)' }}>{view} View</span>
+                                <label className="switch" style={{ pointerEvents: 'none' }}>
+                                  <input 
+                                    type="checkbox" 
+                                    checked={isEnabled} 
+                                    readOnly
+                                  />
+                                  <span className="slider round"></span>
+                                </label>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {validationError && (
+                        <div className="settings-validation-error">
+                          {validationError}
+                        </div>
+                      )}
+
+                      <div className="dropdown-divider"></div>
+                      <div 
+                        className="dropdown-item danger-item reset-settings-btn" 
+                        onClick={(e) => { 
+                          e.stopPropagation(); 
+                          const proceed = window.confirm("Are you sure you want to reset all settings to default? This will revert your layout, theme, and view toggles.");
+                          if (proceed) {
+                            setValidationError(null); 
+                            onResetSettings?.(); 
+                          }
+                        }}
+                        style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center', fontSize: '13px', padding: '10px 14px' }}
+                      >
+                        <RotateCcw size={14} /> Reset to Default Settings
                       </div>
                     </div>
                   </div>

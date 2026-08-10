@@ -25,6 +25,7 @@ function App() {
   const [showSplash, setShowSplash] = useState(false);
   const [splashMode, setSplashMode] = useState(false);
   const isMountedRef = useRef(false);
+  const [roadmapBeforeEdit, setRoadmapBeforeEdit] = useState(null);
 
   const pendingScrollRestore = useRef(false);
   const scrollState = useRef({ top: 0, mainOffset: 0 });
@@ -127,7 +128,13 @@ function App() {
 
   const handleCreateRoadmap = () => {
     const newId = Date.now().toString();
-    const newRoadmap = { title: "New Roadmap", graphTheme: 'classic', graphLayout: 'vertical', sections: [] };
+    const newRoadmap = { 
+      title: "New Roadmap", 
+      graphTheme: 'classic', 
+      graphLayout: 'vertical', 
+      enabledViews: { list: true, graph: true, timeline: true, board: true },
+      sections: [] 
+    };
     setActiveRoadmapId(newId);
     setCurrentRoadmapId(newId);
     saveRoadmapData(newId, newRoadmap, {});
@@ -141,13 +148,47 @@ function App() {
     if (!roadmap) return;
     const updated = { ...roadmap, graphTheme: newTheme };
     handleSetRoadmap(updated);
+    window.dispatchEvent(new CustomEvent('external-settings-changed', { detail: updated }));
   };
 
   const handleGraphLayoutChange = (newLayout) => {
     if (!roadmap) return;
     const updated = { ...roadmap, graphLayout: newLayout };
     handleSetRoadmap(updated);
+    window.dispatchEvent(new CustomEvent('external-settings-changed', { detail: updated }));
   };
+
+  const handleUpdateEnabledViews = (newEnabledViews) => {
+    if (!roadmap) return;
+    const updated = { ...roadmap, enabledViews: newEnabledViews };
+    handleSetRoadmap(updated);
+    window.dispatchEvent(new CustomEvent('external-settings-changed', { detail: updated }));
+  };
+
+  const handleResetSettings = () => {
+    if (!roadmap) return;
+    const updated = {
+      ...roadmap,
+      graphTheme: 'classic',
+      graphLayout: 'vertical',
+      enabledViews: { list: true, graph: true, timeline: true, board: true }
+    };
+    handleSetRoadmap(updated);
+    window.dispatchEvent(new CustomEvent('external-settings-changed', { detail: updated }));
+  };
+
+  useEffect(() => {
+    if (roadmap) {
+      const enabledViews = roadmap.enabledViews || { list: true, graph: true, timeline: true, board: true };
+      if (!enabledViews[currentView]) {
+        const fallbackOrder = ['list', 'graph', 'timeline', 'board'];
+        const firstEnabled = fallbackOrder.find(v => enabledViews[v]);
+        if (firstEnabled) {
+          setCurrentView(firstEnabled);
+        }
+      }
+    }
+  }, [roadmap, currentView]);
 
   const handleSwitchRoadmap = (id) => {
     const all = getAllRoadmaps();
@@ -157,6 +198,7 @@ function App() {
       setCurrentRoadmapId(id);
       setRoadmapState(data.roadmap || null);
       setProgressState(data.progress || {});
+      setRoadmapBeforeEdit(null);
       setIsEditing(false);
     }
   };
@@ -220,6 +262,7 @@ function App() {
       saveRoadmap(finalRoadmap);
       saveProgress(progress);
       captureScroll();
+      setRoadmapBeforeEdit(null);
       setIsEditing(false);
     }
   };
@@ -229,16 +272,22 @@ function App() {
     if (finalRoadmap) {
       saveRoadmap(finalRoadmap);
       saveProgress(progress);
+      setRoadmapBeforeEdit(finalRoadmap);
     }
   };
 
   const handleEdit = () => {
     captureScroll();
+    setRoadmapBeforeEdit(roadmap);
     setIsEditing(true);
   };
 
   const handleCancelEdit = () => {
     captureScroll();
+    if (roadmapBeforeEdit) {
+      handleSetRoadmap(roadmapBeforeEdit);
+      setRoadmapBeforeEdit(null);
+    }
     setIsEditing(false);
   };
 
@@ -254,7 +303,11 @@ function App() {
   const handleDuplicateMap = () => {
     if (!roadmap) return;
     const newId = Date.now().toString();
-    const newRoadmap = { ...roadmap, title: roadmap.title + ' (Copy)' };
+    const newRoadmap = { 
+      enabledViews: { list: true, graph: true, timeline: true, board: true },
+      ...roadmap, 
+      title: roadmap.title + ' (Copy)' 
+    };
     saveRoadmapData(newId, newRoadmap, progress);
     setActiveRoadmapId(newId);
     setCurrentRoadmapId(newId);
@@ -307,6 +360,9 @@ function App() {
     }
   };
 
+  const enabledViews = roadmap?.enabledViews || { list: true, graph: true, timeline: true, board: true };
+  const activeViews = ['list', 'graph', 'timeline', 'board'].filter(view => enabledViews[view]);
+
   return (
     <div className="app-container" ref={containerRef}>
       <div className="bg-orb-1"></div>
@@ -329,6 +385,10 @@ function App() {
         onDeleteMap={handleDeleteMap}
         onGraphThemeChange={handleGraphThemeChange}
         onGraphLayoutChange={handleGraphLayoutChange}
+        currentView={currentView}
+        onViewChange={setCurrentView}
+        onUpdateEnabledViews={handleUpdateEnabledViews}
+        onResetSettings={handleResetSettings}
       />
       
       <main className="container main-content">
@@ -344,17 +404,19 @@ function App() {
         ) : (
           roadmap && (
             <>
-              <div className="view-tabs-container">
-                {['list', 'graph', 'timeline', 'board'].map(view => (
-                   <button 
-                     key={view}
-                     className={`view-tab ${currentView === view ? 'active' : ''}`}
-                     onClick={() => setCurrentView(view)}
-                   >
-                     {view.charAt(0).toUpperCase() + view.slice(1)}
-                   </button>
-                ))}
-              </div>
+              {activeViews.length > 1 && (
+                <div className="view-tabs-container">
+                  {activeViews.map(view => (
+                     <button 
+                       key={view}
+                       className={`view-tab ${currentView === view ? 'active' : ''}`}
+                       onClick={() => setCurrentView(view)}
+                     >
+                       {view.charAt(0).toUpperCase() + view.slice(1)}
+                     </button>
+                  ))}
+                </div>
+              )}
 
               {currentView === 'list' && (
                 <RoadmapTree 

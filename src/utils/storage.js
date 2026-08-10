@@ -21,6 +21,16 @@ export const getAllRoadmaps = () => {
       progress: {}
     };
   }
+
+  // Ensure every roadmap has enabledViews defaulted if missing
+  Object.keys(all).forEach(id => {
+    if (all[id].roadmap) {
+      all[id].roadmap = {
+        enabledViews: { list: true, graph: true, timeline: true, board: true },
+        ...all[id].roadmap
+      };
+    }
+  });
   
   return all;
 };
@@ -74,7 +84,11 @@ export const saveRoadmap = (roadmap) => {
   }
   const all = getAllRoadmaps();
   const currentProgress = all[activeId]?.progress || {};
-  saveRoadmapData(activeId, roadmap, currentProgress);
+  const updatedRoadmap = {
+    enabledViews: { list: true, graph: true, timeline: true, board: true },
+    ...roadmap
+  };
+  saveRoadmapData(activeId, updatedRoadmap, currentProgress);
 };
 
 export const saveProgress = (progress) => {
