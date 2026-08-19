@@ -11,6 +11,8 @@ const Header = ({
   onGraphThemeChange, onGraphLayoutChange,
   currentView, onViewChange, onUpdateEnabledViews, onResetSettings
 }) => {
+  const enabledViews = roadmap?.enabledViews || { list: true, graph: true, timeline: true, board: true };
+  const showProgressStats = (enabledViews.list && currentView === 'list') || (!enabledViews.list && currentView === 'graph');
   const currentTheme = roadmap?.graphTheme || 'classic';
   const currentLayout = roadmap?.graphLayout || 'vertical';
   const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -33,6 +35,11 @@ const Header = ({
       return;
     }
 
+    if (!showProgressStats) {
+      setShowStickyProgress(false);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting && entry.boundingClientRect.y < 0) {
@@ -48,7 +55,7 @@ const Header = ({
       observer.observe(statsCardRef.current);
     }
     return () => observer.disconnect();
-  }, [isEditing]);
+  }, [isEditing, currentView, roadmap?.enabledViews, showProgressStats]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -159,7 +166,6 @@ const Header = ({
     setIsMenuOpen(false);
   };
 
-  const enabledViews = roadmap?.enabledViews || { list: true, graph: true, timeline: true, board: true };
   const fallbackOrder = ['list', 'graph', 'timeline', 'board'];
 
   const handleToggleView = (view) => {
@@ -421,29 +427,31 @@ const Header = ({
             </div>
 
             <div className="header-right">
-              <div className="header-stats-card" ref={statsCardRef}>
-                <div className="progress-container">
-                  <div className="progress-label">PROGRESS</div>
-                  <ProgressRing percentage={percentage} size={56} strokeWidth={4} />
+              {showProgressStats && (
+                <div className="header-stats-card" ref={statsCardRef}>
+                  <div className="progress-container">
+                    <div className="progress-label">PROGRESS</div>
+                    <ProgressRing percentage={percentage} size={56} strokeWidth={4} />
+                  </div>
+                  
+                  <div className="stats-columns">
+                    <div className="stat-col">
+                      <div className="stat-num stat-done-num">{doneItems}</div>
+                      <div className="stat-text">Done</div>
+                    </div>
+                    <div className="stat-divider"></div>
+                    <div className="stat-col">
+                      <div className="stat-num stat-in-progress-num">{inProgressItems}</div>
+                      <div className="stat-text">In Progress</div>
+                    </div>
+                    <div className="stat-divider"></div>
+                    <div className="stat-col">
+                      <div className="stat-num stat-remaining-num">{remainingItems}</div>
+                      <div className="stat-text">Remaining</div>
+                    </div>
+                  </div>
                 </div>
-                
-                <div className="stats-columns">
-                  <div className="stat-col">
-                    <div className="stat-num stat-done-num">{doneItems}</div>
-                    <div className="stat-text">Done</div>
-                  </div>
-                  <div className="stat-divider"></div>
-                  <div className="stat-col">
-                    <div className="stat-num stat-in-progress-num">{inProgressItems}</div>
-                    <div className="stat-text">In Progress</div>
-                  </div>
-                  <div className="stat-divider"></div>
-                  <div className="stat-col">
-                    <div className="stat-num stat-remaining-num">{remainingItems}</div>
-                    <div className="stat-text">Remaining</div>
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         )}
@@ -451,7 +459,7 @@ const Header = ({
     </header>
 
       {/* Sticky Progress Bar for View Mode */}
-      {!isEditing && (
+      {!isEditing && showProgressStats && (
         <div className={`sticky-progress-bar ${showStickyProgress ? 'visible' : ''}`}>
           <div className="sticky-progress-content">
             <div className="sticky-prog-pill purp">

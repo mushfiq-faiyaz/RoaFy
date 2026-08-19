@@ -11,6 +11,41 @@ const VIVID_PALETTE = [
   { border: '#9333ea', borderMuted: '#c084fc', textAccent: '#7e22ce', badgeBg: '#f3e8ff' }  // Purple
 ];
 
+const getOrthogonalPath = (conn, radius = 6) => {
+  const { x1, y1, x2, y2, isHorizontal } = conn;
+
+  if (isHorizontal) {
+    if (Math.abs(y1 - y2) < 1) {
+      return `M ${x1} ${y1} L ${x2} ${y2}`;
+    }
+    const midX = (x1 + x2) / 2;
+    const r = Math.min(radius, Math.abs(midX - x1), Math.abs(y2 - y1) / 2);
+    const dirY = y2 > y1 ? 1 : -1;
+
+    return `M ${x1} ${y1} ` +
+           `L ${midX - r} ${y1} ` +
+           `Q ${midX} ${y1}, ${midX} ${y1 + r * dirY} ` +
+           `L ${midX} ${y2 - r * dirY} ` +
+           `Q ${midX} ${y2}, ${midX + r} ${y2} ` +
+           `L ${x2} ${y2}`;
+  } else {
+    if (Math.abs(x1 - x2) < 1) {
+      return `M ${x1} ${y1} L ${x2} ${y2}`;
+    }
+    const midY = (y1 + y2) / 2;
+    const r = Math.min(radius, Math.abs(midY - y1), Math.abs(x2 - x1) / 2);
+    const dirX = x2 > x1 ? 1 : -1;
+    const dirY = y2 > y1 ? 1 : -1;
+
+    return `M ${x1} ${y1} ` +
+           `L ${x1} ${midY - r * dirY} ` +
+           `Q ${x1} ${midY}, ${x1 + r * dirX} ${midY} ` +
+           `L ${x2 - r * dirX} ${midY} ` +
+           `Q ${x2} ${midY}, ${x2} ${midY + r * dirY} ` +
+           `L ${x2} ${y2}`;
+  }
+};
+
 const GraphView = ({ roadmap, progress, onSwitchToList }) => {
   const [expandedPhases, setExpandedPhases] = useState({});
   const [selectedSection, setSelectedSection] = useState(null);
@@ -155,12 +190,12 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
     if (isHorizontal) {
       // Horizontal (left-to-right) layout
       const ROOT_X = 140;
-      const PHASE_X = 460;
-      const SECTION_X = 760;
+      const PHASE_X = 520;
+      const SECTION_X = 890;
 
-      const SEC_SPACING_Y = 130;
-      const PHASE_MIN_HEIGHT = 150;
-      const GAP_BETWEEN_PHASES_Y = 40;
+      const SEC_SPACING_Y = 160;
+      const PHASE_MIN_HEIGHT = 180;
+      const GAP_BETWEEN_PHASES_Y = 60;
 
       let currentY = 0;
 
@@ -189,9 +224,9 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
             // Connector between Phase and Section (horizontal)
             connectors.push({
               id: `conn-${phase.id}-${sec.id}`,
-              x1: phaseX + 115,
+              x1: phaseX + 135,
               y1: phaseY,
-              x2: secX - 97,
+              x2: secX - 105,
               y2: secY,
               isHorizontal: true
             });
@@ -215,9 +250,9 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
       positionedPhases.forEach((phase) => {
         connectors.push({
           id: `conn-root-${phase.id}`,
-          x1: rootX + 130,
+          x1: rootX + 140,
           y1: rootY,
-          x2: phase.x - 115,
+          x2: phase.x - 135,
           y2: phase.y,
           isHorizontal: true
         });
@@ -226,12 +261,12 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
     } else {
       // Vertical (top-down) layout
       const ROOT_Y = 80;
-      const PHASE_Y = 270;
-      const SECTION_Y = 460;
+      const PHASE_Y = 340;
+      const SECTION_Y = 580;
 
-      const SEC_SPACING = 240;
-      const PHASE_MIN_WIDTH = 270;
-      const GAP_BETWEEN_PHASES = 50;
+      const SEC_SPACING = 290;
+      const PHASE_MIN_WIDTH = 300;
+      const GAP_BETWEEN_PHASES = 80;
 
       let currentX = 0;
 
@@ -261,9 +296,9 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
             connectors.push({
               id: `conn-${phase.id}-${sec.id}`,
               x1: phaseX,
-              y1: phaseY + 42,
+              y1: phaseY + 45,
               x2: secX,
-              y2: secY - 32,
+              y2: secY - 35,
               isHorizontal: false
             });
           });
@@ -287,9 +322,9 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
         connectors.push({
           id: `conn-root-${phase.id}`,
           x1: rootX,
-          y1: rootY + 45,
+          y1: rootY + 50,
           x2: phase.x,
-          y2: phase.y - 42,
+          y2: phase.y - 45,
           isHorizontal: false
         });
       });
@@ -299,9 +334,9 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
 
     const allNodesWithDims = [
-      { x: rootX, y: rootY, w: 260, h: 100 },
-      ...positionedPhases.map(p => ({ x: p.x, y: p.y, w: 230, h: 90 })),
-      ...positionedSections.map(s => ({ x: s.x, y: s.y, w: 195, h: 70 }))
+      { x: rootX, y: rootY, w: 280, h: 100 },
+      ...positionedPhases.map(p => ({ x: p.x, y: p.y, w: 270, h: 90 })),
+      ...positionedSections.map(s => ({ x: s.x, y: s.y, w: 210, h: 70 }))
     ];
 
     allNodesWithDims.forEach(n => {
@@ -344,13 +379,25 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
     const scaleY = (containerHeight - paddingY * 2) / graphHeight;
     let targetScale = Math.min(scaleX, scaleY);
 
-    targetScale = Math.max(0.15, Math.min(targetScale, 1.15));
+    // Limit scaling down: 0.65 on mobile, 0.55 on desktop so nodes stay comfortable and legible
+    const isMobile = containerWidth < 768;
+    const minScaleLimit = isMobile ? 0.65 : 0.55;
+    targetScale = Math.max(minScaleLimit, Math.min(targetScale, 1.15));
 
     const centerX = (bounds.minX + bounds.maxX) / 2;
     const centerY = (bounds.minY + bounds.maxY) / 2;
 
-    const targetX = containerWidth / 2 - centerX * targetScale;
-    const targetY = containerHeight / 2 - centerY * targetScale;
+    let targetX = containerWidth / 2 - centerX * targetScale;
+    let targetY = containerHeight / 2 - centerY * targetScale;
+
+    // If graph is wider than container, align left edge to padding (shows root node at start)
+    if (graphWidth * targetScale > containerWidth) {
+      targetX = paddingX - bounds.minX * targetScale;
+    }
+    // If graph is taller than container, align top edge to padding
+    if (graphHeight * targetScale > containerHeight) {
+      targetY = paddingY - bounds.minY * targetScale;
+    }
 
     setTransform({ x: targetX, y: targetY, scale: targetScale });
   }, [layout]);
@@ -546,14 +593,7 @@ const GraphView = ({ roadmap, progress, onSwitchToList }) => {
         {/* SVG Connectors Layer */}
         <svg className="graph-svg-connectors">
           {connectors.map(conn => {
-            let pathData;
-            if (conn.isHorizontal) {
-              const midX = (conn.x1 + conn.x2) / 2;
-              pathData = `M ${conn.x1} ${conn.y1} C ${midX} ${conn.y1}, ${midX} ${conn.y2}, ${conn.x2} ${conn.y2}`;
-            } else {
-              const midY = (conn.y1 + conn.y2) / 2;
-              pathData = `M ${conn.x1} ${conn.y1} C ${conn.x1} ${midY}, ${conn.x2} ${midY}, ${conn.x2} ${conn.y2}`;
-            }
+            const pathData = getOrthogonalPath(conn, 6);
             return (
               <path
                 key={conn.id}
